@@ -1,7 +1,17 @@
 import { useState } from 'react';
 import { shuffle } from 'lodash';
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography, makeStyles } from '@material-ui/core';
 import { useRouter } from 'next/router';
+
+const useStyles = makeStyles({
+  card: {
+    margin: '.25em',
+    width: '50em',
+  },
+  selected: {
+    border: 'solid #37A8FA',
+  },
+});
 
 export default function ChoosePlayers() {
   interface Name {
@@ -17,13 +27,14 @@ export default function ChoosePlayers() {
     instrument: string;
   }
 
+  const classes = useStyles();
   const [instruments, setInstruments] = useState<Instrument[]>([
     { instrument: 'bass drum', selected: false },
     { instrument: 'snare', selected: false },
     { instrument: 'triangle', selected: false },
   ]);
 
-  const [names, setNames] = useState<Name[]>([
+  const [musicians, setMusicians] = useState<Name[]>([
     { name: 'Chad', selected: false },
     { name: 'Nick', selected: false },
     { name: 'Brad', selected: false },
@@ -34,17 +45,17 @@ export default function ChoosePlayers() {
 
   const selectedEqual =
     instruments.filter((instrument) => instrument.selected).length ===
-    names.filter((name) => name.selected).length;
+    musicians.filter((name) => name.selected).length;
 
-  const handleClickName = (item: Name) => {
-    const nextName = names.map((name) => {
+  const handleClickMusician = (item: Name) => {
+    const nextName = musicians.map((name) => {
       if (name.name === item.name) {
         return { name: item.name, selected: !item.selected };
       } else {
         return name;
       }
     });
-    setNames(nextName);
+    setMusicians(nextName);
   };
 
   const handleClickInstrument = (item: Instrument) => {
@@ -76,57 +87,24 @@ export default function ChoosePlayers() {
     <div>
       <div>Choose Players</div>
       <h2>Names</h2>
-      {names
-        .filter((name) => !name.selected)
-        .map((name) => (
-          <Card
-            style={{ border: 'solid blue', margin: '.25em', width: '50em' }}
-            key={name.name}
-            onClick={() => handleClickName(name)}
-          >
-            <CardContent>
-              <Typography>{name.name}</Typography>
-            </CardContent>
-          </Card>
-        ))}
-      <div>
-        <p>Selected Names</p>
-        {names
-          .filter((name) => name.selected)
-          .map((name) => (
-            <Card
-              style={{ border: 'solid blue', margin: '.25em', width: '50em' }}
-              key={name.name}
-              onClick={() => handleClickName(name)}
-            >
-              <CardContent>
-                <Typography>{name.name}</Typography>
-              </CardContent>
-            </Card>
-          ))}
-      </div>
+      {musicians.map((musician: Name) => (
+        <Card
+          className={`${classes.card} ${musician.selected && classes.selected}`}
+          key={musician.name}
+          onClick={() => handleClickMusician(musician)}
+        >
+          <CardContent>
+            <Typography>{musician.name}</Typography>
+          </CardContent>
+        </Card>
+      ))}
       <div>
         <h2>Instruments</h2>
-        {instruments
-          .filter((instrument) => !instrument.selected)
-          .map((instrument) => (
-            <Card
-              style={{ border: 'solid red', margin: '.25em', width: '50em' }}
-              key={instrument.instrument}
-              onClick={() => handleClickInstrument(instrument)}
-            >
-              <CardContent>
-                <Typography>{instrument.instrument}</Typography>
-              </CardContent>
-            </Card>
-          ))}
-      </div>
-      <Typography>Selected Instruments</Typography>
-      {instruments
-        .filter((instrument) => instrument.selected)
-        .map((instrument) => (
+        {instruments.map((instrument) => (
           <Card
-            style={{ border: 'solid red', margin: '.25em', width: '50em' }}
+            className={`${classes.card} ${
+              instrument.selected && classes.selected
+            }`}
             key={instrument.instrument}
             onClick={() => handleClickInstrument(instrument)}
           >
@@ -135,6 +113,7 @@ export default function ChoosePlayers() {
             </CardContent>
           </Card>
         ))}
+      </div>
       <button
         onClick={(e) => {
           e.preventDefault();
