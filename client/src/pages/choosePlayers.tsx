@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { shuffle } from 'lodash';
-import { Card, CardContent, Typography } from '@material-ui/core';
+import { Card, CardContent, Typography, makeStyles } from '@material-ui/core';
 import { useRouter } from 'next/router';
+
+const useStyles = makeStyles({
+  image: {
+    height: '3em',
+    width: '3em'
+  }
+})
 
 export default function ChoosePlayers() {
   interface Name {
@@ -17,6 +24,9 @@ export default function ChoosePlayers() {
     instrument: string;
   }
 
+
+  const classes = useStyles();
+
   const [instruments, setInstruments] = useState<Instrument[]>([
     { instrument: 'bass drum', selected: false },
     { instrument: 'snare', selected: false },
@@ -24,9 +34,15 @@ export default function ChoosePlayers() {
   ]);
 
   const [names, setNames] = useState<Name[]>([
-    { name: 'Chad', selected: false },
-    { name: 'Nick', selected: false },
-    { name: 'Brad', selected: false },
+    { name: 'Randy Johnson', selected: false },
+    { name: 'James Swarts', selected: false },
+    { name: 'Riley Barnes', selected: false },
+    { name: 'James Cromer', selected: false },
+    { name: 'Chad Crummel', selected: false },
+    { name: 'Jeffrey DeRoche', selected: false },
+    { name: 'Joseph Gonzalez', selected: false },
+    { name: 'Nicholas Taylor', selected: false },
+    { name: 'Matthew Mitchener', selected: false },
   ]);
   const [assignments, setAssignments] = useState<Assignment[]>([
     { name: 'Chad', instrument: 'bass drum' },
@@ -85,6 +101,7 @@ export default function ChoosePlayers() {
             onClick={() => handleClickName(name)}
           >
             <CardContent>
+            <img src="./assets/images/crummel-chad.jpg" className={classes.image} alt="logo" />
               <Typography>{name.name}</Typography>
             </CardContent>
           </Card>
