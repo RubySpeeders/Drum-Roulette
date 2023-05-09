@@ -96,7 +96,7 @@ export default function ChoosePlayers() {
         .filter((name) => !name.selected)
         .map((name) => (
           <Card
-            style={{ border: 'solid blue', margin: '.25em', width: '50em' }}
+            style={{ border: 'solid blue', margin: '.25em', width: '10em' }}
             key={name.name}
             onClick={() => handleClickName(name)}
           >
