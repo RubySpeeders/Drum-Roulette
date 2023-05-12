@@ -1,20 +1,37 @@
 import { useState } from 'react';
 import { shuffle } from 'lodash';
+import Image, { StaticImageData } from 'next/image';
 import { Card, CardContent, Typography, makeStyles } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
+import chad from '../../public/assets/images/crummel-chad.jpg'
+import randy from '../../public/assets/images/johnson-randy.jpg'
+import james from '../../public/assets/images/swarts-james.jpg'
+import riley from '../../public/assets/images/barnes-riley.jpg'
+import jamesCromer from '../../public/assets/images/cromer-james.jpg'
+import jeffrey from '../../public/assets/images/deroche-jeffrey.jpg'
+import joseph from '../../public/assets/images/gonzalez-joseph.jpg'
+import matthew from '../../public/assets/images/mitchener-matthew.jpg'
+import nick from '../../public/assets/images/taylor-nick.jpg'
 
 const useStyles = makeStyles({
   card: {
     margin: '.25em',
-    width: '50em',
+    width: '20em',
   },
   selected: {
     border: 'solid #37A8FA',
   },
   image: {
-    height: '3em',
-    width: '3em'
+    overflow: 'hidden',
+    borderRadius: '50%',
+  },
+  profilePic: {
+    display: 'inline',
+    margin: '0 auto',
+    marginLeft: '-25%',
+    height: '100%',
+    width: 'auto'
   }
 });
 
@@ -23,6 +40,7 @@ export default function ChoosePlayers() {
   interface Musician {
     name: string;
     selected: boolean;
+    img: StaticImageData;
   }
   interface Instrument {
     name: string;
@@ -41,15 +59,15 @@ export default function ChoosePlayers() {
   ]);
 
   const [musicians, setMusicians] = useState<Musician[]>([
-    { name: 'Randy Johnson', selected: false },
-    { name: 'James Swarts', selected: false },
-    { name: 'Riley Barnes', selected: false },
-    { name: 'James Cromer', selected: false },
-    { name: 'Chad Crummel', selected: false },
-    { name: 'Jeffrey DeRoche', selected: false },
-    { name: 'Joseph Gonzalez', selected: false },
-    { name: 'Nicholas Taylor', selected: false },
-    { name: 'Matthew Mitchener', selected: false },
+    { name: 'Randy Johnson', selected: false, img: randy },
+    { name: 'James Swarts', selected: false, img: james },
+    { name: 'Riley Barnes', selected: false, img: riley },
+    { name: 'James Cromer', selected: false, img: jamesCromer },
+    { name: 'Chad Crummel', selected: false, img: chad },
+    { name: 'Jeffrey DeRoche', selected: false, img: jeffrey },
+    { name: 'Joseph Gonzalez', selected: false, img: joseph },
+    { name: 'Nicholas Taylor', selected: false, img: nick },
+    { name: 'Matthew Mitchener', selected: false, img: matthew },
   ]);
   const [assignments, setAssignments] = useState<Assignment[]>([
     { name: 'Chad', instrument: 'bass drum' },
@@ -62,7 +80,7 @@ export default function ChoosePlayers() {
   const handleClickMusician = (item: Musician) => {
     const nextMusician = musicians.map((musician) => {
       if (musician.name === item.name) {
-        return { name: item.name, selected: !item.selected };
+        return { name: item.name, selected: !item.selected, img: item.img };
       } else {
         return musician;
       }
@@ -100,15 +118,14 @@ export default function ChoosePlayers() {
       <div>Choose Players</div>
       <h2>Names</h2>
       {musicians.map((musician: Musician) => (
-        <Card
-          className={classNames(classes.card, {[classes.selected]: musician.selected})}
-          key={musician.name}
-          onClick={() => handleClickMusician(musician)}
-        >
-          <CardContent>
+            <div key={musician.name}>
+            <div className={classNames(classes.image, {[classes.selected]: musician.selected})}
+            key={musician.name}
+          onClick={() => handleClickMusician(musician)}>
+            <Image src={musician.img} alt={musician.name} width={200} height={280} />
+            </div>
             <Typography>{musician.name}</Typography>
-          </CardContent>
-        </Card>
+            </div>
       ))}
       <div>
         <h2>Instruments</h2>
