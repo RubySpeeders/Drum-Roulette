@@ -2,6 +2,7 @@ package navy.bandassignments.controllers;
 
 import navy.bandassignments.models.Band;
 import navy.bandassignments.repositories.BandRepository;
+import navy.bandassignments.services.BandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,16 +13,11 @@ import java.util.List;
 public class BandController {
 
     @Autowired
-    private BandRepository bandRepository;
+    private BandService bandService;
 
     @GetMapping("/bands")
     @ResponseBody
     public List<Band> findAllBands() {
-        try {
-            List<Band> bands = bandRepository.findAll();
-        } catch(Exception e) {
-            System.out.println("whoops");
-        }
-        return bandRepository.findAll();
+        return bandService.findAll();
     }
 }
