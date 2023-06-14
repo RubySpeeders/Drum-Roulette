@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { shuffle } from 'lodash';
 import { Card, CardContent, Typography, makeStyles } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
@@ -14,20 +13,21 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ChoosePlayers() {
-  interface Musician {
-    name: string;
-    selected: boolean;
-  }
-  interface Instrument {
-    name: string;
-    selected: boolean;
-  }
-  interface Assignment {
-    name: string;
-    instrument: string;
-  }
+export interface Musician {
+  name: string;
+  selected: boolean;
+}
 
+export interface Instrument {
+  name: string;
+  selected: boolean;
+}
+
+export interface Assignment {
+  name: string;
+  instrument: string;
+}
+export default function ChoosePlayers() {
   const classes = useStyles();
   const [instruments, setInstruments] = useState<Instrument[]>([
     { name: 'bass drum', selected: false },
@@ -39,9 +39,6 @@ export default function ChoosePlayers() {
     { name: 'Chad', selected: false },
     { name: 'Nick', selected: false },
     { name: 'Brad', selected: false },
-  ]);
-  const [assignments, setAssignments] = useState<Assignment[]>([
-    { name: 'Chad', instrument: 'bass drum' },
   ]);
 
   const selectedEqual =
@@ -72,25 +69,15 @@ export default function ChoosePlayers() {
 
   const router = useRouter();
 
-  const assign = (names: Musician[], instruments: Instrument[]) => {
-    // const assignment: Assignment = { name: "", instrument: "" }
-    const shuffledNames = shuffle(names.filter((name) => name.selected));
-    const shuffledInstruments = shuffle(
-      instruments.filter((instrument) => instrument.selected)
-    );
-    const nextAssignment = shuffledNames.map((name, i) => {
-      return { name: name.name, instrument: shuffledInstruments[i].name };
-    });
-    setAssignments(nextAssignment);
-  };
-
   return (
     <div>
       <div>Choose Players</div>
       <h2>Names</h2>
       {musicians.map((musician: Musician) => (
         <Card
-          className={classNames(classes.card, {[classes.selected]: musician.selected})}
+          className={classNames(classes.card, {
+            [classes.selected]: musician.selected,
+          })}
           key={musician.name}
           onClick={() => handleClickMusician(musician)}
         >
@@ -118,10 +105,18 @@ export default function ChoosePlayers() {
       <button
         onClick={(e) => {
           e.preventDefault();
-          // assign(names, instruments);
+          const selectedMusicians = musicians.filter(
+            (musician) => musician.selected
+          );
+          const selectedInstruments = instruments.filter(
+            (instrument) => instrument.selected
+          );
           router.push({
             pathname: '/assignments',
-            query: { object: JSON.stringify(assignments) },
+            query: {
+              musicians: JSON.stringify(selectedMusicians),
+              instruments: JSON.stringify(selectedInstruments),
+            },
           });
         }}
         disabled={!selectedEqual}
