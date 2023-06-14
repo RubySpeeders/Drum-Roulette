@@ -23,16 +23,11 @@ const useStyles = makeStyles({
     border: 'solid #37A8FA',
   },
   image: {
+    width: 200,
+    height: 200,
     overflow: 'hidden',
     borderRadius: '50%',
   },
-  profilePic: {
-    display: 'inline',
-    margin: '0 auto',
-    marginLeft: '-25%',
-    height: '100%',
-    width: 'auto'
-  }
 });
 
 
@@ -119,12 +114,12 @@ export default function ChoosePlayers() {
       <h2>Names</h2>
       {musicians.map((musician: Musician) => (
             <div key={musician.name}>
-            <div className={classNames(classes.image, {[classes.selected]: musician.selected})}
+              <div className={classNames(classes.image, {[classes.selected]: musician.selected})}
             key={musician.name}
           onClick={() => handleClickMusician(musician)}>
-            <Image src={musician.img} alt={musician.name} width={200} height={280} />
-            </div>
-            <Typography>{musician.name}</Typography>
+                <Image src={musician.img} alt={musician.name} width={200} height={280} />
+              </div>
+              <Typography>{musician.name}</Typography>
             </div>
       ))}
       <div>
