@@ -39,9 +39,6 @@ export default function ChoosePlayers() {
     { name: "Chad", selected: false },
     { name: "Nick", selected: false },
     { name: "Brad", selected: false },
-    { name: "Chad", selected: false },
-    { name: "Nick", selected: false },
-    { name: "Brad", selected: false },
   ]);
   const [assignments, setAssignments] = useState<Assignment[]>([
     { name: "Chad", instrument: "bass drum" },
