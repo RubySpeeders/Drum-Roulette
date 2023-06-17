@@ -130,7 +130,7 @@ export default function ChoosePlayers() {
 
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div>
         <Box className={classNames(classes.container)}>
           <h2>Select Payers</h2>
           <div className={classNames(classes.musicians)}>
