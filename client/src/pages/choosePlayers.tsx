@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     alignItems: "center",
   },
   selected: {
-    border: "solid #37A8FA",
+    boxShadow: "0 0 0 5px #37A8FA",
   },
   image: {
     width: 200,
