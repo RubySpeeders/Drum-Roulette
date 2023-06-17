@@ -10,15 +10,15 @@ import {
 } from "@material-ui/core";
 import { useRouter } from "next/router";
 import classNames from "classnames";
-import chad from "../../public/assets/images/crummel-chad.jpg";
-import randy from "../../public/assets/images/johnson-randy.jpg";
-import james from "../../public/assets/images/swarts-james.jpg";
-import riley from "../../public/assets/images/barnes-riley.jpg";
-import jamesCromer from "../../public/assets/images/cromer-james.jpg";
-import jeffrey from "../../public/assets/images/deroche-jeffrey.jpg";
-import joseph from "../../public/assets/images/gonzalez-joseph.jpg";
-import matthew from "../../public/assets/images/mitchener-matthew.jpg";
-import nick from "../../public/assets/images/taylor-nick.jpg";
+import chad from "../../public/assets/images/musicians/crummel-chad.jpg";
+import randy from "../../public/assets/images/musicians/johnson-randy.jpg";
+import james from "../../public/assets/images/musicians/swarts-james.jpg";
+import riley from "../../public/assets/images/musicians/barnes-riley.jpg";
+import jamesCromer from "../../public/assets/images/musicians/cromer-james.jpg";
+import jeffrey from "../../public/assets/images/musicians/deroche-jeffrey.jpg";
+import joseph from "../../public/assets/images/musicians/gonzalez-joseph.jpg";
+import matthew from "../../public/assets/images/musicians/mitchener-matthew.jpg";
+import nick from "../../public/assets/images/musicians/taylor-nick.jpg";
 
 const useStyles = makeStyles({
   container: {
