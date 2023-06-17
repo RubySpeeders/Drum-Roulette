@@ -15,10 +15,6 @@ import matthew from "../../public/assets/images/mitchener-matthew.jpg";
 import nick from "../../public/assets/images/taylor-nick.jpg";
 
 const useStyles = makeStyles({
-  card: {
-    margin: ".25em",
-    width: "20em",
-  },
   selected: {
     border: "solid #37A8FA",
   },
@@ -142,9 +138,9 @@ export default function ChoosePlayers() {
         <h2>Instruments</h2>
         {instruments.map((instrument) => (
           <Card
-            className={`${classes.card} ${
-              instrument.selected && classes.selected
-            }`}
+            className={classNames(classes.image, {
+              [classes.selected]: instrument.selected,
+            })}
             key={instrument.name}
             onClick={() => handleClickInstrument(instrument)}
           >
