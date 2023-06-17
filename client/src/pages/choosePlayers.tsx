@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { shuffle } from "lodash";
 import Image, { StaticImageData } from "next/image";
-import { Card, CardContent, Typography, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 import chad from "../../public/assets/images/crummel-chad.jpg";
@@ -15,6 +21,16 @@ import matthew from "../../public/assets/images/mitchener-matthew.jpg";
 import nick from "../../public/assets/images/taylor-nick.jpg";
 
 const useStyles = makeStyles({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  card: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
   selected: {
     border: "solid #37A8FA",
   },
@@ -23,6 +39,8 @@ const useStyles = makeStyles({
     height: 200,
     overflow: "hidden",
     borderRadius: "50%",
+    display: "flex",
+    justifyContent: "center",
   },
 });
 
@@ -105,37 +123,38 @@ export default function ChoosePlayers() {
 
   return (
     <div>
-      <div>Choose Players</div>
-      <h2>Names</h2>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-evenly",
-        }}
-      >
-        {musicians.map((musician: Musician) => (
-          <div key={musician.name}>
-            <div
-              className={classNames(classes.image, {
-                [classes.selected]: musician.selected,
-              })}
-              key={musician.name}
-              onClick={() => handleClickMusician(musician)}
-            >
-              <Image
-                src={musician.img}
-                alt={musician.name}
-                width={200}
-                height={280}
-              />
+      <Box className={classNames(classes.container)}>
+        <h2>Select Payers</h2>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "space-evenly",
+          }}
+        >
+          {musicians.map((musician: Musician) => (
+            <div key={musician.name} className={classNames(classes.card)}>
+              <div
+                className={classNames(classes.image, {
+                  [classes.selected]: musician.selected,
+                })}
+                key={musician.name}
+                onClick={() => handleClickMusician(musician)}
+              >
+                <Image
+                  src={musician.img}
+                  alt={musician.name}
+                  width={200}
+                  height={280}
+                />
+              </div>
+              <Typography>{musician.name}</Typography>
             </div>
-            <Typography>{musician.name}</Typography>
-          </div>
-        ))}
-      </div>
-      <div>
-        <h2>Instruments</h2>
+          ))}
+        </div>
+      </Box>
+      <Box className={classNames(classes.container)}>
+        <h2>Select Instruments</h2>
         {instruments.map((instrument) => (
           <Card
             className={classNames(classes.image, {
@@ -149,7 +168,7 @@ export default function ChoosePlayers() {
             </CardContent>
           </Card>
         ))}
-      </div>
+      </Box>
       <button
         onClick={(e) => {
           e.preventDefault();
