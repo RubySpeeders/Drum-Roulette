@@ -30,6 +30,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginTop: "5%",
   },
   selected: {
     boxShadow: "0 0 0 5px #37A8FA",
@@ -148,7 +149,9 @@ export default function ChoosePlayers() {
                   height={280}
                 />
               </div>
-              <Typography>{musician.name}</Typography>
+              <Typography style={{ marginTop: "5%" }}>
+                {musician.name}
+              </Typography>
             </div>
           ))}
         </div>
