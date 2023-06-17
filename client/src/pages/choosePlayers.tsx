@@ -43,6 +43,11 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "center",
   },
+  temp: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
+  },
 });
 
 export default function ChoosePlayers() {
@@ -126,13 +131,7 @@ export default function ChoosePlayers() {
     <div>
       <Box className={classNames(classes.container)}>
         <h2>Select Payers</h2>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "space-evenly",
-          }}
-        >
+        <div className={classNames(classes.temp)}>
           {musicians.map((musician: Musician) => (
             <div key={musician.name} className={classNames(classes.card)}>
               <div
