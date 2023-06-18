@@ -176,6 +176,24 @@ export default function ChoosePlayers() {
           </div>
         </Box>
       </div>
+      <div>
+        <h2>Instruments</h2>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {instruments.map((instrument) => (
+            <Card
+              className={`${classes.card} ${
+                instrument.selected && classes.selected
+              }`}
+              key={instrument.name}
+              onClick={() => handleClickInstrument(instrument)}
+            >
+              <CardContent>
+                <Typography>{instrument.name}</Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
       <button
         onClick={(e) => {
           e.preventDefault();
