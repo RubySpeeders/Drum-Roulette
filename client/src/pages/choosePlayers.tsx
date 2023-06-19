@@ -68,9 +68,11 @@ interface Assignment {
 export default function ChoosePlayers() {
   const classes = useStyles();
   const [instruments, setInstruments] = useState<Instrument[]>([
-    { name: 'bass drum', selected: false },
-    { name: 'snare', selected: false },
-    { name: 'triangle', selected: false },
+    { name: 'TD', selected: false },
+    { name: 'SD', selected: false },
+    { name: 'Cymbals', selected: false },
+    { name: 'BD', selected: false },
+    { name: 'BD & Cymbals', selected: false },
   ]);
 
   const [musicians, setMusicians] = useState<Musician[]>([
@@ -160,24 +162,6 @@ export default function ChoosePlayers() {
             ))}
           </div>
         </Box>
-      </div>
-      <div>
-        <h2>Instruments</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {instruments.map((instrument) => (
-            <Card
-              className={`${classes.card} ${
-                instrument.selected && classes.selected
-              }`}
-              key={instrument.name}
-              onClick={() => handleClickInstrument(instrument)}
-            >
-              <CardContent>
-                <Typography>{instrument.name}</Typography>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
       </div>
       <button
         onClick={(e) => {
