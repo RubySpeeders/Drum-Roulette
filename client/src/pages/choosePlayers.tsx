@@ -5,6 +5,7 @@ import {
   Box,
   Card,
   CardContent,
+  Grid,
   Typography,
   makeStyles,
 } from "@material-ui/core";
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     marginTop: "5%",
-    marginLeft: "5%",
+    marginLeft: "2%",
   },
   selected: {
     boxShadow: "0 0 0 5px #37A8FA",
@@ -130,70 +131,56 @@ export default function ChoosePlayers() {
 
   return (
     <>
-      <div>
-        <Box className={classNames(classes.container)}>
-          <h2>Select Payers</h2>
-          <div className={classNames(classes.musicians)}>
-            {musicians.map((musician: Musician) => (
-              <div key={musician.name} className={classNames(classes.card)}>
-                <div
-                  className={classNames(classes.image, {
-                    [classes.selected]: musician.selected,
-                  })}
-                  key={musician.name}
-                  onClick={() => handleClickMusician(musician)}
-                >
-                  <Image
-                    src={musician.img}
-                    alt={musician.name}
-                    width={200}
-                    height={280}
-                  />
+      <Grid container>
+        <Grid item xs={12} md={6}>
+          <Box className={classNames(classes.container)}>
+            <h2>Select Payers</h2>
+            <div className={classNames(classes.musicians)}>
+              {musicians.map((musician: Musician) => (
+                <div key={musician.name} className={classNames(classes.card)}>
+                  <div
+                    className={classNames(classes.image, {
+                      [classes.selected]: musician.selected,
+                    })}
+                    key={musician.name}
+                    onClick={() => handleClickMusician(musician)}
+                  >
+                    <Image
+                      src={musician.img}
+                      alt={musician.name}
+                      width={200}
+                      height={280}
+                    />
+                  </div>
+                  <Typography style={{ marginTop: "5%" }}>
+                    {musician.name}
+                  </Typography>
                 </div>
-                <Typography style={{ marginTop: "5%" }}>
-                  {musician.name}
-                </Typography>
-              </div>
-            ))}
-          </div>
-        </Box>
-        <Box className={classNames(classes.container)}>
-          <h2>Select Instruments</h2>
-          <div>
-            {instruments.map((instrument) => (
-              <Card
-                className={classNames(classes.image, {
-                  [classes.selected]: instrument.selected,
-                })}
-                key={instrument.name}
-                onClick={() => handleClickInstrument(instrument)}
-              >
-                <CardContent>
-                  <Typography>{instrument.name}</Typography>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </Box>
-      </div>
-      <div>
-        <h2>Instruments</h2>
-        <div style={{ display: "flex", flexWrap: "wrap" }}>
-          {instruments.map((instrument) => (
-            <Card
-              className={`${classes.card} ${
-                instrument.selected && classes.selected
-              }`}
-              key={instrument.name}
-              onClick={() => handleClickInstrument(instrument)}
-            >
-              <CardContent>
-                <Typography>{instrument.name}</Typography>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+              ))}
+            </div>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Box className={classNames(classes.container)}>
+            <h2>Select Instruments</h2>
+            <div className={classNames(classes.musicians)}>
+              {instruments.map((instrument) => (
+                <Card
+                  className={classNames(classes.image, {
+                    [classes.selected]: instrument.selected,
+                  })}
+                  key={instrument.name}
+                  onClick={() => handleClickInstrument(instrument)}
+                >
+                  <CardContent>
+                    <Typography>{instrument.name}</Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </Box>
+        </Grid>
+      </Grid>
       <button
         onClick={(e) => {
           e.preventDefault();
