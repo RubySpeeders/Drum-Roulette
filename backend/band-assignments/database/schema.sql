@@ -1,33 +1,48 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS band_nickname;
-DROP TABLE IF EXISTS sub_nickname;
-DROP TABLE IF EXISTS band;
+DROP TABLE IF EXISTS nickname;
+DROP TABLE IF EXISTS branch;
+DROP TABLE IF EXISTS ensemble;
+DROP TABLE IF EXISTS instrument;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS assignment;
 
-CREATE TABLE band_nickname (
-    band_nickname_id serial PRIMARY KEY,
+CREATE TABLE nickname (
+    nickname_id serial PRIMARY KEY,
     nickname varchar(50) NOT NULL
 );
 
-CREATE TABLE sub_band (
-    sub_band_id serial PRIMARY KEY,
-    sub_band_name varchar(50) NOT NULL
+CREATE TABLE branch (
+    branch_id serial PRIMARY KEY,
+    branch_name varchar(50) NOT NULL,
+    nickname_id integer REFERENCES nickname(nickname_id)
 );
 
-CREATE TABLE band (
-    band_id serial PRIMARY KEY,
-    band_name varchar(50) NOT NULL,
-    band_nickname_id integer REFERENCES band_nickname(band_nickname_id),
-    sub_band_id integer REFERENCES sub_band(sub_band_id)
+CREATE TABLE ensemble (
+    ensemble_id serial PRIMARY KEY,
+    ensemble_name varchar(50) NOT NULL,
+    branch_id integer REFERENCES branch(branch_id)
 );
 
 CREATE TABLE users (
     user_id serial PRIMARY KEY,
     first_name varchar(50) NOT NULL,
     last_name varchar(50),
-    band_id integer REFERENCES band(band_id),
+    branch_id integer REFERENCES branch(branch_id),
+    ensemble_id integer REFERENCES ensemble(ensemble_id),
     image varchar(500)
+);
+
+CREATE TABLE instrument (
+    instrument_id serial PRIMARY KEY,
+    instrument_name varchar(50) NOT NULL
+);
+
+CREATE TABLE assignment (
+    assignment_id serial PRIMARY KEY,
+    user_id integer REFERENCES users(user_id),
+    instrument_id integer REFERENCES instrument(instrument_id),
+    assigned_date date NOT NULL
 );
 
 COMMIT TRANSACTION;

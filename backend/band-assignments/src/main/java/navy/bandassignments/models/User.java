@@ -2,13 +2,12 @@ package navy.bandassignments.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.micrometer.common.lang.Nullable;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import javax.persistence.*;
+//import javax.persistence.*;
 
-import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.ManyToAny;
@@ -23,7 +22,7 @@ import org.springframework.data.util.Lazy;
 public class User {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name = "user_id", columnDefinition = "serial")
     private Long user_id;
 
@@ -33,8 +32,13 @@ public class User {
     @Column(name = "last_name")
     private String last_name;
 
-    @Column(name = "band_id")
-    private Long band_id;
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
+
+    @ManyToOne
+    @JoinColumn(name = "ensemble_id")
+    private Band band;
 
     @Column(name = "image")
     private String image;
