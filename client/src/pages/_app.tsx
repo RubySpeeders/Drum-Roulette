@@ -1,14 +1,8 @@
 import "@/styles/globals.css";
-import { ThemeProvider, createMuiTheme, makeStyles } from "@material-ui/core";
+import { ThemeProvider, createTheme, makeStyles } from "@mui/material";
 import type { AppProps } from "next/app";
 
-const theme = createMuiTheme();
-
-const useStyles = makeStyles((theme) => {
-  root: {
-    // some CSS that accesses the theme
-  }
-});
+const theme = createTheme();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
