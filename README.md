@@ -29,6 +29,14 @@ To ensure a consistent code style across the project, we use Prettier as our cod
 
 If you prefer to manually format your code, you can run the following command before committing your changes:
 
+```shell
+npx prettier --write .
+```
+
+This command will format all files in the current directory and its subdirectories according to the Prettier configuration.
+
+Please avoid committing code with formatting inconsistencies, as it helps maintain a clean and readable codebase.
+
 ## Contributing
 
 Contributions are welcome! If you'd like to contribute to this project, please make sure to follow the code formatting guidelines defined by Prettier. This ensures consistent code style and makes it easier to review and merge your contributions. If you'd like to contribute to the Musician Personnel Assignment Project, please follow these guidelines:
