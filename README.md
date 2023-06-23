@@ -55,5 +55,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 If you have any questions or suggestions regarding the Musician Personnel Assignment Project, please feel free to reach out:
 
-- Email: [sarahnpeters@gmail.com]
-- GitHub: [https://github.com/RubySpeeders]
+- Email: [Sarah](sarahnpeters@gmail.com) or [Charlotte](chopekies@gmail.com)
+- Github: [Sarah](https://github.com/RubySpeeders) or [Charlotte](https://github.com/charlottekies)
