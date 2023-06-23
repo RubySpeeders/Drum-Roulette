@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-import { ThemeProvider, createTheme, makeStyles } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material";
 import type { AppProps } from "next/app";
 
 const theme = createTheme();

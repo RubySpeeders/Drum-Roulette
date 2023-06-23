@@ -7,10 +7,7 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          {/* Not exactly required, but this is the PWA primary color */}
-          <meta name="theme-color" />
-        </Head>
+        <Head></Head>
         <body>
           <Main />
           <NextScript />
