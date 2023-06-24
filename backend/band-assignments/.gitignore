@@ -45,4 +45,5 @@ start.sh
 ### Keystore ### 
 lightsail-server-keystore.p12
 server-certificate.p12
+LightsailDefaultKey-us-east-1 (1).pem 
 
