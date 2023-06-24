@@ -29,7 +29,6 @@ export default function Assignments() {
   useEffect(() => {
     assign(parsedMusicians, parsedInstruments);
   }, []);
-
   return (
     <div>
       {assignments.map((assignment) => {
