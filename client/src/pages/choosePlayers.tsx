@@ -20,7 +20,7 @@ import joseph from '../../public/assets/images/musicians/gonzalez-joseph.jpg';
 import matthew from '../../public/assets/images/musicians/mitchener-matthew.jpg';
 import nick from '../../public/assets/images/musicians/taylor-nick.jpg';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     flexWrap: 'wrap',
     justifyContent: 'space-evenly',
   },
-});
+}));
 
 interface Musician {
   name: string;

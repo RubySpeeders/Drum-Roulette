@@ -29,13 +29,12 @@ export default function Assignments() {
   useEffect(() => {
     assign(parsedMusicians, parsedInstruments);
   }, []);
-
   return (
     <div>
       {assignments.map((assignment) => {
         return (
           <Card
-            style={{ border: 'solid pink', margin: '.25em', width: '50em' }}
+            style={{ border: "solid pink", margin: ".25em", width: "50em" }}
             key={assignment.name}
           >
             <CardContent>
