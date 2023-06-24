@@ -1,55 +1,54 @@
-import { useState } from 'react';
-import { shuffle } from 'lodash';
-import Image, { StaticImageData } from 'next/image';
+import { useState } from "react";
+import Image, { StaticImageData } from "next/image";
 import {
   Box,
   Card,
   CardContent,
   Typography,
   makeStyles,
-} from '@material-ui/core';
-import { useRouter } from 'next/router';
-import classNames from 'classnames';
-import chad from '../../public/assets/images/musicians/crummel-chad.jpg';
-import randy from '../../public/assets/images/musicians/johnson-randy.jpg';
-import james from '../../public/assets/images/musicians/swarts-james.jpg';
-import riley from '../../public/assets/images/musicians/barnes-riley.jpg';
-import jamesCromer from '../../public/assets/images/musicians/cromer-james.jpg';
-import jeffrey from '../../public/assets/images/musicians/deroche-jeffrey.jpg';
-import joseph from '../../public/assets/images/musicians/gonzalez-joseph.jpg';
-import matthew from '../../public/assets/images/musicians/mitchener-matthew.jpg';
-import nick from '../../public/assets/images/musicians/taylor-nick.jpg';
+} from "@material-ui/core";
+import { useRouter } from "next/router";
+import classNames from "classnames";
+import chad from "../../public/assets/images/musicians/crummel-chad.jpg";
+import randy from "../../public/assets/images/musicians/johnson-randy.jpg";
+import james from "../../public/assets/images/musicians/swarts-james.jpg";
+import riley from "../../public/assets/images/musicians/barnes-riley.jpg";
+import jamesCromer from "../../public/assets/images/musicians/cromer-james.jpg";
+import jeffrey from "../../public/assets/images/musicians/deroche-jeffrey.jpg";
+import joseph from "../../public/assets/images/musicians/gonzalez-joseph.jpg";
+import matthew from "../../public/assets/images/musicians/mitchener-matthew.jpg";
+import nick from "../../public/assets/images/musicians/taylor-nick.jpg";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   container: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   card: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    marginTop: '5%',
-    marginLeft: '5%',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "5%",
+    marginLeft: "5%",
   },
   selected: {
-    boxShadow: '0 0 0 5px #37A8FA',
+    boxShadow: "0 0 0 5px #37A8FA",
   },
   image: {
     width: 200,
     height: 200,
-    overflow: 'hidden',
-    borderRadius: '50%',
-    display: 'flex',
-    justifyContent: 'center',
+    overflow: "hidden",
+    borderRadius: "50%",
+    display: "flex",
+    justifyContent: "center",
   },
   musicians: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-evenly',
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "space-evenly",
   },
-});
+}));
 
 export interface Musician {
   name: string;
@@ -64,23 +63,23 @@ export interface Instrument {
 export default function ChoosePlayers() {
   const classes = useStyles();
   const [instruments, setInstruments] = useState<Instrument[]>([
-    { name: 'TD', selected: false },
-    { name: 'SD', selected: false },
-    { name: 'Cymbals', selected: false },
-    { name: 'BD', selected: false },
-    { name: 'BD & Cymbals', selected: false },
+    { name: "TD", selected: false },
+    { name: "SD", selected: false },
+    { name: "Cymbals", selected: false },
+    { name: "BD", selected: false },
+    { name: "BD & Cymbals", selected: false },
   ]);
 
   const [musicians, setMusicians] = useState<Musician[]>([
-    { name: 'Randy Johnson', selected: false, img: randy },
-    { name: 'James Swarts', selected: false, img: james },
-    { name: 'Riley Barnes', selected: false, img: riley },
-    { name: 'James Cromer', selected: false, img: jamesCromer },
-    { name: 'Chad Crummel', selected: false, img: chad },
-    { name: 'Jeffrey DeRoche', selected: false, img: jeffrey },
-    { name: 'Joseph Gonzalez', selected: false, img: joseph },
-    { name: 'Nicholas Taylor', selected: false, img: nick },
-    { name: 'Matthew Mitchener', selected: false, img: matthew },
+    { name: "Randy Johnson", selected: false, img: randy },
+    { name: "James Swarts", selected: false, img: james },
+    { name: "Riley Barnes", selected: false, img: riley },
+    { name: "James Cromer", selected: false, img: jamesCromer },
+    { name: "Chad Crummel", selected: false, img: chad },
+    { name: "Jeffrey DeRoche", selected: false, img: jeffrey },
+    { name: "Joseph Gonzalez", selected: false, img: joseph },
+    { name: "Nicholas Taylor", selected: false, img: nick },
+    { name: "Matthew Mitchener", selected: false, img: matthew },
   ]);
 
   const selectedEqual =
@@ -133,7 +132,7 @@ export default function ChoosePlayers() {
                     height={280}
                   />
                 </div>
-                <Typography style={{ marginTop: '5%' }}>
+                <Typography style={{ marginTop: "5%" }}>
                   {musician.name}
                 </Typography>
               </div>
@@ -169,7 +168,7 @@ export default function ChoosePlayers() {
             (instrument) => instrument.selected
           );
           router.push({
-            pathname: '/assignments',
+            pathname: "/assignments",
             query: {
               musicians: JSON.stringify(selectedMusicians),
               instruments: JSON.stringify(selectedInstruments),

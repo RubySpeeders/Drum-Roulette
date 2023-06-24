@@ -1,8 +1,8 @@
-import { Card, CardContent, Typography } from '@material-ui/core';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { Instrument, Musician } from './choosePlayers';
-import { shuffle } from 'lodash';
+import { Card, CardContent, Typography } from "@material-ui/core";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Instrument, Musician } from "./choosePlayers";
+import { shuffle } from "lodash";
 
 interface Assignment {
   name: string;
@@ -40,7 +40,7 @@ export default function Assignments() {
       {assignments.map((assignment) => {
         return (
           <Card
-            style={{ border: 'solid pink', margin: '.25em', width: '50em' }}
+            style={{ border: "solid pink", margin: ".25em", width: "50em" }}
             key={assignment.name}
           >
             <CardContent>
