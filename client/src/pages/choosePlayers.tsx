@@ -51,18 +51,14 @@ const useStyles = makeStyles({
   },
 });
 
-interface Musician {
+export interface Musician {
   name: string;
   selected: boolean;
   img: StaticImageData;
 }
-interface Instrument {
+export interface Instrument {
   name: string;
   selected: boolean;
-}
-interface Assignment {
-  name: string;
-  instrument: string;
 }
 
 export default function ChoosePlayers() {

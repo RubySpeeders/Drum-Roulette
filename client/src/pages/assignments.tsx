@@ -1,8 +1,13 @@
 import { Card, CardContent, Typography } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { Assignment, Instrument, Musician } from './choosePlayers';
+import { Instrument, Musician } from './choosePlayers';
 import { shuffle } from 'lodash';
+
+interface Assignment {
+  name: string;
+  instrument: string;
+}
 
 export default function Assignments() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
