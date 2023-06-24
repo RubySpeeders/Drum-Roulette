@@ -42,3 +42,7 @@ start.sh
  ../.DS_Store
 ../backend/.DS_Store
 
+### Keystore ### 
+lightsail-server-keystore.p12
+server-certificate.p12
+

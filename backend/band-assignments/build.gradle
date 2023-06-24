@@ -17,6 +17,13 @@ configurations {
 repositories {
 	mavenCentral()
 }
+//bootJar {
+//	mainClass = 'navy.bandassignments.BandAssignmentsApplication'
+//}
+
+bootRun {
+	mainClass = 'navy.bandassignments.BandAssignmentsApplication'
+}
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
