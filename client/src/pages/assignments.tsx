@@ -1,13 +1,10 @@
 import { Card, CardContent, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Instrument, Musician } from "./choosePlayers";
 import { shuffle } from "lodash";
-
-interface Assignment {
-  name: string;
-  instrument: string;
-}
+import { Musician } from "@/interfaces/musician";
+import { Instrument } from "@/interfaces/instrument";
+import { Assignment } from "@/interfaces/assignment";
 
 export default function Assignments() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
@@ -18,14 +15,13 @@ export default function Assignments() {
     ? JSON.parse(instruments as string)
     : [];
   const assign = (musicians: Musician[], instruments: Instrument[]) => {
+    const shuffledMusicians = shuffle(musicians);
     const shuffledNames = shuffle(
       musicians.filter((musician) => musician.selected)
     );
-    const shuffledInstruments = shuffle(
-      instruments.filter((instrument) => instrument.selected)
-    );
-    const nextAssignment = shuffledNames.map((name, i) => {
-      return { name: name.name, instrument: shuffledInstruments[i].name };
+    const shuffledInstruments = shuffle(instruments);
+    const nextAssignment = shuffledMusicians.map((musician, i) => {
+      return { musician: musician, instrument: shuffledInstruments[i], id: i };
     });
     setAssignments(nextAssignment);
   };
@@ -40,11 +36,11 @@ export default function Assignments() {
         return (
           <Card
             style={{ border: "solid pink", margin: ".25em", width: "50em" }}
-            key={assignment.name}
+            key={assignment.id}
           >
             <CardContent>
-              <Typography>Name: {assignment.name}</Typography>
-              <Typography>Instrument: {assignment.instrument}</Typography>
+              <Typography>Name: {assignment.musician.name}</Typography>
+              <Typography>Instrument: {assignment.instrument.name}</Typography>
             </CardContent>
           </Card>
         );
