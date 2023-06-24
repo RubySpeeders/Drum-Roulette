@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Instrument, Musician } from "./choosePlayers";
@@ -27,7 +27,6 @@ export default function Assignments() {
     const nextAssignment = shuffledNames.map((name, i) => {
       return { name: name.name, instrument: shuffledInstruments[i].name };
     });
-    console.log(nextAssignment);
     setAssignments(nextAssignment);
   };
 
