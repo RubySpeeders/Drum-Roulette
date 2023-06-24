@@ -24,6 +24,10 @@ public class Band {
     @Column(name = "ensemble_name")
     private String band_name;
 
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
+
 }
 
 
