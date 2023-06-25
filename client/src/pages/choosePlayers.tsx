@@ -1,14 +1,7 @@
 import { useState } from "react";
 import { shuffle } from "lodash";
 import Image, { StaticImageData } from "next/image";
-import {
-  Box,
-  Card,
-  CardContent,
-  Grid,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 import chad from "../../public/assets/images/musicians/crummel-chad.jpg";
@@ -20,8 +13,9 @@ import jeffrey from "../../public/assets/images/musicians/deroche-jeffrey.jpg";
 import joseph from "../../public/assets/images/musicians/gonzalez-joseph.jpg";
 import matthew from "../../public/assets/images/musicians/mitchener-matthew.jpg";
 import nick from "../../public/assets/images/musicians/taylor-nick.jpg";
+import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
     flexDirection: "column",
@@ -50,7 +44,7 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     justifyContent: "space-evenly",
   },
-});
+}));
 
 export default function ChoosePlayers() {
   interface Musician {
