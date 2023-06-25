@@ -1,5 +1,5 @@
-import { Card, CardContent, Typography } from '@material-ui/core';
-import { useState } from 'react';
+import { Card, CardContent, Typography } from "@mui/material";
+import { useState } from "react";
 
 interface Assignment {
   name: string;
@@ -7,14 +7,14 @@ interface Assignment {
 }
 export default function Assignments() {
   const [assignments, setAssignments] = useState<Assignment[]>([
-    { name: 'Chad', instrument: 'bass drum' },
+    { name: "Chad", instrument: "bass drum" },
   ]);
   return (
     <div>
       {assignments.map((assignment) => {
         return (
           <Card
-            style={{ border: 'solid pink', margin: '.25em', width: '50em' }}
+            style={{ border: "solid pink", margin: ".25em", width: "50em" }}
             key={assignment.name}
           >
             <CardContent>
