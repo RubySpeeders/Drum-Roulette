@@ -12,6 +12,8 @@ The Musician Personnel Assignment Project is a web application built using Next.
 
 - Next.js
 - TypeScript
+- Java
+- PostgreSQL
 
 ## Getting Started
 
@@ -38,11 +40,13 @@ To begin development, you'll need:
 - [ ] Install Java 17
 - [ ] Install PostgreSQL
 - [ ] Initialize the database in backend/band-assignments/database
+
   - [ ] `cd backend/band-assignments/database`
   - [ ] Review schema.sql. Change the initial data in initial-data.sql to any test data you'd like. I'd suggest you don't commit any real names to GitHub.
   - [ ] `touch start.sh`
   - [ ] `nano start.sh` or `sudo nano start.sh`
   - [ ] Enter the following to start.sh:
+
     ```
     #!/bin/bash
      export DATABASE_OWNER=america
@@ -55,6 +59,7 @@ To begin development, you'll need:
 
      ./create_db.sh
     ```
+
 - [ ] `./start.sh`
 
 Enter in your password for postgres each time you are prompted. If all goes well, this process should generate an initial database.
