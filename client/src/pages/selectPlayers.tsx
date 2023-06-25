@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
 import Image, { StaticImageData } from "next/image";
 import { Box, Card, CardContent, Typography } from "@mui/material";
@@ -14,6 +14,7 @@ import joseph from "../../public/assets/images/musicians/gonzalez-joseph.jpg";
 import matthew from "../../public/assets/images/musicians/mitchener-matthew.jpg";
 import nick from "../../public/assets/images/musicians/taylor-nick.jpg";
 import { makeStyles } from "@mui/styles";
+import axios from "axios";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -46,7 +47,24 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function ChoosePlayers() {
+export default function SelectPlayers() {
+  interface User {
+    first_name: string;
+    image: string;
+    last_name: string;
+    user_id: number;
+    branch: Branch;
+    gand: Band;
+  }
+  interface Branch {
+    branch_id: number;
+    nickname_id: number;
+    branch_name: string;
+  }
+  interface Band {
+    band_id: number;
+    band_name: string;
+  }
   interface Musician {
     name: string;
     selected: boolean;
@@ -79,6 +97,22 @@ export default function ChoosePlayers() {
     { name: "Nicholas Taylor", selected: false, img: nick },
     { name: "Matthew Mitchener", selected: false, img: matthew },
   ]);
+  const [user, setUser] = useState<User[]>([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://server.pickyourdrum.link/users"
+        );
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(user);
   const [assignments, setAssignments] = useState<Assignment[]>([
     { name: "Chad", instrument: "bass drum" },
   ]);
@@ -126,6 +160,11 @@ export default function ChoosePlayers() {
   return (
     <>
       <div>
+        {user?.map((user) => (
+          <Typography>
+            {user.first_name} {user.last_name}
+          </Typography>
+        ))}
         <Box className={classNames(classes.container)}>
           <h2>Select Payers</h2>
           <div className={classNames(classes.musicians)}>
