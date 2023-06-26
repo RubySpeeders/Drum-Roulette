@@ -4,15 +4,6 @@ import Image, { StaticImageData } from "next/image";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import classNames from "classnames";
-import chad from "../../public/assets/images/musicians/crummel-chad.jpg";
-import randy from "../../public/assets/images/musicians/johnson-randy.jpg";
-import james from "../../public/assets/images/musicians/swarts-james.jpg";
-import riley from "../../public/assets/images/musicians/barnes-riley.jpg";
-import jamesCromer from "../../public/assets/images/musicians/cromer-james.jpg";
-import jeffrey from "../../public/assets/images/musicians/deroche-jeffrey.jpg";
-import joseph from "../../public/assets/images/musicians/gonzalez-joseph.jpg";
-import matthew from "../../public/assets/images/musicians/mitchener-matthew.jpg";
-import nick from "../../public/assets/images/musicians/taylor-nick.jpg";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
 
@@ -87,17 +78,6 @@ export default function SelectPlayers() {
     { name: "triangle", selected: false },
   ]);
 
-  // const [musicians, setMusicians] = useState<Musician[]>([
-  //   { name: "Randy Johnson", selected: false, img: randy },
-  //   { name: "James Swarts", selected: false, img: james },
-  //   { name: "Riley Barnes", selected: false, img: riley },
-  //   { name: "James Cromer", selected: false, img: jamesCromer },
-  //   { name: "Chad Crummel", selected: false, img: chad },
-  //   { name: "Jeffrey DeRoche", selected: false, img: jeffrey },
-  //   { name: "Joseph Gonzalez", selected: false, img: joseph },
-  //   { name: "Nicholas Taylor", selected: false, img: nick },
-  //   { name: "Matthew Mitchener", selected: false, img: matthew },
-  // ]);
   const [musicians, setMusicians] = useState<User[]>([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -113,7 +93,7 @@ export default function SelectPlayers() {
 
     fetchData();
   }, []);
-  // console.log(users);
+
   const [assignments, setAssignments] = useState<Assignment[]>([
     { name: "Chad", instrument: "bass drum" },
   ]);
