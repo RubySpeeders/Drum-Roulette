@@ -54,7 +54,8 @@ export default function SelectPlayers() {
     last_name: string;
     user_id: number;
     branch: Branch;
-    gand: Band;
+    band: Band;
+    selected: boolean;
   }
   interface Branch {
     branch_id: number;
@@ -86,25 +87,25 @@ export default function SelectPlayers() {
     { name: "triangle", selected: false },
   ]);
 
-  const [musicians, setMusicians] = useState<Musician[]>([
-    { name: "Randy Johnson", selected: false, img: randy },
-    { name: "James Swarts", selected: false, img: james },
-    { name: "Riley Barnes", selected: false, img: riley },
-    { name: "James Cromer", selected: false, img: jamesCromer },
-    { name: "Chad Crummel", selected: false, img: chad },
-    { name: "Jeffrey DeRoche", selected: false, img: jeffrey },
-    { name: "Joseph Gonzalez", selected: false, img: joseph },
-    { name: "Nicholas Taylor", selected: false, img: nick },
-    { name: "Matthew Mitchener", selected: false, img: matthew },
-  ]);
-  const [user, setUser] = useState<User[]>([]);
+  // const [musicians, setMusicians] = useState<Musician[]>([
+  //   { name: "Randy Johnson", selected: false, img: randy },
+  //   { name: "James Swarts", selected: false, img: james },
+  //   { name: "Riley Barnes", selected: false, img: riley },
+  //   { name: "James Cromer", selected: false, img: jamesCromer },
+  //   { name: "Chad Crummel", selected: false, img: chad },
+  //   { name: "Jeffrey DeRoche", selected: false, img: jeffrey },
+  //   { name: "Joseph Gonzalez", selected: false, img: joseph },
+  //   { name: "Nicholas Taylor", selected: false, img: nick },
+  //   { name: "Matthew Mitchener", selected: false, img: matthew },
+  // ]);
+  const [musicians, setMusicians] = useState<User[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
           "https://server.pickyourdrum.link/users"
         );
-        setUser(response.data);
+        setMusicians(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -112,7 +113,7 @@ export default function SelectPlayers() {
 
     fetchData();
   }, []);
-  console.log(user);
+  // console.log(users);
   const [assignments, setAssignments] = useState<Assignment[]>([
     { name: "Chad", instrument: "bass drum" },
   ]);
@@ -121,10 +122,10 @@ export default function SelectPlayers() {
     instruments.filter((instrument) => instrument.selected).length ===
     musicians.filter((name) => name.selected).length;
 
-  const handleClickMusician = (item: Musician) => {
+  const handleClickMusician = (item: User) => {
     const nextMusician = musicians.map((musician) => {
-      if (musician.name === item.name) {
-        return { name: item.name, selected: !item.selected, img: item.img };
+      if (musician.first_name === item.first_name) {
+        return { ...musician, selected: !item.selected };
       } else {
         return musician;
       }
@@ -160,32 +161,27 @@ export default function SelectPlayers() {
   return (
     <>
       <div>
-        {user?.map((user) => (
-          <Typography>
-            {user.first_name} {user.last_name}
-          </Typography>
-        ))}
         <Box className={classNames(classes.container)}>
           <h2>Select Payers</h2>
           <div className={classNames(classes.musicians)}>
-            {musicians.map((musician: Musician) => (
-              <div key={musician.name} className={classNames(classes.card)}>
+            {musicians?.map((musician: User) => (
+              <div key={musician.user_id} className={classNames(classes.card)}>
                 <div
                   className={classNames(classes.image, {
                     [classes.selected]: musician.selected,
                   })}
-                  key={musician.name}
+                  key={musician.first_name}
                   onClick={() => handleClickMusician(musician)}
                 >
                   <Image
-                    src={musician.img}
-                    alt={musician.name}
+                    src={musician.image}
+                    alt={musician.first_name}
                     width={200}
                     height={280}
                   />
                 </div>
                 <Typography style={{ marginTop: "5%" }}>
-                  {musician.name}
+                  {musician.first_name} {musician.last_name}
                 </Typography>
               </div>
             ))}
