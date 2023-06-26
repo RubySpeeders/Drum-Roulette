@@ -20,10 +20,12 @@ The Musician Personnel Assignment Project is a web application built using Next.
 To get a local copy of the project up and running, follow these steps:
 
 1. Clone the repository: `git clone [https://github.com/RubySpeeders/US-Navy-Project]`
-2. Navigate to the project directory: `cd musician-personnel-assignment`
+2. Navigate to the project directory: `cd US-Navy-Project`
 3. Install the dependencies: `yarn install`
-4. Start the development server: `yarn dev`
-5. Open your browser and access the application at `http://localhost:3000`
+4. Navigate to the FE directory: `cd client`
+5. Install the dependencies: `yarn install`
+6. Start the development server: `yarn dev`
+7. Open your browser and access the application at `http://localhost:3000`
 
 ## Setup Backend for Local Development
 
