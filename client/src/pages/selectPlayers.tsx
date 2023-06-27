@@ -78,6 +78,7 @@ export default function SelectPlayers() {
     { name: "triangle", selected: false },
   ]);
 
+  const [loading, setLoading] = useState(true);
   const [musicians, setMusicians] = useState<User[]>([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -86,6 +87,7 @@ export default function SelectPlayers() {
           "https://server.pickyourdrum.link/users"
         );
         setMusicians(response.data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -145,30 +147,36 @@ export default function SelectPlayers() {
           <Box className={classNames(classes.container)}>
             <h2>Select Payers</h2>
             <div className={classNames(classes.musicians)}>
-              {musicians.map((musician: User) => (
-                <div
-                  key={musician.user_id}
-                  className={classNames(classes.card)}
-                >
-                  <div
-                    className={classNames(classes.image, {
-                      [classes.selected]: musician.selected,
-                    })}
-                    key={musician.user_id}
-                    onClick={() => handleClickMusician(musician)}
-                  >
-                    <Image
-                      src={musician.image}
-                      alt={musician.first_name}
-                      width={200}
-                      height={280}
-                    />
-                  </div>
-                  <Typography style={{ marginTop: "5%" }}>
-                    {musician.first_name} {musician.last_name}
-                  </Typography>
-                </div>
-              ))}
+              {loading ? (
+                <p>Loading...</p>
+              ) : (
+                <>
+                  {musicians.map((musician: User) => (
+                    <div
+                      key={musician.user_id}
+                      className={classNames(classes.card)}
+                    >
+                      <div
+                        className={classNames(classes.image, {
+                          [classes.selected]: musician.selected,
+                        })}
+                        key={musician.user_id}
+                        onClick={() => handleClickMusician(musician)}
+                      >
+                        <Image
+                          src={musician.image}
+                          alt={musician.first_name}
+                          width={200}
+                          height={280}
+                        />
+                      </div>
+                      <Typography style={{ marginTop: "5%" }}>
+                        {musician.first_name} {musician.last_name}
+                      </Typography>
+                    </div>
+                  ))}
+                </>
+              )}
             </div>
           </Box>
         </Grid>
