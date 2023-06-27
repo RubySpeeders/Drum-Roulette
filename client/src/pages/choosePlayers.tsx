@@ -13,6 +13,11 @@ import jeffrey from "../../public/assets/images/musicians/deroche-jeffrey.jpg";
 import joseph from "../../public/assets/images/musicians/gonzalez-joseph.jpg";
 import matthew from "../../public/assets/images/musicians/mitchener-matthew.jpg";
 import nick from "../../public/assets/images/musicians/taylor-nick.jpg";
+import BD from "../../public/assets/images/instruments/BD_pic.png"
+import SD from "../../public/assets/images/instruments/SD_pic.png"
+import Cym from "../../public/assets/images/instruments/Cym_pic.png"
+import TD from "../../public/assets/images/instruments/TD_pic.png"
+import BDCym from "../../public/assets/images/instruments/BD_Cym_pic.png"
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() => ({
@@ -55,6 +60,7 @@ export default function ChoosePlayers() {
   interface Instrument {
     name: string;
     selected: boolean;
+    img: StaticImageData;
   }
   interface Assignment {
     name: string;
@@ -63,9 +69,11 @@ export default function ChoosePlayers() {
 
   const classes = useStyles();
   const [instruments, setInstruments] = useState<Instrument[]>([
-    { name: "bass drum", selected: false },
-    { name: "snare", selected: false },
-    { name: "triangle", selected: false },
+    { name: "Bass Drum", selected: false, img: BD},
+    { name: "Snare Drum", selected: false, img: SD},
+    { name: "Tenor Drum", selected: false, img: TD},
+    { name: "Cymbals", selected: false, img: Cym},
+    { name: "BD & Cym", selected: false, img: BDCym},
   ]);
 
   const [musicians, setMusicians] = useState<Musician[]>([
@@ -101,7 +109,7 @@ export default function ChoosePlayers() {
   const handleClickInstrument = (item: Instrument) => {
     const nextInstrument = instruments.map((instrument) => {
       if (instrument.name === item.name) {
-        return { name: item.name, selected: !item.selected };
+        return { name: item.name, selected: !item.selected, img: item.img };
       } else {
         return instrument;
       }
@@ -158,18 +166,23 @@ export default function ChoosePlayers() {
           <Box className={classNames(classes.container)}>
             <h2>Select Instruments</h2>
             <div className={classNames(classes.musicians)}>
-              {instruments.map((instrument) => (
-                <Card
+              {instruments.map((instrument: Instrument) => (
+                <div key={instrument.name} className={classNames(classes.card)}>
+                <div
                   className={classNames(classes.image, {
                     [classes.selected]: instrument.selected,
                   })}
                   key={instrument.name}
                   onClick={() => handleClickInstrument(instrument)}
                 >
-                  <CardContent>
-                    <Typography>{instrument.name}</Typography>
-                  </CardContent>
-                </Card>
+                  <Image
+                      src={instrument.img}
+                      alt={instrument.name}
+                      width={200}
+                    />
+                </div>
+                <Typography style={{ marginTop: "5%" }}>{instrument.name}</Typography>
+                </div>
               ))}
             </div>
           </Box>
