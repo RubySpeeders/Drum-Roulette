@@ -38,9 +38,16 @@ Depends on Issues:
 
 ---
 
+### Acceptance Criteria
+
+<!--- Copy over the issue's Acceptance Criteria here. Check them off here to verify they have been fulfilled. --->
+
+---
+
 ### Checklist for PR Owner
 
 - [ ] Standardized PR Title
 - [ ] Included relevant videos and screen shots
 - [ ] Included Summary of Changes
 - [ ] Included Summary of Implementation Logic
+- [ ] Acceptance Criteria are fufilled
