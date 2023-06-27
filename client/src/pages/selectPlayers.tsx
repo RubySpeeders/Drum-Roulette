@@ -56,6 +56,7 @@ export default function SelectPlayers() {
   interface Band {
     band_id: number;
     band_name: string;
+    branch: Branch;
   }
   interface Musician {
     name: string;
