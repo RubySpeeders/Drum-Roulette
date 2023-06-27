@@ -154,18 +154,18 @@ export default function SelectPlayers() {
                     className={classNames(classes.image, {
                       [classes.selected]: musician.selected,
                     })}
-                    key={musician.name}
+                    key={musician.user_id}
                     onClick={() => handleClickMusician(musician)}
                   >
                     <Image
-                      src={musician.img}
-                      alt={musician.name}
+                      src={musician.image}
+                      alt={musician.first_name}
                       width={200}
                       height={280}
                     />
                   </div>
                   <Typography style={{ marginTop: "5%" }}>
-                    {musician.name}
+                    {musician.first_name} {musician.last_name}
                   </Typography>
                 </div>
               ))}
