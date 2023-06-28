@@ -1,12 +1,39 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
 import { Assignment } from "@/interfaces/assignment";
+import Image from "next/image";
+import { makeStyles } from "@mui/styles";
+import classNames from "classnames";
+
+const useStyles = makeStyles(() => ({
+  container: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  card: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "5%",
+    marginLeft: "2%",
+  },
+  image: {
+    width: 200,
+    height: 200,
+    overflow: "hidden",
+    borderRadius: "50%",
+    display: "flex",
+    justifyContent: "center",
+  },
+}));
 
 export default function Assignments() {
+  const classes = useStyles();
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const router = useRouter();
   const { musicians, instruments } = router.query;
@@ -16,9 +43,6 @@ export default function Assignments() {
     : [];
   const assign = (musicians: Musician[], instruments: Instrument[]) => {
     const shuffledMusicians = shuffle(musicians);
-    const shuffledNames = shuffle(
-      musicians.filter((musician) => musician.selected)
-    );
     const shuffledInstruments = shuffle(instruments);
     const nextAssignment = shuffledMusicians.map((musician, i) => {
       return { musician: musician, instrument: shuffledInstruments[i], id: i };
@@ -34,15 +58,32 @@ export default function Assignments() {
     <div>
       {assignments.map((assignment) => {
         return (
-          <Card
-            style={{ border: "solid pink", margin: ".25em", width: "50em" }}
-            key={assignment.id}
+          <div
+            key={assignment.musician.id}
+            className={classNames(classes.container)}
           >
-            <CardContent>
-              <Typography>Name: {assignment.musician.name}</Typography>
-              <Typography>Instrument: {assignment.instrument.name}</Typography>
-            </CardContent>
-          </Card>
+            <div className={classNames(classes.card)}>
+              <div className={classNames(classes.image)}>
+                <Image
+                  src={assignment.musician.img}
+                  alt={assignment.musician.name}
+                  width={200}
+                  height={280}
+                />
+              </div>
+              <Typography>{assignment.musician.name}</Typography>
+            </div>
+            <div className={classNames(classes.card)}>
+              <div className={classNames(classes.image)}>
+                <Image
+                  src={assignment.instrument.img}
+                  alt={assignment.instrument.name}
+                  width={200}
+                />
+              </div>
+              <Typography>{assignment.instrument.name}</Typography>
+            </div>
+          </div>
         );
       })}
     </div>

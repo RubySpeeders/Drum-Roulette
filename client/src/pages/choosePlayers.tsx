@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { shuffle } from "lodash";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Box, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import classNames from "classnames";
@@ -116,7 +115,6 @@ export default function ChoosePlayers() {
                     className={classNames(classes.image, {
                       [classes.selected]: musician.selected,
                     })}
-                    key={musician.name}
                     onClick={() => handleClickMusician(musician)}
                   >
                     <Image
