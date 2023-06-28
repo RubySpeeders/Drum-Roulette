@@ -54,29 +54,13 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function ChoosePlayers() {
-  interface Musician {
-    id: number;
-    name: string;
-    selected: boolean;
-    img: StaticImageData;
-  }
-  interface Instrument {
-    name: string;
-    selected: boolean;
-    img: StaticImageData;
-  }
-  interface Assignment {
-    name: string;
-    instrument: string;
-  }
-
   const classes = useStyles();
   const [instruments, setInstruments] = useState<Instrument[]>([
-    { name: "Bass Drum", selected: false, img: BD },
-    { name: "Snare Drum", selected: false, img: SD },
-    { name: "Tenor Drum", selected: false, img: TD },
-    { name: "Cymbals", selected: false, img: Cym },
-    { name: "BD & Cym", selected: false, img: BDCym },
+    { id: 1, name: "Bass Drum", selected: false, img: BD },
+    { id: 2, name: "Snare Drum", selected: false, img: SD },
+    { id: 3, name: "Tenor Drum", selected: false, img: TD },
+    { id: 4, name: "Cymbals", selected: false, img: Cym },
+    { id: 5, name: "BD & Cym", selected: false, img: BDCym },
   ]);
 
   const [musicians, setMusicians] = useState<Musician[]>([
@@ -98,12 +82,7 @@ export default function ChoosePlayers() {
   const handleClickMusician = (item: Musician) => {
     const nextMusician = musicians.map((musician) => {
       if (musician.name === item.name) {
-        return {
-          name: item.name,
-          selected: !item.selected,
-          img: item.img,
-          id: item.id,
-        };
+        return { ...musician, selected: !item.selected };
       } else {
         return musician;
       }
@@ -114,7 +93,7 @@ export default function ChoosePlayers() {
   const handleClickInstrument = (item: Instrument) => {
     const nextInstrument = instruments.map((instrument) => {
       if (instrument.name === item.name) {
-        return { name: item.name, selected: !item.selected, img: item.img };
+        return { ...instrument, selected: !item.selected };
       } else {
         return instrument;
       }
