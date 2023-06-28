@@ -1,1 +1,5 @@
+.DS_Store
+backend/.DS_Store
+exportVars.sh
+
 node_modules/
