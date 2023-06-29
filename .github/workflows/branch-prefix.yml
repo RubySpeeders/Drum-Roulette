@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Check if branch name contains prefix
         run: |
-          BRANCH_NAME=$(echo "${{ github.ref }}" | awk -F'/' '{print $3}')
+          BRANCH_NAME=$(echo "${{ github.ref }}" | sed 's#.*/##')
           if [[ $BRANCH_NAME == USNP-* ]]; then
             echo "Branch name already contains prefix."
             exit 0
