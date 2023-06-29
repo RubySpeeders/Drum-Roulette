@@ -14,6 +14,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around",
+    margin: "0 5em",
   },
   card: {
     display: "flex",
@@ -55,7 +56,7 @@ export default function Assignments() {
   }, []);
 
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "column" }}>
       {assignments.map((assignment) => {
         return (
           <div
