@@ -18,7 +18,7 @@ jobs:
             echo "Branch name already contains prefix."
             exit 0
           else
-            ISSUE_NUMBER=$(echo "${{ github.event.head_commit.message }}" | jq -r 'match("#(\\d+)" | .captures[0].string) | .[1]')
+            ISSUE_NUMBER=$(echo "${{ github.event.head_commit.message }}" | jq -r 'match("#(\\\\d+)" ).captures[0].string | ltrimstr("#")')
             PREFIXED_BRANCH_NAME="USNP-$ISSUE_NUMBER-$BRANCH_NAME"
             git branch -m $PREFIXED_BRANCH_NAME
             git push origin $PREFIXED_BRANCH_NAME
