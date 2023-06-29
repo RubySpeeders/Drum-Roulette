@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function SelectPlayers() {
+export default function SelectMusicians() {
   interface User {
     first_name: string;
     image: string;
