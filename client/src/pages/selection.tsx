@@ -79,7 +79,7 @@ export default function Selection() {
 
   const handleClickMusician = (item: Musician) => {
     const nextMusician = musicians.map((musician) => {
-      if (musician.first_name === item.first_name) {
+      if (musician.user_id === item.user_id) {
         return { ...musician, selected: !item.selected };
       } else {
         return musician;
