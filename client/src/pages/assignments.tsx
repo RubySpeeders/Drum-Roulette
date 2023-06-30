@@ -66,6 +66,7 @@ export default function Assignments() {
             <div className={classNames(classes.card)}>
               <div className={classNames(classes.image)}>
                 <Image
+                  priority={true}
                   src={assignment.musician.image}
                   alt={assignment.musician.first_name}
                   width={200}

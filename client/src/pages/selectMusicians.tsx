@@ -125,6 +125,7 @@ export default function SelectMusicians() {
                         onClick={() => handleClickMusician(musician)}
                       >
                         <Image
+                          priority={true}
                           src={musician.image}
                           alt={musician.first_name}
                           width={200}
