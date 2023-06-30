@@ -2,4 +2,6 @@
 backend/.DS_Store
 exportVars.sh
 
+# dependencies
 node_modules/
+.yarn.lock

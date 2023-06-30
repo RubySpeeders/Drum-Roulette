@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
 import Image, { StaticImageData } from "next/image";
-import { Box, Card, CardContent, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
+import { Musician } from "@/interfaces/musician";
+import { Instrument } from "@/interfaces/instrument";
+import BD from "../../public/assets/images/instruments/BD_pic.png";
+import SD from "../../public/assets/images/instruments/SD_pic.png";
+import Cym from "../../public/assets/images/instruments/Cym_pic.png";
+import TD from "../../public/assets/images/instruments/TD_pic.png";
+import BDCym from "../../public/assets/images/instruments/BD_Cym_pic.png";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -39,48 +46,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function SelectMusicians() {
-  interface User {
-    first_name: string;
-    image: string;
-    last_name: string;
-    user_id: number;
-    branch: Branch;
-    band: Band;
-    selected: boolean;
-  }
-  interface Branch {
-    branch_id: number;
-    nickname_id: number;
-    branch_name: string;
-  }
-  interface Band {
-    band_id: number;
-    band_name: string;
-    branch: Branch;
-  }
-  interface Musician {
-    name: string;
-    selected: boolean;
-    img: StaticImageData;
-  }
-  interface Instrument {
-    name: string;
-    selected: boolean;
-  }
-  interface Assignment {
-    name: string;
-    instrument: string;
-  }
-
   const classes = useStyles();
   const [instruments, setInstruments] = useState<Instrument[]>([
-    { name: "bass drum", selected: false },
-    { name: "snare", selected: false },
-    { name: "triangle", selected: false },
+    { id: 1, name: "Bass Drum", selected: false, img: BD },
+    { id: 2, name: "Snare Drum", selected: false, img: SD },
+    { id: 3, name: "Tenor Drum", selected: false, img: TD },
+    { id: 4, name: "Cymbals", selected: false, img: Cym },
+    { id: 5, name: "BD & Cym", selected: false, img: BDCym },
   ]);
 
   const [loading, setLoading] = useState(true);
-  const [musicians, setMusicians] = useState<User[]>([]);
+  const [musicians, setMusicians] = useState<Musician[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -97,15 +73,11 @@ export default function SelectMusicians() {
     fetchData();
   }, []);
 
-  const [assignments, setAssignments] = useState<Assignment[]>([
-    { name: "Chad", instrument: "bass drum" },
-  ]);
-
   const selectedEqual =
     instruments.filter((instrument) => instrument.selected).length ===
     musicians.filter((name) => name.selected).length;
 
-  const handleClickMusician = (item: User) => {
+  const handleClickMusician = (item: Musician) => {
     const nextMusician = musicians.map((musician) => {
       if (musician.first_name === item.first_name) {
         return { ...musician, selected: !item.selected };
@@ -119,7 +91,7 @@ export default function SelectMusicians() {
   const handleClickInstrument = (item: Instrument) => {
     const nextInstrument = instruments.map((instrument) => {
       if (instrument.name === item.name) {
-        return { name: item.name, selected: !item.selected };
+        return { ...instrument, selected: !item.selected };
       } else {
         return instrument;
       }
@@ -128,18 +100,6 @@ export default function SelectMusicians() {
   };
 
   const router = useRouter();
-
-  const assign = (names: Musician[], instruments: Instrument[]) => {
-    // const assignment: Assignment = { name: "", instrument: "" }
-    const shuffledNames = shuffle(names.filter((name) => name.selected));
-    const shuffledInstruments = shuffle(
-      instruments.filter((instrument) => instrument.selected)
-    );
-    const nextAssignment = shuffledNames.map((name, i) => {
-      return { name: name.name, instrument: shuffledInstruments[i].name };
-    });
-    setAssignments(nextAssignment);
-  };
 
   return (
     <>
@@ -152,7 +112,7 @@ export default function SelectMusicians() {
                 <p>Loading...</p>
               ) : (
                 <>
-                  {musicians.map((musician: User) => (
+                  {musicians.map((musician: Musician) => (
                     <div
                       key={musician.user_id}
                       className={classNames(classes.card)}
@@ -185,18 +145,25 @@ export default function SelectMusicians() {
           <Box className={classNames(classes.container)}>
             <h2>Select Instruments</h2>
             <div className={classNames(classes.musicians)}>
-              {instruments.map((instrument) => (
-                <Card
-                  className={classNames(classes.image, {
-                    [classes.selected]: instrument.selected,
-                  })}
-                  key={instrument.name}
-                  onClick={() => handleClickInstrument(instrument)}
-                >
-                  <CardContent>
-                    <Typography>{instrument.name}</Typography>
-                  </CardContent>
-                </Card>
+              {instruments.map((instrument: Instrument) => (
+                <div key={instrument.name} className={classNames(classes.card)}>
+                  <div
+                    className={classNames(classes.image, {
+                      [classes.selected]: instrument.selected,
+                    })}
+                    key={instrument.name}
+                    onClick={() => handleClickInstrument(instrument)}
+                  >
+                    <Image
+                      src={instrument.img}
+                      alt={instrument.name}
+                      width={200}
+                    />
+                  </div>
+                  <Typography style={{ marginTop: "5%" }}>
+                    {instrument.name}
+                  </Typography>
+                </div>
               ))}
             </div>
           </Box>
@@ -205,10 +172,18 @@ export default function SelectMusicians() {
       <button
         onClick={(e) => {
           e.preventDefault();
-          // assign(names, instruments);
+          const selectedMusicians = musicians.filter(
+            (musician) => musician.selected
+          );
+          const selectedInstruments = instruments.filter(
+            (instrument) => instrument.selected
+          );
           router.push({
             pathname: "/assignments",
-            query: { object: JSON.stringify(assignments) },
+            query: {
+              musicians: JSON.stringify(selectedMusicians),
+              instruments: JSON.stringify(selectedInstruments),
+            },
           });
         }}
         disabled={!selectedEqual}
