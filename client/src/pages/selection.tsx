@@ -45,7 +45,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function SelectMusicians() {
+export default function Selection() {
   const classes = useStyles();
   const [instruments, setInstruments] = useState<Instrument[]>([
     { id: 1, name: "Bass Drum", selected: false, img: BD },
