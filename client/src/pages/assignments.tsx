@@ -60,19 +60,20 @@ export default function Assignments() {
       {assignments.map((assignment) => {
         return (
           <div
-            key={assignment.musician.id}
+            key={assignment.musician.user_id}
             className={classNames(classes.container)}
           >
             <div className={classNames(classes.card)}>
               <div className={classNames(classes.image)}>
                 <Image
-                  src={assignment.musician.img}
-                  alt={assignment.musician.name}
+                  priority={true}
+                  src={assignment.musician.image}
+                  alt={assignment.musician.first_name}
                   width={200}
                   height={280}
                 />
               </div>
-              <Typography>{assignment.musician.name}</Typography>
+              <Typography>{assignment.musician.first_name}</Typography>
             </div>
             <div className={classNames(classes.card)}>
               <div className={classNames(classes.image)}>
