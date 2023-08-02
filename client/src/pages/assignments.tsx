@@ -68,7 +68,7 @@ export default function Assignments() {
                 <Image
                   priority={true}
                   src={assignment.musician.image}
-                  alt={assignment.musician.first_name}
+                  alt={`name of the selected musician is ${assignment.musician.first_name}`}
                   width={200}
                   height={280}
                 />
@@ -79,7 +79,7 @@ export default function Assignments() {
               <div className={classNames(classes.image)}>
                 <Image
                   src={assignment.instrument.img}
-                  alt={assignment.instrument.name}
+                  alt={`assigned instrument is ${assignment.instrument.name}`}
                   width={200}
                 />
               </div>
