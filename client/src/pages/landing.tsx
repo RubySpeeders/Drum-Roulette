@@ -10,7 +10,12 @@ export default function Assignments() {
       <h2>randomly generate assignments with one click</h2>
       <h3>Please Select Your Branch</h3>
       <Link href="/selection">
-        <Image src={navyLogo} alt="navyLogo" height={100} width={100} />
+        <Image
+          src={navyLogo}
+          alt="Click to select Navy"
+          height={100}
+          width={100}
+        />
         <Typography>US Navy Band</Typography>
       </Link>
     </div>
