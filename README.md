@@ -19,8 +19,8 @@ The Musician Personnel Assignment Project is a web application built using Next.
 
 To get a local copy of the project up and running, follow these steps:
 
-1. Clone the repository: `git clone [https://github.com/RubySpeeders/US-Navy-Project]`
-2. Navigate to the project directory: `cd US-Navy-Project`
+1. Clone the repository: `git clone [https://github.com/RubySpeeders/Drum-Roulette]`
+2. Navigate to the project directory: `cd Drum-Roulette`
 3. Install the dependencies: `yarn install`
 4. Navigate to the FE directory: `cd client`
 5. Install the dependencies: `yarn install`
@@ -95,9 +95,9 @@ Please avoid committing code with formatting inconsistencies, as it helps mainta
 Contributions are welcome! If you'd like to contribute to this project, please make sure to follow the code formatting guidelines defined by Prettier. This ensures consistent code style and makes it easier to review and merge your contributions. If you'd like to contribute to the Musician Personnel Assignment Project, please follow these guidelines:
 
 1. Fork the repository
-2. Create a new branch for your feature: `git checkout -b USNP[issue-number]-feature-name`
+2. Create a new branch for your feature: `git checkout -b DR-[issue-number]-feature-name`
 3. Make your changes and commit them: `git commit -m 'Add some feature'`
-4. Push the changes to your forked repository: `git push origin USNP[issue-number]-feature-name`
+4. Push the changes to your forked repository: `git push origin DR-[issue-number]-feature-name`
 5. Submit a pull request detailing your changes
 
 ## License
