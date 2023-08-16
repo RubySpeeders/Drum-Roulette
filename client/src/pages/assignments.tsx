@@ -57,6 +57,7 @@ export default function Assignments() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
+      <Typography>Return to main page</Typography>
       {assignments.map((assignment) => {
         return (
           <div
