@@ -1,0 +1,16 @@
+{
+    "name": "Drum Roulette",
+    "short_name": "DR",
+    "description": "Randomize Ceremonial Percussion Assignments With One Click",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#000000",
+    "icons": [
+      {
+        "src": "/public/assets/favicon.ico",
+        "sizes": "48x48",
+        "type": "image/ico"
+      }
+    ]
+  }
