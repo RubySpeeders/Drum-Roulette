@@ -126,7 +126,7 @@ export default function Selection() {
       <Grid container>
         <Grid item xs={12} md={6}>
           <Box className={classNames(classes.container)}>
-            <h2>Select Players</h2>
+            <h2>Select Musicians</h2>
             <div className={classNames(classes.musicians)}>
               {loading ? (
                 <p>Loading...</p>
