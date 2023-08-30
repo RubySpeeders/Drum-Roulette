@@ -147,7 +147,7 @@ export default function Selection() {
                         <Image
                           priority={true}
                           src={musician.image}
-                          alt={musician.first_name}
+                          alt={`select ${musician.first_name}`}
                           width={200}
                           height={280}
                         />
@@ -177,7 +177,7 @@ export default function Selection() {
                   >
                     <Image
                       src={instrument.img}
-                      alt={instrument.name}
+                      alt={`select ${instrument.name}`}
                       width={200}
                       height={200}
                     />
@@ -209,6 +209,7 @@ export default function Selection() {
           });
         }}
         disabled={!selectedEqual}
+        type={'button'}
       >
         Give me assignments!
       </button>
