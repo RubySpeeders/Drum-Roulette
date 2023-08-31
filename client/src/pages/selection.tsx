@@ -8,11 +8,6 @@ import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
-import BD from "../../public/assets/images/instruments/BD_pic.png";
-import SD from "../../public/assets/images/instruments/SD_pic.png";
-import Cym from "../../public/assets/images/instruments/Cym_pic.png";
-import TD from "../../public/assets/images/instruments/TD_pic.png";
-import BDCym from "../../public/assets/images/instruments/BD_Cym_pic.png";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -48,11 +43,36 @@ const useStyles = makeStyles(() => ({
 export default function Selection() {
   const classes = useStyles();
   const [instruments, setInstruments] = useState<Instrument[]>([
-    { id: 1, name: "Bass Drum", selected: false, img: BD },
-    { id: 2, name: "Snare Drum", selected: false, img: SD },
-    { id: 3, name: "Tenor Drum", selected: false, img: TD },
-    { id: 4, name: "Cymbals", selected: false, img: Cym },
-    { id: 5, name: "BD & Cym", selected: false, img: BDCym },
+    {
+      id: 1,
+      name: "Bass Drum",
+      selected: false,
+      img: "https://server.pickyourdrum.link/files/instruments/BD_pic.png",
+    },
+    {
+      id: 2,
+      name: "Snare Drum",
+      selected: false,
+      img: "https://server.pickyourdrum.link/files/instruments/SD_pic.png",
+    },
+    {
+      id: 3,
+      name: "Tenor Drum",
+      selected: false,
+      img: "https://server.pickyourdrum.link/files/instruments/TD_pic.png",
+    },
+    {
+      id: 4,
+      name: "Cymbals",
+      selected: false,
+      img: "https://server.pickyourdrum.link/files/instruments/Cym_pic.png",
+    },
+    {
+      id: 5,
+      name: "BD & Cym",
+      selected: false,
+      img: "https://server.pickyourdrum.link/files/instruments/BD_Cym_pic.png",
+    },
   ]);
 
   const [loading, setLoading] = useState(true);
@@ -106,7 +126,7 @@ export default function Selection() {
       <Grid container>
         <Grid item xs={12} md={6}>
           <Box className={classNames(classes.container)}>
-            <h2>Select Payers</h2>
+            <h2>Select Musicians</h2>
             <div className={classNames(classes.musicians)}>
               {loading ? (
                 <p>Loading...</p>
@@ -127,7 +147,7 @@ export default function Selection() {
                         <Image
                           priority={true}
                           src={musician.image}
-                          alt={musician.first_name}
+                          alt={`select ${musician.first_name}`}
                           width={200}
                           height={280}
                         />
@@ -157,8 +177,9 @@ export default function Selection() {
                   >
                     <Image
                       src={instrument.img}
-                      alt={instrument.name}
+                      alt={`select ${instrument.name}`}
                       width={200}
+                      height={200}
                     />
                   </div>
                   <Typography style={{ marginTop: "5%" }}>
@@ -189,6 +210,7 @@ export default function Selection() {
           });
         }}
         disabled={!selectedEqual}
+        type={'button'}
       >
         Give me assignments!
       </Button>
