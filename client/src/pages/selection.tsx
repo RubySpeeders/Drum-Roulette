@@ -77,6 +77,7 @@ export default function Selection() {
 
   const [loading, setLoading] = useState(true);
   const [musicians, setMusicians] = useState<Musician[]>([]);
+  const [isSelected, setIsSelected] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -96,6 +97,13 @@ export default function Selection() {
   const selectedEqual =
     instruments.filter((instrument) => instrument.selected).length ===
     musicians.filter((name) => name.selected).length;
+
+  useEffect(() => {
+    const isSelected =
+      instruments.some((instrument) => instrument.selected) ||
+      musicians.some((musician) => musician.selected);
+    setIsSelected(isSelected);
+  }, [instruments, musicians]);
 
   const handleClickMusician = (item: Musician) => {
     const nextMusician = musicians.map((musician) => {
@@ -208,8 +216,8 @@ export default function Selection() {
             },
           });
         }}
-        disabled={!selectedEqual}
-        type={'button'}
+        disabled={!isSelected || !selectedEqual}
+        type={"button"}
       >
         Give me assignments!
       </button>
