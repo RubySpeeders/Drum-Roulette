@@ -99,9 +99,17 @@ export default function Selection() {
     musicians.filter((name) => name.selected).length;
 
   useEffect(() => {
+    const selectedInstrumentsCount = instruments.filter(
+      (instrument) => instrument.selected
+    ).length;
+    const selectedMusiciansCount = musicians.filter(
+      (musician) => musician.selected
+    ).length;
+
+    // Check if at least two instruments and two musicians are selected
     const isSelected =
-      instruments.some((instrument) => instrument.selected) ||
-      musicians.some((musician) => musician.selected);
+      selectedInstrumentsCount >= 2 && selectedMusiciansCount >= 2;
+
     setIsSelected(isSelected);
   }, [instruments, musicians]);
 
