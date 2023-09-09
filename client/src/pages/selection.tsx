@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
 import Image, { StaticImageData } from "next/image";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
@@ -191,7 +191,8 @@ export default function Selection() {
           </Box>
         </Grid>
       </Grid>
-      <button
+      <Button
+        variant="contained"
         onClick={(e) => {
           e.preventDefault();
           const selectedMusicians = musicians.filter(
@@ -212,7 +213,7 @@ export default function Selection() {
         type={'button'}
       >
         Give me assignments!
-      </button>
+      </Button>
     </>
   );
 }
