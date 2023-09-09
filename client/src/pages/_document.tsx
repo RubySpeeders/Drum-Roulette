@@ -19,7 +19,7 @@ export default class MyDocument extends Document {
           <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href="/assets/images/favicon.ico"
+            href="/assets/images/ios-icon.ico"
           />
 
           {/* Makes website opened from iPhone home screen appear more like an app, no browser URL at the top of the screen e.g. */}

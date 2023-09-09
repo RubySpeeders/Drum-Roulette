@@ -8,7 +8,7 @@
     "theme_color": "#000000",
     "icons": [
       {
-        "src": "/public/assets/favicon.ico",
+        "src": "/public/assets/ios-icon.ico",
         "sizes": "48x48",
         "type": "image/ico"
       }
