@@ -29,10 +29,7 @@ export default class MyDocument extends Document {
           <meta name="apple-mobile-web-app-title" content="Drum Roulette" />
 
           {/* Colors the status bar (battery, wifi, data) white */}
-          <meta
-            name="apple-mobile-web-app-status-bar-style"
-            content="black-translucent"
-          />
+         
         </Head>
         <body>
           <Main />
