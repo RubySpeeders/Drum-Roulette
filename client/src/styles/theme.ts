@@ -10,7 +10,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const theme: Theme = createTheme({
+export const theme: Theme = createTheme({
   typography: {
     fontFamily: inter.style.fontFamily,
   },
@@ -38,5 +38,3 @@ const theme: Theme = createTheme({
     },
   },
 });
-
-export default theme;
