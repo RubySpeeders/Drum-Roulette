@@ -82,6 +82,7 @@ export default function Assignments() {
                   src={assignment.instrument.img}
                   alt={`assigned instrument is ${assignment.instrument.name}`}
                   width={200}
+                  height={200}
                 />
               </div>
               <Typography>{assignment.instrument.name}</Typography>
