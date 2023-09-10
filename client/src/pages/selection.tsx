@@ -76,6 +76,7 @@ export default function Selection() {
 
   const [loading, setLoading] = useState(true);
   const [musicians, setMusicians] = useState<Musician[]>([]);
+  const [isSelected, setIsSelected] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -95,6 +96,21 @@ export default function Selection() {
   const selectedEqual =
     instruments.filter((instrument) => instrument.selected).length ===
     musicians.filter((name) => name.selected).length;
+
+  useEffect(() => {
+    const selectedInstrumentsCount = instruments.filter(
+      (instrument) => instrument.selected
+    ).length;
+    const selectedMusiciansCount = musicians.filter(
+      (musician) => musician.selected
+    ).length;
+
+    // Check if at least two instruments and two musicians are selected
+    const isSelected =
+      selectedInstrumentsCount >= 2 && selectedMusiciansCount >= 2;
+
+    setIsSelected(isSelected);
+  }, [instruments, musicians]);
 
   const handleClickMusician = (item: Musician) => {
     const nextMusician = musicians.map((musician) => {
@@ -208,7 +224,7 @@ export default function Selection() {
             },
           });
         }}
-        disabled={!selectedEqual}
+        disabled={!isSelected || !selectedEqual}
         type={"button"}
       >
         Give me assignments!
