@@ -14,6 +14,15 @@ const theme: Theme = createTheme({
   typography: {
     fontFamily: inter.style.fontFamily,
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        a {
+          text-decoration: none;
+        }
+      `,
+    },
+  },
   palette: {
     primary: {
       main: "#B2B4CB",
