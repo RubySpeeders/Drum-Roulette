@@ -1,3 +1,11 @@
+---
+name: Generic Issue Template
+about: This template is for any new issue
+title: "DR-{{ random }}"
+labels: ""
+assignees: ""
+---
+
 ## ISSUE TEMPLATE
 
 ### User Story
