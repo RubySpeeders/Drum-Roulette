@@ -2,21 +2,55 @@ import Link from "next/link";
 import Image from "next/image";
 import navyLogo from "../../public/assets/images/USNavy-Band-Logo.png";
 import { Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    width: "100vw",
+    height: "100vh",
+    padding: "0 15% 0 50vw",
+  },
+  title: {
+    fontSize: "3rem",
+    fontWeight: "600",
+    marginBottom: "50px",
+  },
+  subtitle: {
+    fontSize: "1.8rem",
+    fontWeight: "400",
+    marginBottom: "50px",
+  },
+  bandName: {
+    width: "120px",
+    textAlign: "center",
+    color: theme.palette.text.primary,
+  },
+  image: {
+    height: 120,
+    width: 120,
+  },
+}));
 
 export default function Assignments() {
+  const classes = useStyles();
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", width: "80vw" }}>
-      <h1>Musician Personnel Assignment</h1>
-      <h2>randomly generate assignments with one click</h2>
-      <h3>Please Select Your Branch</h3>
+    <div className={classes.container}>
+      <h1 className={classes.title}>Drum Roulette</h1>
+      <h2 className={classes.subtitle}>
+        randomly generate band percussion assignments with one click
+      </h2>
+      <h3 className={classes.subtitle}>Please Select Your Branch</h3>
       <Link href="/selection">
         <Image
           src={navyLogo}
           alt="Click to select Navy"
-          height={100}
-          width={100}
+          className={classes.image}
         />
-        <Typography>US Navy Band</Typography>
+        <Typography className={classes.bandName}>US Navy Band</Typography>
       </Link>
     </div>
   );
