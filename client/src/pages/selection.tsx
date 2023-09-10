@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { shuffle } from "lodash";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import classNames from "classnames";
@@ -82,9 +81,10 @@ export default function Selection() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://server.pickyourdrum.link/users"
+          //when we have more branches, we could move this url elsewhere for cleaner code
+          `https://fryxz3d12d.execute-api.us-east-1.amazonaws.com/production/musicians/navy`
         );
-        setMusicians(response.data);
+        setMusicians(response.data.musicians);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
