@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { shuffle } from "lodash";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import classNames from "classnames";
@@ -81,9 +80,9 @@ export default function Selection() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://server.pickyourdrum.link/users"
+          "https://fryxz3d12d.execute-api.us-east-1.amazonaws.com/production/musicians"
         );
-        setMusicians(response.data);
+        setMusicians(response.data.musicians);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -210,7 +209,7 @@ export default function Selection() {
           });
         }}
         disabled={!selectedEqual}
-        type={'button'}
+        type={"button"}
       >
         Give me assignments!
       </Button>
