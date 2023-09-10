@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { shuffle } from "lodash";
@@ -57,7 +57,22 @@ export default function Assignments() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <Typography>Return to main page</Typography>
+      <div>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(e) => {
+            e.preventDefault();
+
+            router.push({
+              pathname: "/selection",
+            });
+          }}
+          type={"button"}
+        >
+          Return to Selection Page
+        </Button>
+      </div>
       {assignments.map((assignment) => {
         return (
           <div
