@@ -81,7 +81,8 @@ export default function Selection() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://fryxz3d12d.execute-api.us-east-1.amazonaws.com/production/musicians"
+          //when we have more branches, we could move this url elsewhere for cleaner code
+          `https://fryxz3d12d.execute-api.us-east-1.amazonaws.com/production/musicians/navy`
         );
         setMusicians(response.data.musicians);
         setLoading(false);
