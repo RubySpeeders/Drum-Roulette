@@ -22,6 +22,15 @@ export const theme: Theme = createTheme({
         }
       `,
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          width: "fit-content",
+          textTransform: "none",
+          lineHeight: "1.5em",
+        },
+      },
+    },
   },
   palette: {
     primary: {
