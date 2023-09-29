@@ -30,6 +30,16 @@ export const theme: Theme = createTheme({
           lineHeight: "1.5em",
         },
       },
+      variants: [
+        {
+          props: { variant: "contained", color: "primary" },
+          style: {
+            "&:hover": {
+              backgroundColor: "#4A2462",
+            },
+          },
+        },
+      ],
     },
   },
   palette: {
