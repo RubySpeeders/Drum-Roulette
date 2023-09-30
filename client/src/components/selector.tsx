@@ -1,12 +1,14 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Box, Button, Grid, Typography } from "@mui/material";
-import { useRouter } from "next/router";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
-import axios from "axios";
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
+import Link from "next/link";
+import { shuffle } from "lodash";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -39,8 +41,13 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Selection() {
+export default function Selector({
+  musiciansData,
+}: {
+  musiciansData: Musician[];
+}) {
   const classes = useStyles();
+  const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
   const [instruments, setInstruments] = useState<Instrument[]>([
     {
       id: 1,
@@ -74,25 +81,7 @@ export default function Selection() {
     },
   ]);
 
-  const [loading, setLoading] = useState(true);
-  const [musicians, setMusicians] = useState<Musician[]>([]);
   const [isSelected, setIsSelected] = useState(false);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          //when we have more branches, we could move this url elsewhere for cleaner code
-          `https://fryxz3d12d.execute-api.us-east-1.amazonaws.com/production/musicians/navy`
-        );
-        setMusicians(response.data.musicians);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   const selectedEqual =
     instruments.filter((instrument) => instrument.selected).length ===
@@ -135,7 +124,21 @@ export default function Selection() {
     setInstruments(nextInstrument);
   };
 
-  const router = useRouter();
+  const assign = (musicians: Musician[], instruments: Instrument[]) => {
+    const selectedMusicians = musicians.filter((musician) => musician.selected);
+    const selectedInstruments = instruments.filter(
+      (instrument) => instrument.selected
+    );
+
+    const shuffledMusicians = shuffle(selectedMusicians);
+    const shuffledInstruments = shuffle(selectedInstruments);
+
+    const assignment = shuffledMusicians.map((musician, i) => {
+      return { musician: musician, instrument: shuffledInstruments[i], id: i };
+    });
+
+    return assignment;
+  };
 
   return (
     <>
@@ -144,37 +147,31 @@ export default function Selection() {
           <Box className={classNames(classes.container)}>
             <h2>Select Musicians</h2>
             <div className={classNames(classes.musicians)}>
-              {loading ? (
-                <p>Loading...</p>
-              ) : (
-                <>
-                  {musicians.map((musician: Musician) => (
-                    <div
-                      key={musician.user_id}
-                      className={classNames(classes.card)}
-                    >
-                      <div
-                        className={classNames(classes.image, {
-                          [classes.selected]: musician.selected,
-                        })}
-                        key={musician.user_id}
-                        onClick={() => handleClickMusician(musician)}
-                      >
-                        <Image
-                          priority={true}
-                          src={musician.image}
-                          alt={`select ${musician.first_name}`}
-                          width={200}
-                          height={280}
-                        />
-                      </div>
-                      <Typography style={{ marginTop: "5%" }}>
-                        {musician.first_name} {musician.last_name}
-                      </Typography>
-                    </div>
-                  ))}
-                </>
-              )}
+              {musicians.map((musician: Musician) => (
+                <div
+                  key={musician.user_id}
+                  className={classNames(classes.card)}
+                >
+                  <div
+                    className={classNames(classes.image, {
+                      [classes.selected]: musician.selected,
+                    })}
+                    key={musician.user_id}
+                    onClick={() => handleClickMusician(musician)}
+                  >
+                    <Image
+                      priority
+                      src={musician.image}
+                      alt={`select ${musician.first_name}`}
+                      width={200}
+                      height={280}
+                    />
+                  </div>
+                  <Typography style={{ marginTop: "5%" }}>
+                    {musician.first_name} {musician.last_name}
+                  </Typography>
+                </div>
+              ))}
             </div>
           </Box>
         </Grid>
@@ -192,7 +189,8 @@ export default function Selection() {
                     onClick={() => handleClickInstrument(instrument)}
                   >
                     <Image
-                      src={instrument.img}
+                      priority={true}
+                      src={instrument.img || "asdfadf"}
                       alt={`select ${instrument.name}`}
                       width={200}
                       height={200}
@@ -207,29 +205,33 @@ export default function Selection() {
           </Box>
         </Grid>
       </Grid>
-      <Button
-        variant="contained"
-        onClick={(e) => {
-          e.preventDefault();
-          const selectedMusicians = musicians.filter(
-            (musician) => musician.selected
-          );
-          const selectedInstruments = instruments.filter(
-            (instrument) => instrument.selected
-          );
-          router.push({
+      {/* only render link tag if selection criteria are met */}
+      {!isSelected || !selectedEqual ? (
+        <Button
+          variant="contained"
+          disabled={!isSelected || !selectedEqual}
+          type={"button"}
+        >
+          Give me assignments!
+        </Button>
+      ) : (
+        <Link
+          href={{
             pathname: "/assignments",
             query: {
-              musicians: JSON.stringify(selectedMusicians),
-              instruments: JSON.stringify(selectedInstruments),
+              assignments: JSON.stringify(assign(musicians, instruments)),
             },
-          });
-        }}
-        disabled={!isSelected || !selectedEqual}
-        type={"button"}
-      >
-        Give me assignments!
-      </Button>
+          }}
+        >
+          <Button
+            variant="contained"
+            disabled={!isSelected || !selectedEqual}
+            type={"button"}
+          >
+            Give me assignments!
+          </Button>
+        </Link>
+      )}
     </>
   );
 }
