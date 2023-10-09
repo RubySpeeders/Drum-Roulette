@@ -15,6 +15,11 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  grid: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
   card: {
     display: "flex",
     flexDirection: "column",
@@ -179,16 +184,7 @@ export default function Selection() {
             </div>
           </Box>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={6}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classNames(classes.container)}>
             <h2>Select Instruments</h2>
             <div className={classNames(classes.musicians)}>
