@@ -7,9 +7,15 @@ import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
+import { CustomButton } from "@/components/CustomButton";
 
 const useStyles = makeStyles(() => ({
   container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  grid: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -178,7 +184,7 @@ export default function Selection() {
             </div>
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classNames(classes.container)}>
             <h2>Select Instruments</h2>
             <div className={classNames(classes.musicians)}>
@@ -205,31 +211,30 @@ export default function Selection() {
               ))}
             </div>
           </Box>
+          <CustomButton
+            variant="contained"
+            onClick={(e) => {
+              e.preventDefault();
+              const selectedMusicians = musicians.filter(
+                (musician) => musician.selected
+              );
+              const selectedInstruments = instruments.filter(
+                (instrument) => instrument.selected
+              );
+              router.push({
+                pathname: "/assignments",
+                query: {
+                  musicians: JSON.stringify(selectedMusicians),
+                  instruments: JSON.stringify(selectedInstruments),
+                },
+              });
+            }}
+            disabled={!isSelected || !selectedEqual}
+          >
+            Assign
+          </CustomButton>
         </Grid>
       </Grid>
-      <Button
-        variant="contained"
-        onClick={(e) => {
-          e.preventDefault();
-          const selectedMusicians = musicians.filter(
-            (musician) => musician.selected
-          );
-          const selectedInstruments = instruments.filter(
-            (instrument) => instrument.selected
-          );
-          router.push({
-            pathname: "/assignments",
-            query: {
-              musicians: JSON.stringify(selectedMusicians),
-              instruments: JSON.stringify(selectedInstruments),
-            },
-          });
-        }}
-        disabled={!isSelected || !selectedEqual}
-        type={"button"}
-      >
-        Give me assignments!
-      </Button>
     </>
   );
 }
