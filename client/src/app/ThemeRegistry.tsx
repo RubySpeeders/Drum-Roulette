@@ -2,7 +2,7 @@
 "use client";
 import createCache from "@emotion/cache";
 import { useServerInsertedHTML } from "next/navigation";
-import { CacheProvider, Theme } from "@emotion/react";
+import { CacheProvider } from "@emotion/react";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { theme } from "../styles/theme";

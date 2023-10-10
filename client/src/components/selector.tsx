@@ -8,7 +8,13 @@ import { makeStyles } from "@mui/styles";
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
 import Link from "next/link";
-import { shuffle } from "lodash";
+import assign from "@/utils/assign";
+import { SelectItemCard } from "./selectItemCard";
+
+interface Props {
+  musiciansData: Musician[];
+  instrumentsData: Instrument[];
+}
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -41,45 +47,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Selector({
-  musiciansData,
-}: {
-  musiciansData: Musician[];
-}) {
+export default function Selector({ musiciansData, instrumentsData }: Props) {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
-  const [instruments, setInstruments] = useState<Instrument[]>([
-    {
-      id: 1,
-      name: "Bass Drum",
-      selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/BD_pic.png",
-    },
-    {
-      id: 2,
-      name: "Snare Drum",
-      selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/SD_pic.png",
-    },
-    {
-      id: 3,
-      name: "Tenor Drum",
-      selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/TD_pic.png",
-    },
-    {
-      id: 4,
-      name: "Cymbals",
-      selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/Cym_pic.png",
-    },
-    {
-      id: 5,
-      name: "BD & Cym",
-      selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/BD_Cym_pic.png",
-    },
-  ]);
+  const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
 
   const [isSelected, setIsSelected] = useState(false);
 
@@ -124,22 +95,6 @@ export default function Selector({
     setInstruments(nextInstrument);
   };
 
-  const assign = (musicians: Musician[], instruments: Instrument[]) => {
-    const selectedMusicians = musicians.filter((musician) => musician.selected);
-    const selectedInstruments = instruments.filter(
-      (instrument) => instrument.selected
-    );
-
-    const shuffledMusicians = shuffle(selectedMusicians);
-    const shuffledInstruments = shuffle(selectedInstruments);
-
-    const assignment = shuffledMusicians.map((musician, i) => {
-      return { musician: musician, instrument: shuffledInstruments[i], id: i };
-    });
-
-    return assignment;
-  };
-
   return (
     <>
       <Grid container>
@@ -148,29 +103,10 @@ export default function Selector({
             <h2>Select Musicians</h2>
             <div className={classNames(classes.musicians)}>
               {musicians.map((musician: Musician) => (
-                <div
-                  key={musician.user_id}
-                  className={classNames(classes.card)}
-                >
-                  <div
-                    className={classNames(classes.image, {
-                      [classes.selected]: musician.selected,
-                    })}
-                    key={musician.user_id}
-                    onClick={() => handleClickMusician(musician)}
-                  >
-                    <Image
-                      priority
-                      src={musician.image}
-                      alt={`select ${musician.first_name}`}
-                      width={200}
-                      height={280}
-                    />
-                  </div>
-                  <Typography style={{ marginTop: "5%" }}>
-                    {musician.first_name} {musician.last_name}
-                  </Typography>
-                </div>
+                <SelectItemCard
+                  item={musician}
+                  handleClick={handleClickMusician}
+                />
               ))}
             </div>
           </Box>
