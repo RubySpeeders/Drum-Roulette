@@ -35,12 +35,11 @@ const useStyles = makeStyles(() => ({
 export const SelectItemCard = ({ item, handleClick }: Props) => {
   const classes = useStyles();
   return (
-    <div key={item.user_id} className={classNames(classes.card)}>
+    <div className={classNames(classes.card)}>
       <div
         className={classNames(classes.image, {
           [classes.selected]: item.selected,
         })}
-        key={item.user_id}
         onClick={() => handleClick(item)}
       >
         <Image

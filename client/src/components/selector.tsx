@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
 import { Musician } from "@/interfaces/musician";
@@ -10,6 +10,8 @@ import { Instrument } from "@/interfaces/instrument";
 import Link from "next/link";
 import assign from "@/utils/assign";
 import { SelectItemCard } from "./selectItemCard";
+import { CustomButton } from "./CustomButton";
+import { isTemplateExpression } from "typescript";
 
 interface Props {
   musiciansData: Musician[];
@@ -45,11 +47,17 @@ const useStyles = makeStyles(() => ({
     flexWrap: "wrap",
     justifyContent: "space-evenly",
   },
+  grid: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
 }));
 
 export default function Selector({ musiciansData, instrumentsData }: Props) {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
+  console.log({ musicians });
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
 
   const [isSelected, setIsSelected] = useState(false);
@@ -98,12 +106,13 @@ export default function Selector({ musiciansData, instrumentsData }: Props) {
   return (
     <>
       <Grid container>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classNames(classes.container)}>
             <h2>Select Musicians</h2>
             <div className={classNames(classes.musicians)}>
               {musicians.map((musician: Musician) => (
                 <SelectItemCard
+                  key={musician.user_id}
                   item={musician}
                   handleClick={handleClickMusician}
                 />
@@ -139,35 +148,33 @@ export default function Selector({ musiciansData, instrumentsData }: Props) {
               ))}
             </div>
           </Box>
+          {/* only render link tag if selection criteria are met */}
+          {!isSelected || !selectedEqual ? (
+            <CustomButton
+              variant="contained"
+              disabled={!isSelected || !selectedEqual}
+            >
+              Assign
+            </CustomButton>
+          ) : (
+            <Link
+              href={{
+                pathname: "/assignments",
+                query: {
+                  assignments: JSON.stringify(assign(musicians, instruments)),
+                },
+              }}
+            >
+              <CustomButton
+                variant="contained"
+                disabled={!isSelected || !selectedEqual}
+              >
+                Assign
+              </CustomButton>
+            </Link>
+          )}
         </Grid>
       </Grid>
-      {/* only render link tag if selection criteria are met */}
-      {!isSelected || !selectedEqual ? (
-        <Button
-          variant="contained"
-          disabled={!isSelected || !selectedEqual}
-          type={"button"}
-        >
-          Give me assignments!
-        </Button>
-      ) : (
-        <Link
-          href={{
-            pathname: "/assignments",
-            query: {
-              assignments: JSON.stringify(assign(musicians, instruments)),
-            },
-          }}
-        >
-          <Button
-            variant="contained"
-            disabled={!isSelected || !selectedEqual}
-            type={"button"}
-          >
-            Give me assignments!
-          </Button>
-        </Link>
-      )}
     </>
   );
 }
