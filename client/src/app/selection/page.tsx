@@ -11,31 +11,32 @@ export default async function Selection() {
       id: 1,
       name: "Bass Drum",
       selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/BD_pic.png",
+      image: "https://server.pickyourdrum.link/files/instruments/BD_pic.png",
     },
     {
       id: 2,
       name: "Snare Drum",
       selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/SD_pic.png",
+      image: "https://server.pickyourdrum.link/files/instruments/SD_pic.png",
     },
     {
       id: 3,
       name: "Tenor Drum",
       selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/TD_pic.png",
+      image: "https://server.pickyourdrum.link/files/instruments/TD_pic.png",
     },
     {
       id: 4,
       name: "Cymbals",
       selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/Cym_pic.png",
+      image: "https://server.pickyourdrum.link/files/instruments/Cym_pic.png",
     },
     {
       id: 5,
       name: "BD & Cym",
       selected: false,
-      img: "https://server.pickyourdrum.link/files/instruments/BD_Cym_pic.png",
+      image:
+        "https://server.pickyourdrum.link/files/instruments/BD_Cym_pic.png",
     },
   ];
 

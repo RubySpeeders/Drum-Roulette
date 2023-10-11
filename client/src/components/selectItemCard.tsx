@@ -7,8 +7,8 @@ import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 interface Props {
-  item: Musician;
-  handleClick: (item: Musician) => void;
+  item: Musician | Instrument;
+  onClick: (item: Musician | Instrument) => void;
 }
 
 const useStyles = makeStyles(() => ({
@@ -32,7 +32,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const SelectItemCard = ({ item, handleClick }: Props) => {
+export const SelectItemCard = ({ item, onClick }: Props) => {
+  const handleClick = () => {
+    onClick(item);
+  };
   const classes = useStyles();
   return (
     <div className={classNames(classes.card)}>
@@ -40,18 +43,18 @@ export const SelectItemCard = ({ item, handleClick }: Props) => {
         className={classNames(classes.image, {
           [classes.selected]: item.selected,
         })}
-        onClick={() => handleClick(item)}
+        onClick={handleClick}
       >
         <Image
           priority
           src={item.image}
-          alt={`select ${item.first_name}`}
+          alt={`select ${"first_name" in item ? item.first_name : item.name}`}
           width={200}
           height={280}
         />
       </div>
       <Typography style={{ marginTop: "5%" }}>
-        {item.first_name} {item.last_name}
+        {"first_name" in item ? item.first_name : item.name}
       </Typography>
     </div>
   );

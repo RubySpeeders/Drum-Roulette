@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
 import { Musician } from "@/interfaces/musician";
@@ -11,7 +10,6 @@ import Link from "next/link";
 import assign from "@/utils/assign";
 import { SelectItemCard } from "./selectItemCard";
 import { CustomButton } from "./CustomButton";
-import { isTemplateExpression } from "typescript";
 
 interface Props {
   musiciansData: Musician[];
@@ -57,7 +55,6 @@ const useStyles = makeStyles(() => ({
 export default function Selector({ musiciansData, instrumentsData }: Props) {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
-  console.log({ musicians });
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
 
   const [isSelected, setIsSelected] = useState(false);
@@ -81,26 +78,26 @@ export default function Selector({ musiciansData, instrumentsData }: Props) {
     setIsSelected(isSelected);
   }, [instruments, musicians]);
 
-  const handleClickMusician = (item: Musician) => {
-    const nextMusician = musicians.map((musician) => {
-      if (musician.user_id === item.user_id) {
-        return { ...musician, selected: !item.selected };
-      } else {
-        return musician;
-      }
-    });
-    setMusicians(nextMusician);
-  };
-
-  const handleClickInstrument = (item: Instrument) => {
-    const nextInstrument = instruments.map((instrument) => {
-      if (instrument.name === item.name) {
-        return { ...instrument, selected: !item.selected };
-      } else {
-        return instrument;
-      }
-    });
-    setInstruments(nextInstrument);
+  const handleClickItem = (item: Musician | Instrument) => {
+    if ("user_id" in item) {
+      const nextMusicians = musicians.map((musician) => {
+        if (musician.user_id === item.user_id) {
+          return { ...musician, selected: !item.selected };
+        } else {
+          return musician;
+        }
+      });
+      setMusicians(nextMusicians);
+    } else {
+      const nextInstruments = instruments.map((instrument) => {
+        if (instrument.name === item.name) {
+          return { ...instrument, selected: !item.selected };
+        } else {
+          return instrument;
+        }
+      });
+      setInstruments(nextInstruments);
+    }
   };
 
   return (
@@ -114,7 +111,7 @@ export default function Selector({ musiciansData, instrumentsData }: Props) {
                 <SelectItemCard
                   key={musician.user_id}
                   item={musician}
-                  handleClick={handleClickMusician}
+                  onClick={() => handleClickItem(musician)}
                 />
               ))}
             </div>
@@ -125,26 +122,11 @@ export default function Selector({ musiciansData, instrumentsData }: Props) {
             <h2>Select Instruments</h2>
             <div className={classNames(classes.musicians)}>
               {instruments.map((instrument: Instrument) => (
-                <div key={instrument.name} className={classNames(classes.card)}>
-                  <div
-                    className={classNames(classes.image, {
-                      [classes.selected]: instrument.selected,
-                    })}
-                    key={instrument.name}
-                    onClick={() => handleClickInstrument(instrument)}
-                  >
-                    <Image
-                      priority={true}
-                      src={instrument.img || "asdfadf"}
-                      alt={`select ${instrument.name}`}
-                      width={200}
-                      height={200}
-                    />
-                  </div>
-                  <Typography style={{ marginTop: "5%" }}>
-                    {instrument.name}
-                  </Typography>
-                </div>
+                <SelectItemCard
+                  key={instrument.id}
+                  item={instrument}
+                  onClick={() => handleClickItem(instrument)}
+                />
               ))}
             </div>
           </Box>
