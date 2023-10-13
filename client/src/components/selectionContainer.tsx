@@ -52,7 +52,10 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Selector({ musiciansData, instrumentsData }: Props) {
+export default function SelectionContainer({
+  musiciansData,
+  instrumentsData,
+}: Props) {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);

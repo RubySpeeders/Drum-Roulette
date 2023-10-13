@@ -1,4 +1,4 @@
-import Selector from "@/components/selector";
+import SelectionContainer from "@/components/selectionContainer";
 import getMusicians from "@/utils/api/getMusicians";
 
 export default async function Selection() {
@@ -41,7 +41,7 @@ export default async function Selection() {
   ];
 
   return (
-    <Selector
+    <SelectionContainer
       musiciansData={musiciansData.musicians}
       instrumentsData={instruments}
     />
