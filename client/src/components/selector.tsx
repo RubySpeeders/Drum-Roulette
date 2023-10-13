@@ -8,7 +8,7 @@ import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
 import Link from "next/link";
 import assign from "@/utils/assign";
-import { SelectItemCard } from "./selectItemCard";
+import { ItemCard } from "./itemCard";
 import { CustomButton } from "./CustomButton";
 
 interface Props {
@@ -108,7 +108,7 @@ export default function Selector({ musiciansData, instrumentsData }: Props) {
             <h2>Select Musicians</h2>
             <div className={classNames(classes.musicians)}>
               {musicians.map((musician: Musician) => (
-                <SelectItemCard
+                <ItemCard
                   key={musician.user_id}
                   item={musician}
                   onClick={() => handleClickItem(musician)}
@@ -122,7 +122,7 @@ export default function Selector({ musiciansData, instrumentsData }: Props) {
             <h2>Select Instruments</h2>
             <div className={classNames(classes.musicians)}>
               {instruments.map((instrument: Instrument) => (
-                <SelectItemCard
+                <ItemCard
                   key={instrument.id}
                   item={instrument}
                   onClick={() => handleClickItem(instrument)}

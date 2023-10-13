@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const SelectItemCard = ({ item, onClick }: Props) => {
+export const ItemCard = ({ item, onClick }: Props) => {
   const handleClick = () => {
     onClick(item);
   };
@@ -48,13 +48,19 @@ export const SelectItemCard = ({ item, onClick }: Props) => {
         <Image
           priority
           src={item.image}
-          alt={`select ${"first_name" in item ? item.first_name : item.name}`}
+          alt={`select ${
+            "first_name" in item
+              ? `${item.first_name} ${item.last_name}`
+              : item.name
+          }`}
           width={200}
           height={280}
         />
       </div>
       <Typography style={{ marginTop: "5%" }}>
-        {"first_name" in item ? item.first_name : item.name}
+        {"first_name" in item
+          ? `${item.first_name} ${item.last_name}`
+          : item.name}
       </Typography>
     </div>
   );
