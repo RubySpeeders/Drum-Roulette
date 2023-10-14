@@ -75,7 +75,7 @@ export default function Assignments() {
             <div className={classNames(classes.card)}>
               <div className={classNames(classes.image)}>
                 <Image
-                  src={assignment.instrument.img}
+                  src={assignment.instrument.image}
                   alt={`assigned instrument is ${assignment.instrument.name}`}
                   width={200}
                   height={200}

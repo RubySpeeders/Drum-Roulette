@@ -22,10 +22,29 @@ export const theme: Theme = createTheme({
         }
       `,
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          width: "fit-content",
+          textTransform: "none",
+          lineHeight: "1.5em",
+        },
+      },
+      variants: [
+        {
+          props: { variant: "contained", color: "primary" },
+          style: {
+            "&:hover": {
+              backgroundColor: "#4A2462",
+            },
+          },
+        },
+      ],
+    },
   },
   palette: {
     primary: {
-      main: "#B2B4CB",
+      main: "#8763C4",
     },
     secondary: {
       main: "#515A6B",
