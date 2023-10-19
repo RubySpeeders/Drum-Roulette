@@ -1,9 +1,7 @@
+"use client";
+
 import { Typography, Button } from "@mui/material";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { shuffle } from "lodash";
-import { Musician } from "@/interfaces/musician";
-import { Instrument } from "@/interfaces/instrument";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Assignment } from "@/interfaces/assignment";
 import Image from "next/image";
 import { makeStyles } from "@mui/styles";
@@ -35,25 +33,10 @@ const useStyles = makeStyles(() => ({
 
 export default function Assignments() {
   const classes = useStyles();
-  const [assignments, setAssignments] = useState<Assignment[]>([]);
   const router = useRouter();
-  const { musicians, instruments } = router.query;
-  const parsedMusicians = musicians ? JSON.parse(musicians as string) : [];
-  const parsedInstruments = instruments
-    ? JSON.parse(instruments as string)
-    : [];
-  const assign = (musicians: Musician[], instruments: Instrument[]) => {
-    const shuffledMusicians = shuffle(musicians);
-    const shuffledInstruments = shuffle(instruments);
-    const nextAssignment = shuffledMusicians.map((musician, i) => {
-      return { musician: musician, instrument: shuffledInstruments[i], id: i };
-    });
-    setAssignments(nextAssignment);
-  };
+  const searchParams = useSearchParams();
 
-  useEffect(() => {
-    assign(parsedMusicians, parsedInstruments);
-  }, []);
+  const assignments = JSON.parse(searchParams.get("assignments") as string);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -64,16 +47,14 @@ export default function Assignments() {
           onClick={(e) => {
             e.preventDefault();
 
-            router.push({
-              pathname: "/selection",
-            });
+            router.push("/selection");
           }}
           type={"button"}
         >
           Return to Selection Page
         </Button>
       </div>
-      {assignments.map((assignment) => {
+      {assignments.map((assignment: Assignment) => {
         return (
           <div
             key={assignment.musician.user_id}
@@ -82,7 +63,7 @@ export default function Assignments() {
             <div className={classNames(classes.card)}>
               <div className={classNames(classes.image)}>
                 <Image
-                  priority={true}
+                  priority
                   src={assignment.musician.image}
                   alt={`assigned musician is ${assignment.musician.first_name}`}
                   width={200}
@@ -94,7 +75,7 @@ export default function Assignments() {
             <div className={classNames(classes.card)}>
               <div className={classNames(classes.image)}>
                 <Image
-                  src={assignment.instrument.img}
+                  src={assignment.instrument.image}
                   alt={`assigned instrument is ${assignment.instrument.name}`}
                   width={200}
                   height={200}
