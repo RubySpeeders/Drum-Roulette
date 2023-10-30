@@ -5,6 +5,7 @@ import Image from "next/image";
 import navyLogo from "../../public/assets/images/USNavy-Band-Logo.png";
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { Branch } from "@/interfaces/branch";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -39,22 +40,38 @@ const useStyles = makeStyles((theme) => ({
 export default function Landing() {
   const classes = useStyles();
 
+  const branches: Branch[] = [
+    { branch_id: 1, branch_name: "Navy" },
+    { branch_id: 2, branch_name: "Navy" },
+    { branch_id: 3, branch_name: "Navy" },
+    { branch_id: 4, branch_name: "Navy" },
+  ];
+
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>Drum Roulette</h1>
       <h2 className={classes.subtitle}>
-        randomly generate band percussion assignments with one click
+        randomly generate band percussion assignments with just a few clicks
       </h2>
       <h3 className={classes.subtitle}>Please Select Your Branch</h3>
-      <Link href="/selection">
-        <Image
-          priority
-          src={navyLogo}
-          alt="Click to select Navy"
-          className={classes.image}
-        />
-        <Typography className={classes.bandName}>US Navy Band</Typography>
-      </Link>
+      <div style={{ display: "flex" }}>
+        {branches.map((branch) => (
+          <Link
+            href="/selection"
+            style={{ display: "flex", flexDirection: "column" }}
+          >
+            <Image
+              priority
+              src={navyLogo}
+              alt={`Click to select ${branch.branch_name}`}
+              className={classes.image}
+            />
+            <Typography className={classes.bandName}>
+              {branch.branch_name}
+            </Typography>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
