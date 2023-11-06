@@ -82,9 +82,9 @@ export default function SelectionContainer({
   }, [instruments, musicians]);
 
   const handleClickItem = (item: Musician | Instrument) => {
-    if ("user_id" in item) {
+    if ("musician_id" in item) {
       const nextMusicians = musicians.map((musician) => {
-        if (musician.user_id === item.user_id) {
+        if (musician.musician_id === item.musician_id) {
           return { ...musician, selected: !item.selected };
         } else {
           return musician;
@@ -112,7 +112,7 @@ export default function SelectionContainer({
             <div className={classNames(classes.musicians)}>
               {musicians.map((musician: Musician) => (
                 <ItemCard
-                  key={musician.user_id}
+                  key={musician.musician_id}
                   item={musician}
                   onClick={() => handleClickItem(musician)}
                 />
