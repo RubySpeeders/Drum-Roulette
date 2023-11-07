@@ -3,7 +3,7 @@ name: Deploy Lambda Function
 on:
   push:
     branches:
-      - develop
+      - DR-79-deploy-lambdas
 
 jobs:
   deploy:
@@ -22,7 +22,6 @@ jobs:
         run: |
           ls -la
           ls -R
-          ls -la /path/to/directory
 
       - name: Install AWS CLI
         run: |
