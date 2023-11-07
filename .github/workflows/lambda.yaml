@@ -24,8 +24,9 @@ jobs:
           ls -la
           ls -R
           unzip awscliv2.zip
+          cd ~/usr/local/aws-cli/v2/current/bin
           sudo ./aws/install
-        working-directory: /usr/local/aws-cli/v2/current/bin
+        working-directory: /usr/local/bin
 
       - name: Deploy Lambda
         run: |
