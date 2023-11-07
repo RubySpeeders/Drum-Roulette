@@ -18,11 +18,11 @@ jobs:
         with:
           node-version: 14
 
-      - name: Change working directory to 'lambda'
+      - name: Debug Information
         run: |
-          cd backend/lambda
-          mkdir aws
-          cd aws
+          ls -la
+          ls -R
+          ls -la /path/to/directory
 
       - name: Install AWS CLI
         run: |
