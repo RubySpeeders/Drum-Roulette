@@ -18,15 +18,12 @@ jobs:
         with:
           node-version: 14
 
-      - name: Debug Information
-        run: |
-          ls -la
-          ls -R
-
       - name: Install AWS CLI
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
+          ls -la
+          ls -R
           sudo ./aws/install
         working-directory: /usr/local/bin
 
