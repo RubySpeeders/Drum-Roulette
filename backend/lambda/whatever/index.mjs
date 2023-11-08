@@ -26,34 +26,15 @@ export const handler = async (event) => {
     // Connect to the database
     await client.connect();
 
-    const branchName = "Navy";
-
     // Your SQL query
-    const query = `SELECT musician_id, first_name, last_name, ensemble.ensemble_id, ensemble_name, branch.branch_id, branch_name, nickname.nickname_id, nickname.nickname, musician.image FROM musician INNER JOIN ensemble ON ensemble.ensemble_id = musician.ensemble_id INNER JOIN branch ON ensemble.branch_id = branch.branch_id LEFT JOIN nickname ON branch.nickname_id = nickname.nickname_id WHERE branch.branch_name LIKE $1`;
+    const query =
+      "SELECT user_id, first_name, last_name, ensemble.ensemble_id, ensemble_name, branch.branch_id, branch_name, image FROM users INNER JOIN ensemble ON ensemble.ensemble_id = users.ensemble_id INNER JOIN branch ON ensemble.branch_id = branch.branch_id";
 
     // Execute the query
-    const result = await client.query(query, [branchName]);
+    const result = await client.query(query);
 
     // Log the results (for demonstration)
     console.log("Query Result:", result.rows);
-
-    // transform the data into json that the front end can consume easily.
-    // In other words, combine returned resources in order to modify the returned json structure
-    const transformedData = result.rows.map((row) => ({
-      musician_id: row.musician_id,
-      first_name: row.first_name,
-      last_name: row.last_name,
-      ensemble: {
-        ensemble_id: row.ensemble_id,
-        ensemble_name: row.ensemble_name,
-      },
-      branch: {
-        branch_id: row.branch_id,
-        branch_name: row.branch_name,
-        branch_nickname: row.nickname,
-      },
-      image: row.image,
-    }));
 
     // Close the client connection
     await client.end();
@@ -62,7 +43,6 @@ export const handler = async (event) => {
       statusCode: 200,
       body: JSON.stringify({
         message: "Query executed successfully",
-        musicians: transformedData,
       }),
     };
   } catch (error) {

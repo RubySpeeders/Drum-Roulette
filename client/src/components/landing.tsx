@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import navyLogo from "../../public/assets/images/USNavy-Band-Logo.png";
@@ -34,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Assignments() {
+export default function Landing() {
   const classes = useStyles();
 
   return (
@@ -46,6 +48,7 @@ export default function Assignments() {
       <h3 className={classes.subtitle}>Please Select Your Branch</h3>
       <Link href="/selection">
         <Image
+          priority
           src={navyLogo}
           alt="Click to select Navy"
           className={classes.image}
