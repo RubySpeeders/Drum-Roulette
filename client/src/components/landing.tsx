@@ -2,59 +2,94 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import navyLogo from "../../public/assets/images/USNavy-Band-Logo.png";
+import drLogo from "../../public/assets/images/dr-logo-white.png";
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import { Branch } from "@/interfaces/branch";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    width: "100vw",
-    height: "100vh",
-    padding: "0 15% 0 50vw",
+    padding: "4rem",
+    maxWidth: "100vw",
+    overflowX: "hidden",
   },
-  title: {
+  logoContainer: {
+    marginBottom: "4rem",
+  },
+  h2: {
     fontSize: "3rem",
     fontWeight: "600",
-    marginBottom: "50px",
+    margin: "0 0 10px 0",
   },
-  subtitle: {
-    fontSize: "1.8rem",
-    fontWeight: "400",
-    marginBottom: "50px",
+  h3: {
+    fontSize: "2rem",
+    fontWeight: "600",
+    margin: "0 0 5.2rem 0",
   },
-  bandName: {
-    width: "120px",
+  h4: {
+    fontSize: "1.5rem",
+    fontWeight: "600",
+    margin: "0 0 4rem 0",
+  },
+  branchesContainer: {
+    display: "flex",
+    gap: "1.5rem",
+    maxWidth: "100vw",
+    flexWrap: "wrap",
+  },
+  branchName: {
+    fontSize: "2rem",
+    fontWeight: "600",
     textAlign: "center",
     color: theme.palette.text.primary,
   },
+  imageContainer: {
+    width: "305px",
+    height: "305px",
+    position: "relative",
+  },
   image: {
-    height: 120,
-    width: 120,
+    borderRadius: 9999,
+    objectFit: "cover",
   },
 }));
 
-export default function Landing() {
+interface Props {
+  branches: Branch[];
+}
+
+export default function Landing({ branches }: Props) {
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>Drum Roulette</h1>
-      <h2 className={classes.subtitle}>
-        randomly generate band percussion assignments with one click
-      </h2>
-      <h3 className={classes.subtitle}>Please Select Your Branch</h3>
-      <Link href="/selection">
-        <Image
-          priority
-          src={navyLogo}
-          alt="Click to select Navy"
-          className={classes.image}
-        />
-        <Typography className={classes.bandName}>US Navy Band</Typography>
-      </Link>
+      <div className={classes.logoContainer}>
+        <Image alt="Drum Roulette Logo" src={drLogo} priority />
+      </div>
+      <h2 className={classes.h2}>Hello!</h2>
+      <h3 className={classes.h3}>
+        Randomly generate band percussion assignments with just a few clicks.
+      </h3>
+      <h4 className={classes.h4}>Select Branch</h4>
+      <div className={classes.branchesContainer}>
+        {branches.map((branch) => (
+          <Link key={branch.branch_id} href="/selection">
+            <div className={classes.imageContainer}>
+              <Image
+                fill
+                priority
+                sizes="25vw"
+                src={branch.image}
+                alt={`Click to select ${branch.branch_name}`}
+                className={classes.image}
+              />
+            </div>
+            <Typography className={classes.branchName}>
+              {branch.branch_name}
+            </Typography>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
