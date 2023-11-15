@@ -18,15 +18,8 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install AWS CLI
-        run: |
-          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          ls -la
-          ls -R
-          unzip awscliv2.zip
-          cd ~/usr/local/aws-cli/v2/current/bin
-          sudo ./aws/install
-        working-directory: /usr/local/bin
+      - name: AWS cli install action
+        uses: chrislennon/action-aws-cli@1.1
 
       - name: Deploy Lambda
         run: |
