@@ -9,11 +9,11 @@ export const handler = async (event) => {
 
   // Use environment variables for database configuration
   const dbConfig = {
-    host: process.env.HOST || "localhost", // Use environment variable or default to 'localhost'
-    database: process.env.DB || "your_database_name", // Use environment variable or provide a default
-    user: process.env.USER || "your_database_user", // Use environment variable or provide a default
-    password: process.env.PW || "your_database_password", // Use environment variable or provide a default
-    port: process.env.PORT, // Default PostgreSQL port
+    host: process.env.HOST || "localhost",
+    database: process.env.DB || "your_database_name",
+    user: process.env.USER || "your_database_user",
+    password: process.env.PW || "your_database_password",
+    port: process.env.PORT,
     ssl: {
       rejectUnauthorized: false, // Set to true if you want to reject unauthorized certificates
     },
