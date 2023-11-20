@@ -21,10 +21,23 @@ jobs:
       - name: AWS cli install action
         uses: chrislennon/action-aws-cli@1.1
 
-      - name: Deploy Lambda
+      - name: Create Lambda Function
         run: |
-          aws lambda update-function-code --function-name whatever --zip-file fileb://./backend/lambda/whatever/whatever.zip
+          aws lambda create-function \
+            --function-name whatever \
+            --runtime Node.js 20.x \
+            --handler whatever/index.handler \
+            --role service-role/getMusicians-role-ruwdgkyv \
+            --zip-file fileb://./backend/lambda/whatever/whatever.zip
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      # - name: Deploy Lambda
+      #   run: |
+      #     aws lambda update-function-code --function-name whatever --zip-file fileb://./backend/lambda/whatever/whatever.zip
+      #   env:
+      #     AWS_DEFAULT_REGION: us-east-1
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
