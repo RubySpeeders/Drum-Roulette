@@ -27,7 +27,7 @@ jobs:
             --function-name whatever \
             --runtime Node.js \
             --handler whatever/index.handler \
-            --role service-role/getMusicians-role-ruwdgkyv \
+            --role arn:aws:iam:us-east-1:${{ secrets.AWS_ACCOUNT_ID }}:role/getMusicians-role-ruwdgkyv \
             --zip-file fileb://./backend/lambda/whatever/whatever.zip
         env:
           AWS_DEFAULT_REGION: us-east-1
