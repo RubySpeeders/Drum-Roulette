@@ -25,7 +25,7 @@ jobs:
         run: |
           aws lambda create-function \
             --function-name whatever \
-            --runtime Node.js 20 \
+            --runtime Node.js \
             --handler whatever/index.handler \
             --role service-role/getMusicians-role-ruwdgkyv \
             --zip-file fileb://./backend/lambda/whatever/whatever.zip
