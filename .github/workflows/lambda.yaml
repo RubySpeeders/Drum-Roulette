@@ -23,7 +23,7 @@ jobs:
 
       - name: Deploy Lambda
         run: |
-          aws lambda update-function-code --function-name whatever --zip-file fileb://./backend/lambda/whatever.zip
+          aws lambda update-function-code --function-name whatever --zip-file fileb://./backend/lambda/whatever/Archive.zip
         env:
           AWS_DEFAULT_REGION: us-east-1
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
