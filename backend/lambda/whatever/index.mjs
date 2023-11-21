@@ -2,7 +2,7 @@ import pkg from "pg";
 const { Client } = pkg;
 
 //dude where's this message!
-//another message. count ++
+//this should be visible in lambda.
 
 export const handler = async (event) => {
   console.log("Lambda function invoked:", new Date().toISOString());
