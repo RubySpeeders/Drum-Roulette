@@ -9,7 +9,7 @@ import { Instrument } from "@/interfaces/instrument";
 import Link from "next/link";
 import assign from "@/utils/assign";
 import { ItemCard } from "./itemCard";
-import { CustomButton } from "./CustomButton";
+import { CustomButton } from "./customButton";
 
 interface Props {
   musiciansData: Musician[];

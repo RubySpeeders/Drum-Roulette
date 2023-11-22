@@ -1,0 +1,65 @@
+name: Deploy Lambda Function
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: List Lambda Directories
+        id: list-directories
+        run: |
+          # List all directories in /backend/lambda and store the result in a variable
+          DIRECTORIES=$(find ./backend/lambda -maxdepth 1 -type d -print)
+
+          # Remove the first line (./backend/lambda itself) from the list
+          DIRECTORIES=$(echo "$DIRECTORIES" | tail -n +2)
+
+          # Set the list of directories as an output variable
+          echo "::set-output name=directories::$DIRECTORIES"
+
+      - name: AWS cli install action
+        uses: chrislennon/action-aws-cli@1.1
+
+      - name: Zip Files and Deploy Lambda
+        run: |
+          # Iterate through each directory and run the zip action
+          IFS=$'\n'
+          for DIRECTORY in ${{ steps.list-directories.outputs.directories }}; do
+            echo "Zipping files in $DIRECTORY"
+            cd "$DIRECTORY"
+            
+            ZIP_FILE=$(basename "$DIRECTORY").zip
+
+            # Check if the zip file exists and delete it if it does
+            if [ -f "$ZIP_FILE" ]; then
+              echo "Deleting existing zip file: $ZIP_FILE"
+              rm -f "$ZIP_FILE"
+            fi
+
+            # Zip the files
+            zip -r "$ZIP_FILE" .
+
+            # Run the deploy Lambda action
+            aws lambda update-function-code --function-name $(basename "$DIRECTORY") --zip-file fileb://"$ZIP_FILE"
+            
+            # Navigate back to the original directory
+            cd -
+          done
+        shell: bash
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
