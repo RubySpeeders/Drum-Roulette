@@ -57,7 +57,7 @@ export default function Assignments() {
       {assignments.map((assignment: Assignment) => {
         return (
           <div
-            key={assignment.musician.user_id}
+            key={assignment.musician.musician_id}
             className={classNames(classes.container)}
           >
             <div className={classNames(classes.card)}>
