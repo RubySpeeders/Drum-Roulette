@@ -1,18 +1,18 @@
 import { createTheme } from "@mui/material/styles";
 import { Theme } from "@mui/material/styles/createTheme";
-import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 
 declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
 
-const inter = Inter({
+const open_Sans = Open_Sans({
   subsets: ["latin"],
 });
 
 export const theme: Theme = createTheme({
   typography: {
-    fontFamily: inter.style.fontFamily,
+    fontFamily: open_Sans.style.fontFamily,
   },
   components: {
     MuiCssBaseline: {
@@ -53,7 +53,7 @@ export const theme: Theme = createTheme({
       primary: "#ffffff",
     },
     background: {
-      default: "#322F42",
+      default: "#402E4B",
     },
   },
 });

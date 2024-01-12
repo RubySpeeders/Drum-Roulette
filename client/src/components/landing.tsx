@@ -1,60 +1,71 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
-import navyLogo from "../../public/assets/images/USNavy-Band-Logo.png";
-import { Typography } from "@mui/material";
+import drLogo from "../../public/assets/images/dr-logo-white.png";
 import { makeStyles } from "@mui/styles";
+import { Branch } from "@/interfaces/branch";
+import { Grid } from "@mui/material";
+import BranchLogo from "./branchLogo";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    width: "100vw",
-    height: "100vh",
-    padding: "0 15% 0 50vw",
+    padding: "2.5rem 4rem",
   },
-  title: {
+  logoContainer: {
+    marginBottom: "3rem",
+    maxWidth: "90vw",
+    width: "18rem",
+    height: "2rem",
+    position: "relative",
+  },
+  h2: {
     fontSize: "3rem",
     fontWeight: "600",
-    marginBottom: "50px",
+    margin: "0",
   },
-  subtitle: {
-    fontSize: "1.8rem",
-    fontWeight: "400",
-    marginBottom: "50px",
+  h3: {
+    fontSize: "1.5rem",
+    fontWeight: "600",
+    margin: ".5rem 0 0 0",
   },
-  bandName: {
-    width: "120px",
-    textAlign: "center",
-    color: theme.palette.text.primary,
-  },
-  image: {
-    height: 120,
-    width: 120,
+  selectTextBox: {
+    marginTop: "3rem",
+    marginBottom: "1rem",
   },
 }));
 
-export default function Landing() {
+interface Props {
+  branches: Branch[];
+}
+
+export default function Landing({ branches }: Props) {
   const classes = useStyles();
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>Drum Roulette</h1>
-      <h2 className={classes.subtitle}>
-        randomly generate band percussion assignments with one click
-      </h2>
-      <h3 className={classes.subtitle}>Please Select Your Branch</h3>
-      <Link href="/selection">
+      <div className={classes.logoContainer}>
         <Image
+          alt="Drum Roulette Logo"
+          src={drLogo}
+          fill
           priority
-          src={navyLogo}
-          alt="Click to select Navy"
-          className={classes.image}
+          style={{ objectFit: "contain" }}
+          sizes="50vw"
         />
-        <Typography className={classes.bandName}>US Navy Band</Typography>
-      </Link>
+      </div>
+      <h2 className={classes.h2}>Hello!</h2>
+      <h3 className={classes.h3}>
+        Randomly generate band percussion assignments with just a few clicks.
+      </h3>
+      <div className={classes.selectTextBox}>
+        <h3 className={classes.h3}>Select Branch</h3>
+      </div>
+
+      <Grid container spacing={{ xs: 2, md: 3 }}>
+        {branches.map((branch) => (
+          <BranchLogo branch={branch} key={branch.branch_id} />
+        ))}
+      </Grid>
     </div>
   );
 }
