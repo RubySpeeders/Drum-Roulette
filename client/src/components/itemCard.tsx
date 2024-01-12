@@ -38,7 +38,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
   };
   const classes = useStyles();
   return (
-    <div className={classNames(classes.card)}>
+    <div className={classes.card}>
       <div
         className={classNames(classes.image, {
           [classes.selected]: item.selected,
