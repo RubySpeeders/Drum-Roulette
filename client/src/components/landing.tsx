@@ -4,7 +4,8 @@ import Image from "next/image";
 import drLogo from "../../public/assets/images/dr-logo-white.png";
 import { makeStyles } from "@mui/styles";
 import { Branch } from "@/interfaces/branch";
-import BranchesGrid from "./branchesGrid";
+import { Grid } from "@mui/material";
+import BranchLogo from "./branchLogo";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: "600",
     margin: ".5rem 0 0 0",
   },
-  selectBox: {
+  selectTextBox: {
     marginTop: "3rem",
     marginBottom: "1rem",
   },
@@ -56,10 +57,15 @@ export default function Landing({ branches }: Props) {
       <h3 className={classes.h3}>
         Randomly generate band percussion assignments with just a few clicks.
       </h3>
-      <div className={classes.selectBox}>
+      <div className={classes.selectTextBox}>
         <h3 className={classes.h3}>Select Branch</h3>
       </div>
-      <BranchesGrid branches={branches} />
+
+      <Grid container spacing={{ xs: 2, md: 3 }}>
+        {branches.map((branch) => (
+          <BranchLogo branch={branch} key={branch.branch_id} />
+        ))}
+      </Grid>
     </div>
   );
 }
