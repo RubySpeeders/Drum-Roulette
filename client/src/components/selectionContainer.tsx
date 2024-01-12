@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
 import { Musician } from "@/interfaces/musician";
@@ -158,6 +158,9 @@ export default function SelectionContainer({
               </CustomButton>
             </Link>
           )}
+          <Link href="/">
+            <Typography>Return to homepage</Typography>
+          </Link>
         </Grid>
       </Grid>
     </>
