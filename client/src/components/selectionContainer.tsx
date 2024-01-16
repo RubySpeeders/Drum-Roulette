@@ -8,7 +8,7 @@ import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
 import Link from "next/link";
 import assign from "@/utils/assign";
-import { ItemCard } from "./itemCard";
+import { ItemCard } from "./ItemCard";
 import { CustomButton } from "./CustomButton";
 
 interface Props {

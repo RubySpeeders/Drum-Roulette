@@ -5,7 +5,7 @@ import drLogo from "../../public/assets/images/dr-logo-white.png";
 import { makeStyles } from "@mui/styles";
 import { Branch } from "@/interfaces/branch";
 import { Grid } from "@mui/material";
-import BranchLogo from "./branchLogo";
+import BranchLogo from "./BranchLogo";
 
 const useStyles = makeStyles((theme) => ({
   container: {
