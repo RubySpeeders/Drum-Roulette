@@ -1,15 +1,13 @@
 import SelectionContainer from "@/components/SelectionContainer";
 import getMusicians from "@/utils/api/getMusicians";
+import { kebabCase } from "lodash";
 
-export default async function Selection() {
-  //branch will eventually be passed from the landing page
-  const hardCodeBranch = {
-    branch_id: 1,
-    branch_name: "navy",
-    //TODO replace with real image, this is a placeholder to bypass typescript
-    image: "https://server.pickyourdrum.link/files/instruments/BD_pic.png",
-  };
-  const musiciansData = await getMusicians(hardCodeBranch);
+interface Props {
+  params: {name: string}
+}
+
+export default async function Selection({params}: Props) {
+  const musiciansData = await getMusicians(kebabCase(decodeURI(params.name)));
   //instruments will come from the db eventually, so moving this here where we will do a fetch for instruments in the future
   const instruments = [
     {

@@ -110,7 +110,8 @@ export default function SelectionContainer({
           <Box className={classNames(classes.container)}>
             <h2>Select Musicians</h2>
             <div className={classNames(classes.musicians)}>
-              {musicians.map((musician: Musician) => (
+              {/* we should have something here for if musicians does not exist. */}
+              {musicians?.map((musician: Musician) => (
                 <ItemCard
                   key={musician.musician_id}
                   item={musician}
