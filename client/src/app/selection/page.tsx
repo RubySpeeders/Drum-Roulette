@@ -5,7 +5,7 @@ export default async function Selection() {
   //branch will eventually be passed from the landing page
   const hardCodeBranch = {
     branch_id: 1,
-    branch_name: "navy",
+    branch_name: "air-force",
     //TODO replace with real image, this is a placeholder to bypass typescript
     image: "https://server.pickyourdrum.link/files/instruments/BD_pic.png",
   };

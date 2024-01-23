@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import drLogo from "../../public/assets/images/dr-logo-white.png";
+
 import { makeStyles } from "@mui/styles";
-import { Branch } from "@/interfaces/branch";
 import { Grid } from "@mui/material";
+
+import { Branch } from "@/interfaces/branch";
+import drLogo from "../../public/assets/logos/dr-logo-white.png";
 import BranchLogo from "./branchLogo";
 
 const useStyles = makeStyles((theme) => ({

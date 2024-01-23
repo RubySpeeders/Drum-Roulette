@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Branch } from "@/interfaces/branch";
+
 import { makeStyles } from "@mui/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { Grid } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+import { Branch } from "@/interfaces/branch";
 
 const useStyles = makeStyles((theme) => ({
   branchContainer: {

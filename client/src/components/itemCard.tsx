@@ -1,10 +1,15 @@
 import React from "react";
-import { Instrument } from "@/interfaces/instrument";
-import { Musician } from "@/interfaces/musician";
 import classNames from "classnames";
 import Image from "next/image";
+
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+
+import { Instrument } from "@/interfaces/instrument";
+import { Musician } from "@/interfaces/musician";
+
+import defaultProfileAvatarDark from "../../public/assets/images/default-profile-dark.png";
+import defaultProfileAvatarLight from "../../public/assets/images/default-profile-light.png";
 
 interface Props {
   item: Musician | Instrument;
@@ -45,17 +50,27 @@ export const ItemCard = ({ item, onClick }: Props) => {
         })}
         onClick={handleClick}
       >
-        <Image
-          priority
-          src={item.image}
-          alt={`select ${
-            "first_name" in item
-              ? `${item.first_name} ${item.last_name}`
-              : item.name
-          }`}
-          width={200}
-          height={280}
-        />
+        {item.image ? (
+          <Image
+            priority
+            src={item.image}
+            alt={`select ${
+              "first_name" in item
+                ? `${item.first_name} ${item.last_name}`
+                : item.name
+            }`}
+            width={200}
+            height={280}
+          />
+        ) : (
+          <Image
+            priority
+            src={defaultProfileAvatarDark}
+            alt="default profile avatar dark"
+            width={200}
+            height={200}
+          />
+        )}
       </div>
       <Typography style={{ marginTop: "5%" }}>
         {"first_name" in item
