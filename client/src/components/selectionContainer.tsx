@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import classNames from "classnames";
 import Link from "next/link";
-import Image from "next/image";
 
 import { makeStyles } from "@mui/styles";
 import { Box, Grid, Typography } from "@mui/material";
@@ -14,9 +13,6 @@ import { ItemCard } from "./ItemCard";
 import { CustomButton } from "./CustomButton";
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
-
-import defaultProfileAvatarDark from "../../public/assets/images/default-profile-dark.png";
-import defaultProfileAvatarLight from "../../public/assets/images/default-profile-light.png";
 
 interface Props {
   musiciansData: Musician[];
@@ -133,7 +129,7 @@ export default function SelectionContainer({
             <div className={classNames(classes.musicians)}>
               {instruments.map((instrument: Instrument) => (
                 <ItemCard
-                  key={instrument.id}
+                  key={instrument.instrument_id}
                   item={instrument}
                   onClick={() => handleClickItem(instrument)}
                 />

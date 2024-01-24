@@ -8,9 +8,6 @@ import { makeStyles } from "@mui/styles";
 import { Instrument } from "@/interfaces/instrument";
 import { Musician } from "@/interfaces/musician";
 
-import defaultProfileAvatarDark from "../../public/assets/images/default-profile-dark.png";
-import defaultProfileAvatarLight from "../../public/assets/images/default-profile-light.png";
-
 interface Props {
   item: Musician | Instrument;
   onClick: (item: Musician | Instrument) => void;
@@ -65,7 +62,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
         ) : (
           <Image
             priority
-            src={defaultProfileAvatarDark}
+            src="/assets/images/default-avatar-dark.svg"
             alt="default profile avatar dark"
             width={200}
             height={200}

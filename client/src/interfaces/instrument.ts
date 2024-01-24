@@ -1,5 +1,5 @@
 export interface Instrument {
-  id: number;
+  instrument_id: number;
   name: string;
   selected: boolean;
   image: string;
