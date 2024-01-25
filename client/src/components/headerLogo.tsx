@@ -1,0 +1,43 @@
+"use client";
+
+import Image from "next/image";
+import drLogo from "../../public/assets/images/dr-logo-white.png";
+import { Grid } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: "2.5rem 4rem",
+  },
+  logoContainer: {
+    margin: "3rem",
+    maxWidth: "90vw",
+    width: "18rem",
+    height: "2rem",
+    position: "relative",
+  },
+}));
+
+// Next.js doc says I can pass CSS props, but I get a type error
+// const imageStyle = {
+//   padding: "3rem",
+//   objectFit: "contain",
+// };
+
+export default function Header() {
+  const classes = useStyles();
+  return (
+    <Grid>
+      <div className={classes.logoContainer}>
+        <Image
+          alt="Drum Roulette Logo"
+          src={drLogo}
+          fill
+          priority
+          style={{ objectFit: "contain" }}
+          sizes="50vw"
+        />
+      </div>
+    </Grid>
+  );
+}

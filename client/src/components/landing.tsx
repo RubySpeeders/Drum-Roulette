@@ -6,13 +6,14 @@ import { makeStyles } from "@mui/styles";
 import { Branch } from "@/interfaces/branch";
 import { Grid } from "@mui/material";
 import BranchLogo from "./branchLogo";
+import Header from "./headerLogo";
 
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: "2.5rem 4rem",
   },
   logoContainer: {
-    marginBottom: "3rem",
+    margin: "3rem",
     maxWidth: "90vw",
     width: "18rem",
     height: "2rem",
@@ -42,8 +43,10 @@ export default function Landing({ branches }: Props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.container}>
-      <div className={classes.logoContainer}>
+    <>
+      <Header />
+      <div className={classes.container}>
+        {/* <div className={classes.logoContainer}>
         <Image
           alt="Drum Roulette Logo"
           src={drLogo}
@@ -52,20 +55,21 @@ export default function Landing({ branches }: Props) {
           style={{ objectFit: "contain" }}
           sizes="50vw"
         />
-      </div>
-      <h2 className={classes.h2}>Hello!</h2>
-      <h3 className={classes.h3}>
-        Randomly generate band percussion assignments with just a few clicks.
-      </h3>
-      <div className={classes.selectTextBox}>
-        <h3 className={classes.h3}>Select Branch</h3>
-      </div>
+      </div> */}
+        <h2 className={classes.h2}>Hello!</h2>
+        <h3 className={classes.h3}>
+          Randomly generate band percussion assignments with just a few clicks.
+        </h3>
+        <div className={classes.selectTextBox}>
+          <h3 className={classes.h3}>Select Branch</h3>
+        </div>
 
-      <Grid container spacing={{ xs: 2, md: 3 }}>
-        {branches.map((branch) => (
-          <BranchLogo branch={branch} key={branch.branch_id} />
-        ))}
-      </Grid>
-    </div>
+        <Grid container spacing={{ xs: 2, md: 3 }}>
+          {branches.map((branch) => (
+            <BranchLogo branch={branch} key={branch.branch_id} />
+          ))}
+        </Grid>
+      </div>
+    </>
   );
 }

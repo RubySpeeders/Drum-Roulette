@@ -10,6 +10,7 @@ import Link from "next/link";
 import assign from "@/utils/assign";
 import { ItemCard } from "./itemCard";
 import { CustomButton } from "./CustomButton";
+import Header from "./headerLogo";
 
 interface Props {
   musiciansData: Musician[];
@@ -21,6 +22,14 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    padding: "2.5rem 4rem",
+  },
+  logoContainer: {
+    marginBottom: "3rem",
+    maxWidth: "90vw",
+    width: "18rem",
+    height: "2rem",
+    position: "relative",
   },
   card: {
     display: "flex",
@@ -105,6 +114,9 @@ export default function SelectionContainer({
 
   return (
     <>
+      <div className={classes.logoContainer}>
+        <Header />
+      </div>
       <Grid container>
         <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classNames(classes.container)}>
