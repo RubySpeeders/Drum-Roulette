@@ -1,14 +1,17 @@
-import SelectionContainer from "@/components/SelectionContainer";
-import getMusicians from "@/utils/api/getMusicians";
 import { kebabCase } from "lodash";
 
+import SelectionContainer from "@/components/SelectionContainer";
+
+import getMusicians from "@/utils/api/getMusicians";
+
 interface Props {
-  params: {name: string}
+  params: { name: string };
 }
 
-export default async function Selection({params}: Props) {
+export default async function Selection({ params }: Props) {
   const musiciansData = await getMusicians(kebabCase(decodeURI(params.name)));
-  //instruments will come from the db eventually, so moving this here where we will do a fetch for instruments in the future
+
+  //instruments will come from the db eventually
   const instruments = [
     {
       id: 1,
