@@ -18,12 +18,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// Next.js doc says I can pass CSS props, but I get a type error
-// const imageStyle = {
-//   padding: "3rem",
-//   objectFit: "contain",
-// };
-
 export default function Header() {
   const classes = useStyles();
   return (

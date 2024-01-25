@@ -1,23 +1,13 @@
 "use client";
 
-import Image from "next/image";
-import drLogo from "../../public/assets/images/dr-logo-white.png";
 import { makeStyles } from "@mui/styles";
 import { Branch } from "@/interfaces/branch";
 import { Grid } from "@mui/material";
 import BranchLogo from "./branchLogo";
-import Header from "./headerLogo";
 
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: "2.5rem 4rem",
-  },
-  logoContainer: {
-    margin: "3rem",
-    maxWidth: "90vw",
-    width: "18rem",
-    height: "2rem",
-    position: "relative",
   },
   h2: {
     fontSize: "3rem",
@@ -44,18 +34,8 @@ export default function Landing({ branches }: Props) {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className={classes.container}>
-        {/* <div className={classes.logoContainer}>
-        <Image
-          alt="Drum Roulette Logo"
-          src={drLogo}
-          fill
-          priority
-          style={{ objectFit: "contain" }}
-          sizes="50vw"
-        />
-      </div> */}
         <h2 className={classes.h2}>Hello!</h2>
         <h3 className={classes.h3}>
           Randomly generate band percussion assignments with just a few clicks.

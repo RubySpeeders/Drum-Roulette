@@ -6,7 +6,6 @@ import { Assignment } from "@/interfaces/assignment";
 import Image from "next/image";
 import { makeStyles } from "@mui/styles";
 import classNames from "classnames";
-import Header from "@/components/headerLogo";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -14,13 +13,6 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "space-around",
     margin: "0 5em",
-  },
-  logoContainer: {
-    marginBottom: "3rem",
-    maxWidth: "90vw",
-    width: "18rem",
-    height: "2rem",
-    position: "relative",
   },
   buttonContainer: {
     marginTop: "2rem",
@@ -54,10 +46,6 @@ export default function Assignments() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <div className={classes.logoContainer}>
-        <Header />
-      </div>
-      {/* <div className={classes.buttonContainer}> */}
       <div>
         <Button
           variant="contained"
