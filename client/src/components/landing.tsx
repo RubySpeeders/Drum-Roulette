@@ -34,7 +34,6 @@ export default function Landing({ branches }: Props) {
 
   return (
     <>
-      {/* <Header /> */}
       <div className={classes.container}>
         <h2 className={classes.h2}>Hello!</h2>
         <h3 className={classes.h3}>

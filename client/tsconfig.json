@@ -29,7 +29,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/styles/button.js",
     ".next/types/**/*.ts",
     "src/components/headerLogo.tsx"
   ],
