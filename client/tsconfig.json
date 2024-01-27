@@ -30,7 +30,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/headerLogo.tsx"
+    // below line seemed have been added automatically when I created Header.tsx. Do we need this here?
+    "src/components/Header.tsx"
   ],
   "exclude": ["node_modules"]
 }

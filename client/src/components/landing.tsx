@@ -1,9 +1,12 @@
 "use client";
 
+// Library Imports
 import { makeStyles } from "@mui/styles";
-import { Branch } from "@/interfaces/branch";
 import { Grid } from "@mui/material";
-import BranchLogo from "./branchLogo";
+// Type/ Interface Imports
+import { Branch } from "@/interfaces/branch";
+// Other component Imports
+import BranchLogo from "./BranchLogo";
 
 const useStyles = makeStyles((theme) => ({
   container: {

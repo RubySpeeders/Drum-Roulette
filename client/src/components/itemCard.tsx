@@ -1,10 +1,14 @@
+// React/ Next.js Imports
 import React from "react";
-import { Instrument } from "@/interfaces/instrument";
-import { Musician } from "@/interfaces/musician";
-import classNames from "classnames";
 import Image from "next/image";
+// Library Imports
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+// Type/ Interface Imports
+import { Instrument } from "@/interfaces/instrument";
+import { Musician } from "@/interfaces/musician";
+// Styles or CSS Imports
+import classNames from "classnames";
 
 interface Props {
   item: Musician | Instrument;
