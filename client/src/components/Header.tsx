@@ -11,7 +11,7 @@ import { makeStyles } from "@mui/styles";
 
 import drLogo from "../../public/assets/images/dr-logo-white.png";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     padding: "2.5rem 4rem",
   },

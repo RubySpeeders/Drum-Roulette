@@ -1,5 +1,4 @@
 // React/ Next.js Imports
-import React from "react";
 import Image from "next/image";
 
 // Library Imports
