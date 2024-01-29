@@ -1,16 +1,21 @@
 "use client";
+
 // React/ Next.js Imports
 import { useEffect, useState } from "react";
 import Link from "next/link";
+
 // Library Imports
 import { Box, Grid, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+
 // Type/ Interface Imports
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
+
 // Other component Imports
 import { CustomButton } from "./CustomButton";
 import { ItemCard } from "./ItemCard";
+
 // Styles or CSS Imports
 import assign from "@/utils/assign";
 import classNames from "classnames";

@@ -3,8 +3,10 @@
 // Library Imports
 import { makeStyles } from "@mui/styles";
 import { Grid } from "@mui/material";
+
 // Type/ Interface Imports
 import { Branch } from "@/interfaces/branch";
+
 // Other component Imports
 import BranchLogo from "./BranchLogo";
 
