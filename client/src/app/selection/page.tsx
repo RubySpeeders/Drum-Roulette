@@ -1,4 +1,4 @@
-import SelectionContainer from "@/components/selectionContainer";
+import SelectionContainer from "@/components/SelectionContainer";
 import getMusicians from "@/utils/api/getMusicians";
 
 export default async function Selection() {

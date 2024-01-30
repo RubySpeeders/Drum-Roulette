@@ -14,6 +14,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-around",
     margin: "0 5em",
   },
+  buttonContainer: {
+    marginTop: "2rem",
+    marginLeft: "2rem",
+    width: "18rem",
+    position: "relative",
+  },
   card: {
     display: "flex",
     flexDirection: "column",

@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,12 +16,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/types/*": [
-        "types/*"
-      ]
+      "@/*": ["./src/*"],
+      "@/types/*": ["types/*"]
     },
     "plugins": [
       {
@@ -37,10 +29,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/styles/button.js",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    // below line seemed have been added automatically when I created Header.tsx. Do we need this here?
+    "src/components/Header.tsx"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
