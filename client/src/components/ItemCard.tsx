@@ -1,5 +1,6 @@
 // React/ Next.js Imports
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 // Library Imports
 import { Typography } from "@mui/material";
@@ -43,6 +44,15 @@ export const ItemCard = ({ item, onClick }: Props) => {
   const handleClick = () => {
     onClick(item);
   };
+  const [isInstrument, setInstrument] = useState(false);
+  // check if the image is an instrument
+  useEffect(() => {
+    if (item.image.includes("instruments")) {
+      setInstrument(true);
+    } else {
+      setInstrument(false);
+    }
+  }, []);
   const classes = useStyles();
   return (
     <div className={classNames(classes.card)}>
@@ -52,18 +62,33 @@ export const ItemCard = ({ item, onClick }: Props) => {
         })}
         onClick={handleClick}
       >
-        <Image
-          priority
-          src={item.image}
-          alt={`select ${
-            "first_name" in item
-              ? `${item.first_name} ${item.last_name}`
-              : item.name
-          }`}
-          width={200}
-          // if I set this to 200, instruments images are fixed but players image gets distorted
-          height={280}
-        />
+        {isInstrument ? (
+          // render players
+          <Image
+            priority
+            src={item.image}
+            alt={`select ${
+              "first_name" in item
+                ? `${item.first_name} ${item.last_name}`
+                : item.name
+            }`}
+            width={200}
+            height={200}
+          />
+        ) : (
+          // render instruments
+          <Image
+            priority
+            src={item.image}
+            alt={`select ${
+              "first_name" in item
+                ? `${item.first_name} ${item.last_name}`
+                : item.name
+            }`}
+            width={200}
+            height={280}
+          />
+        )}
       </div>
       <Typography style={{ marginTop: "5%" }}>
         {"first_name" in item
