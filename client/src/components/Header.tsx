@@ -9,7 +9,7 @@ import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 // Other component Imports
 
-import drLogo from "../../public/assets/images/dr-logo-white.png";
+import drLogo from "../../public/assets/logos/dr-logo-white.png";
 
 const useStyles = makeStyles(() => ({
   container: {
