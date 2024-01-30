@@ -1,15 +1,24 @@
 "use client";
 
+// React/ Next.js Imports
 import { useEffect, useState } from "react";
+import Link from "next/link";
+
+// Library Imports
 import { Box, Grid, Typography } from "@mui/material";
-import classNames from "classnames";
 import { makeStyles } from "@mui/styles";
+
+// Type/ Interface Imports
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
-import Link from "next/link";
-import assign from "@/utils/assign";
-import { ItemCard } from "./ItemCard";
+
+// Other component Imports
 import { CustomButton } from "./CustomButton";
+import { ItemCard } from "./ItemCard";
+
+// Styles or CSS Imports
+import assign from "@/utils/assign";
+import classNames from "classnames";
 
 interface Props {
   musiciansData: Musician[];
@@ -21,6 +30,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    padding: "2.5rem 4rem",
   },
   card: {
     display: "flex",
@@ -104,66 +114,64 @@ export default function SelectionContainer({
   };
 
   return (
-    <>
-      <Grid container>
-        <Grid item xs={12} md={6} className={classes.grid}>
-          <Box className={classNames(classes.container)}>
-            <h2>Select Musicians</h2>
-            <div className={classNames(classes.musicians)}>
-              {/* we should have something here for if musicians does not exist. */}
-              {musicians?.map((musician: Musician) => (
-                <ItemCard
-                  key={musician.musician_id}
-                  item={musician}
-                  onClick={() => handleClickItem(musician)}
-                />
-              ))}
-            </div>
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box className={classNames(classes.container)}>
-            <h2>Select Instruments</h2>
-            <div className={classNames(classes.musicians)}>
-              {instruments.map((instrument: Instrument) => (
-                <ItemCard
-                  key={instrument.id}
-                  item={instrument}
-                  onClick={() => handleClickItem(instrument)}
-                />
-              ))}
-            </div>
-          </Box>
-          {/* only render link tag if selection criteria are met */}
-          {!isSelected || !selectedEqual ? (
+    <Grid container>
+      <Grid item xs={12} md={6} className={classes.grid}>
+        <Box className={classNames(classes.container)}>
+          <h2>Select Musicians</h2>
+          <div className={classNames(classes.musicians)}>
+            {/* we should have something here for if musicians does not exist. */}
+            {musicians?.map((musician: Musician) => (
+              <ItemCard
+                key={musician.musician_id}
+                item={musician}
+                onClick={() => handleClickItem(musician)}
+              />
+            ))}
+          </div>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Box className={classNames(classes.container)}>
+          <h2>Select Instruments</h2>
+          <div className={classNames(classes.musicians)}>
+            {instruments.map((instrument: Instrument) => (
+              <ItemCard
+                key={instrument.id}
+                item={instrument}
+                onClick={() => handleClickItem(instrument)}
+              />
+            ))}
+          </div>
+        </Box>
+        {/* only render link tag if selection criteria are met */}
+        {!isSelected || !selectedEqual ? (
+          <CustomButton
+            variant="contained"
+            disabled={!isSelected || !selectedEqual}
+          >
+            Assign
+          </CustomButton>
+        ) : (
+          <Link
+            href={{
+              pathname: "/assignments",
+              query: {
+                assignments: JSON.stringify(assign(musicians, instruments)),
+              },
+            }}
+          >
             <CustomButton
               variant="contained"
               disabled={!isSelected || !selectedEqual}
             >
               Assign
             </CustomButton>
-          ) : (
-            <Link
-              href={{
-                pathname: "/assignments",
-                query: {
-                  assignments: JSON.stringify(assign(musicians, instruments)),
-                },
-              }}
-            >
-              <CustomButton
-                variant="contained"
-                disabled={!isSelected || !selectedEqual}
-              >
-                Assign
-              </CustomButton>
-            </Link>
-          )}
-          <Link href="/">
-            <Typography>Return to homepage</Typography>
           </Link>
-        </Grid>
+        )}
+        <Link href="/">
+          <Typography>Return to homepage</Typography>
+        </Link>
       </Grid>
-    </>
+    </Grid>
   );
 }
