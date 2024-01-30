@@ -1,12 +1,15 @@
 "use client";
 
+// React/ Next.js Imports
 import Image from "next/image";
 import Link from "next/link";
 
+// Library Imports
 import { makeStyles } from "@mui/styles";
 import { Grid } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
+// Type/ Interface Imports
 import { Branch } from "@/interfaces/branch";
 
 const useStyles = makeStyles((theme) => ({
