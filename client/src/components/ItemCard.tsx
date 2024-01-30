@@ -35,6 +35,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "50%",
     display: "flex",
     justifyContent: "center",
+    background: "white",
   },
 }));
 
@@ -60,6 +61,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
               : item.name
           }`}
           width={200}
+          // if I set this to 200, instruments images are fixed but players image gets distorted
           height={280}
         />
       </div>

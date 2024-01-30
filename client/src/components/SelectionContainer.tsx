@@ -30,7 +30,6 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "2.5rem 4rem",
   },
   card: {
     display: "flex",
@@ -114,63 +113,65 @@ export default function SelectionContainer({
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12} md={6} className={classes.grid}>
-        <Box className={classNames(classes.container)}>
-          <h2>Select Musicians</h2>
-          <div className={classNames(classes.musicians)}>
-            {musicians.map((musician: Musician) => (
-              <ItemCard
-                key={musician.musician_id}
-                item={musician}
-                onClick={() => handleClickItem(musician)}
-              />
-            ))}
-          </div>
-        </Box>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Box className={classNames(classes.container)}>
-          <h2>Select Instruments</h2>
-          <div className={classNames(classes.musicians)}>
-            {instruments.map((instrument: Instrument) => (
-              <ItemCard
-                key={instrument.id}
-                item={instrument}
-                onClick={() => handleClickItem(instrument)}
-              />
-            ))}
-          </div>
-        </Box>
-        {/* only render link tag if selection criteria are met */}
-        {!isSelected || !selectedEqual ? (
-          <CustomButton
-            variant="contained"
-            disabled={!isSelected || !selectedEqual}
-          >
-            Assign
-          </CustomButton>
-        ) : (
-          <Link
-            href={{
-              pathname: "/assignments",
-              query: {
-                assignments: JSON.stringify(assign(musicians, instruments)),
-              },
-            }}
-          >
+    <>
+      <Grid container>
+        <Grid item xs={12} md={6} className={classes.grid}>
+          <Box className={classNames(classes.container)}>
+            <h2>Select Musicians</h2>
+            <div className={classNames(classes.musicians)}>
+              {musicians.map((musician: Musician) => (
+                <ItemCard
+                  key={musician.musician_id}
+                  item={musician}
+                  onClick={() => handleClickItem(musician)}
+                />
+              ))}
+            </div>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Box className={classNames(classes.container)}>
+            <h2>Select Instruments</h2>
+            <div className={classNames(classes.musicians)}>
+              {instruments.map((instrument: Instrument) => (
+                <ItemCard
+                  key={instrument.id}
+                  item={instrument}
+                  onClick={() => handleClickItem(instrument)}
+                />
+              ))}
+            </div>
+          </Box>
+          {/* only render link tag if selection criteria are met */}
+          {!isSelected || !selectedEqual ? (
             <CustomButton
               variant="contained"
               disabled={!isSelected || !selectedEqual}
             >
               Assign
             </CustomButton>
+          ) : (
+            <Link
+              href={{
+                pathname: "/assignments",
+                query: {
+                  assignments: JSON.stringify(assign(musicians, instruments)),
+                },
+              }}
+            >
+              <CustomButton
+                variant="contained"
+                disabled={!isSelected || !selectedEqual}
+              >
+                Assign
+              </CustomButton>
+            </Link>
+          )}
+          <Link href="/">
+            <Typography>Return to homepage</Typography>
           </Link>
-        )}
-        <Link href="/">
-          <Typography>Return to homepage</Typography>
-        </Link>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }
