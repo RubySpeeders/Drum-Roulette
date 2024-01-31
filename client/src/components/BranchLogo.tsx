@@ -6,8 +6,8 @@ import Link from "next/link";
 
 // Library Imports
 import { makeStyles } from "@mui/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { Grid } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 // Type/ Interface Imports
 import { Branch } from "@/interfaces/branch";

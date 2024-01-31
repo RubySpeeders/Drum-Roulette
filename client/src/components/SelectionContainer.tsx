@@ -134,7 +134,7 @@ export default function SelectionContainer({
           <div className={classNames(classes.musicians)}>
             {instruments.map((instrument: Instrument) => (
               <ItemCard
-                key={instrument.id}
+                key={instrument.instrument_id}
                 item={instrument}
                 onClick={() => handleClickItem(instrument)}
               />

@@ -4,12 +4,8 @@
 import Image from "next/image";
 
 // Library Imports
-
-import { Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-// Other component Imports
-
-import drLogo from "../../public/assets/images/dr-logo-white.png";
+import { Grid } from "@mui/material";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -31,7 +27,7 @@ export default function Header() {
       <div className={classes.logoContainer}>
         <Image
           alt="Drum Roulette Logo"
-          src={drLogo}
+          src="/assets/logos/dr-logo-dark.svg"
           fill
           priority
           style={{ objectFit: "contain" }}

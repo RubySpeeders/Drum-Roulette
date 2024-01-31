@@ -1,11 +1,13 @@
 "use client";
 
-import { Typography, Button } from "@mui/material";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Assignment } from "@/interfaces/assignment";
 import Image from "next/image";
-import { makeStyles } from "@mui/styles";
+import { useRouter, useSearchParams } from "next/navigation";
 import classNames from "classnames";
+
+import { makeStyles } from "@mui/styles";
+import { Typography, Button } from "@mui/material";
+
+import { Assignment } from "@/interfaces/assignment";
 
 const useStyles = makeStyles(() => ({
   container: {

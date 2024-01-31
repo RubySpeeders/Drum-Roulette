@@ -44,23 +44,37 @@ export const ItemCard = ({ item, onClick }: Props) => {
   const handleClick = () => {
     onClick(item);
   };
+
   const [isInstrument, setInstrument] = useState(false);
+
   // check if the image is an instrument
   useEffect(() => {
     setInstrument(item.image.includes("instruments"));
   }, [item.image]);
+
   const classes = useStyles();
+
   return (
-    <div className={classNames(classes.card)}>
+    <div className={classes.card}>
       <div
         className={classNames(classes.image, {
           [classes.selected]: item.selected,
         })}
         onClick={handleClick}
       >
-        {isInstrument ? (
+        {isInstrument && item.image ? (
+          // render instruments
+          <Image
+            priority
+            src={item.image}
+            alt={`select ${item}`}
+            width={200}
+            height={200}
+          />
+        ) : !isInstrument && item.image ? (
           // render players
           <Image
+            style={{ width: "auto" }}
             priority
             src={item.image}
             alt={`select ${
@@ -69,16 +83,15 @@ export const ItemCard = ({ item, onClick }: Props) => {
                 : item.name
             }`}
             width={200}
-            height={200}
+            height={280}
           />
         ) : (
-          // render instruments
           <Image
             priority
-            src={item.image}
-            alt={`select ${item}`}
+            src="/assets/images/default-avatar-dark.svg"
+            alt="default profile avatar dark"
             width={200}
-            height={280}
+            height={200}
           />
         )}
       </div>
