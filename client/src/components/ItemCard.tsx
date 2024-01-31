@@ -55,7 +55,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
   const classes = useStyles();
 
   return (
-    <div className={classNames(classes.card)}>
+    <div className={classes.card}>
       <div
         className={classNames(classes.image, {
           [classes.selected]: item.selected,
@@ -74,6 +74,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
         ) : !isInstrument && item.image ? (
           // render players
           <Image
+            style={{ width: "auto" }}
             priority
             src={item.image}
             alt={`select ${
