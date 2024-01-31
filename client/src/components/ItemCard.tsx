@@ -47,12 +47,8 @@ export const ItemCard = ({ item, onClick }: Props) => {
   const [isInstrument, setInstrument] = useState(false);
   // check if the image is an instrument
   useEffect(() => {
-    if (item.image.includes("instruments")) {
-      setInstrument(true);
-    } else {
-      setInstrument(false);
-    }
-  }, []);
+    setInstrument(item.image.includes("instruments"));
+  }, [item.image]);
   const classes = useStyles();
   return (
     <div className={classNames(classes.card)}>
@@ -80,11 +76,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
           <Image
             priority
             src={item.image}
-            alt={`select ${
-              "first_name" in item
-                ? `${item.first_name} ${item.last_name}`
-                : item.name
-            }`}
+            alt={`select ${item}`}
             width={200}
             height={280}
           />
