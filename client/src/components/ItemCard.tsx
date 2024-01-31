@@ -1,5 +1,6 @@
 // React/ Next.js Imports
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 // Library Imports
 import { Typography } from "@mui/material";
@@ -35,6 +36,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "50%",
     display: "flex",
     justifyContent: "center",
+    background: "white",
   },
 }));
 
@@ -42,6 +44,11 @@ export const ItemCard = ({ item, onClick }: Props) => {
   const handleClick = () => {
     onClick(item);
   };
+  const [isInstrument, setInstrument] = useState(false);
+  // check if the image is an instrument
+  useEffect(() => {
+    setInstrument(item.image.includes("instruments"));
+  }, [item.image]);
   const classes = useStyles();
   return (
     <div className={classNames(classes.card)}>
@@ -51,17 +58,29 @@ export const ItemCard = ({ item, onClick }: Props) => {
         })}
         onClick={handleClick}
       >
-        <Image
-          priority
-          src={item.image}
-          alt={`select ${
-            "first_name" in item
-              ? `${item.first_name} ${item.last_name}`
-              : item.name
-          }`}
-          width={200}
-          height={280}
-        />
+        {isInstrument ? (
+          // render players
+          <Image
+            priority
+            src={item.image}
+            alt={`select ${
+              "first_name" in item
+                ? `${item.first_name} ${item.last_name}`
+                : item.name
+            }`}
+            width={200}
+            height={200}
+          />
+        ) : (
+          // render instruments
+          <Image
+            priority
+            src={item.image}
+            alt={`select ${item}`}
+            width={200}
+            height={280}
+          />
+        )}
       </div>
       <Typography style={{ marginTop: "5%" }}>
         {"first_name" in item
