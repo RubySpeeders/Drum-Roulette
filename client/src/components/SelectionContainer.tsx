@@ -30,7 +30,6 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "2.5rem 4rem",
   },
   card: {
     display: "flex",

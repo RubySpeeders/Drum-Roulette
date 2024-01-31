@@ -1,5 +1,6 @@
 // React/ Next.js Imports
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 // Library Imports
 import { Typography } from "@mui/material";
@@ -35,6 +36,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: "50%",
     display: "flex",
     justifyContent: "center",
+    background: "white",
   },
 }));
 
@@ -42,7 +44,16 @@ export const ItemCard = ({ item, onClick }: Props) => {
   const handleClick = () => {
     onClick(item);
   };
+
+  const [isInstrument, setInstrument] = useState(false);
+
+  // check if the image is an instrument
+  useEffect(() => {
+    setInstrument(item.image.includes("instruments"));
+  }, [item.image]);
+
   const classes = useStyles();
+
   return (
     <div className={classNames(classes.card)}>
       <div
@@ -51,7 +62,17 @@ export const ItemCard = ({ item, onClick }: Props) => {
         })}
         onClick={handleClick}
       >
-        {item.image ? (
+        {isInstrument && item.image ? (
+          // render instruments
+          <Image
+            priority
+            src={item.image}
+            alt={`select ${item}`}
+            width={200}
+            height={200}
+          />
+        ) : !isInstrument && item.image ? (
+          // render players
           <Image
             priority
             src={item.image}
