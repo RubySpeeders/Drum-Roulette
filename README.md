@@ -1,12 +1,14 @@
-# Musician Personnel Assignment Project
+# Drum Roulette Project
 
-The Musician Personnel Assignment Project is a web application built using Next.js and TypeScript on the Front End. Its purpose is to facilitate the random assignment of band musicians to instruments for specific gigs.
+![DR-LandingPage]()
+
+Drum Roulette is a web application built using [Next.js](https://nextjs.org/) and [TypeScript](https://www.typescriptlang.org/) on the frontend. Its purpose is to facilitate the random assignment of US Military band percussionists to instruments for specific gigs.
 
 ## Features
 
-- Randomly assign musicians to instruments for gigs.
-- Efficiently distribute workload among musicians.
-- Easy-to-use interface for managing musician assignments.
+- Randomly assign percussionists to instruments for jobs and ceremonies.
+- Efficiently distribute workload among percussionists.
+- User-friendly interface for managing percussion assignments.
 
 ## Technologies Used
 
@@ -76,7 +78,7 @@ Enter in your password for postgres each time you are prompted. If all goes well
         These must match the values you chose for your test database
 - [ ] Run the application
 
-## Code Formatting
+## Coding Standards and Guidelines
 
 To ensure a consistent code style across the project, we use Prettier as our code formatter. Please make sure to have the Prettier extension installed in your editor and configure it to match the project's Prettier settings.
 
@@ -90,15 +92,52 @@ This command will format all files in the current directory and its subdirectori
 
 Please avoid committing code with formatting inconsistencies, as it helps maintain a clean and readable codebase.
 
-## Contributing
+Imports in `.tsx` files should follow the following order:
 
-Contributions are welcome! If you'd like to contribute to this project, please make sure to follow the code formatting guidelines defined by Prettier. This ensures consistent code style and makes it easier to review and merge your contributions. If you'd like to contribute to the Musician Personnel Assignment Project, please follow these guidelines:
+- React/Next.js Imports
+- Library Imports
+- Type/Interface Imports
+- Other Component Imports
+- Styles or CSS Imports
+- Constants or Config Imports
+
+## Development Workflow & Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please make sure to follow the code formatting guidelines defined by Prettier. This ensures consistent code style and makes it easier to review and merge your contributions. If you'd like to contribute to the Drum Roulette Project, please follow these guidelines:
 
 1. Fork the repository
 2. Create a new branch for your feature: `git checkout -b DR-[issue-number]-feature-name`
 3. Make your changes and commit them: `git commit -m 'Add some feature'`
 4. Push the changes to your forked repository: `git push origin DR-[issue-number]-feature-name`
 5. Submit a pull request detailing your changes
+
+## Deployment
+
+Our front-end application is automatically deployed through the following process:
+
+**Version Control System:**
+
+- The source code for the front-end is version-controlled using Git.
+
+**Continuous Integration:**
+
+- We utilize continuous integration (CI) to automate the testing and building processes. The CI system monitors changes in the repository and triggers the build process.
+
+**Build Process:**
+
+- The build process is handled by Next.js and Vercel. On each merge to the **`main`** branch, Next.js compiles the application code, assets, and dependencies into a deployable format.
+
+**Deployment Trigger:**
+
+- Deployment is triggered when changes are merged into the **`main`** branch. This is achieved through the integration between Next.js and Vercel.
+
+**Deployment to Vercel:**
+
+- Vercel, our hosting provider, automatically deploys the application based on the changes in the **`main`** branch. The deployment includes updating the live version of the application.
+
+### **Setting Up a Deployment Schedule:**
+
+While our current deployment process is triggered on each push to the **`main`** branch, we are considering the implementation of a deployment schedule for more controlled releases. The schedule might involve deploying updates at specific times or on particular days to align with project milestones or user expectations.
 
 ## License
 
