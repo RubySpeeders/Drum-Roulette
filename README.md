@@ -103,7 +103,7 @@ Imports in `.tsx` files should follow the following order:
 
 ## Development Workflow & Contributing
 
-Contributions are welcome! If you'd like to contribute to this project, please make sure to follow the code formatting guidelines defined by Prettier. This ensures consistent code style and makes it easier to review and merge your contributions. If you'd like to contribute to the Drum Roulette, please follow these guidelines:
+Contributions are welcome! If you'd like to contribute to this project, please make sure to follow the code formatting guidelines defined by Prettier. This ensures consistent code style and makes it easier to review and merge your contributions. If you'd like to contribute to Drum Roulette, please follow these guidelines:
 
 1. Clone the repository
 2. Create a new branch for your feature: `git checkout -b DR-[issue-number]-feature-name`
