@@ -59,6 +59,17 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  button: {
+    borderRadius: "3.75em",
+    fontSize: "1rem",
+    padding: ".75em 4.75em",
+    "&.Mui-disabled": {
+      backgroundColor: "#E9E5F3",
+      color: "white",
+      cursor: "not-allowed",
+      pointerEvents: "auto",
+    },
+  },
 }));
 
 export default function SelectionContainer({
@@ -166,8 +177,9 @@ export default function SelectionContainer({
             </CustomButton>
           </Link>
         )}
+        <button className={classes.button}>TEST</button>
         <Link href="/">
-          <Typography>Return to homepage</Typography>
+          <Typography color="white">Return to homepage</Typography>
         </Link>
       </Grid>
     </Grid>
