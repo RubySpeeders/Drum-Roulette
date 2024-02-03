@@ -70,19 +70,32 @@ export default function Assignments() {
           >
             <div className={classNames(classes.card)}>
               <div className={classNames(classes.image)}>
-                <Image
-                  priority
-                  src={assignment.musician.image}
-                  alt={`assigned musician is ${assignment.musician.first_name}`}
-                  width={200}
-                  height={280}
-                />
+                {assignment.musician.image ? (
+                  <Image
+                    style={{ width: "auto", height: "280px" }}
+                    priority
+                    src={assignment.musician.image}
+                    alt={`assigned musician is ${assignment.musician.first_name}`}
+                    width={200}
+                    height={280}
+                  />
+                ) : (
+                  <Image
+                    style={{ width: "auto", height: "auto" }}
+                    priority
+                    src="/assets/images/default-avatar-dark.svg"
+                    alt={`assigned musician is ${assignment.musician.first_name}`}
+                    width={200}
+                    height={200}
+                  />
+                )}
               </div>
               <Typography>{assignment.musician.first_name}</Typography>
             </div>
             <div className={classNames(classes.card)}>
               <div className={classNames(classes.image)}>
                 <Image
+                  style={{ width: "auto", height: "auto" }}
                   src={assignment.instrument.image}
                   alt={`assigned instrument is ${assignment.instrument.name}`}
                   width={200}

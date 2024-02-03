@@ -65,6 +65,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
         {isInstrument && item.image ? (
           // render instruments
           <Image
+            style={{ width: "auto", height: "auto" }}
             priority
             src={item.image}
             alt={`select ${item}`}
@@ -74,7 +75,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
         ) : !isInstrument && item.image ? (
           // render players
           <Image
-            style={{ width: "auto" }}
+            style={{ width: "auto", height: "280px" }}
             priority
             src={item.image}
             alt={`select ${
@@ -87,6 +88,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
           />
         ) : (
           <Image
+            style={{ width: "auto", height: "auto" }}
             priority
             src="/assets/images/default-avatar-dark.svg"
             alt="default profile avatar dark"
