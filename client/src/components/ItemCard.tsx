@@ -30,8 +30,8 @@ const useStyles = makeStyles(() => ({
     boxShadow: "0 0 0 5px #37A8FA",
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
     overflow: "hidden",
     borderRadius: "50%",
     display: "flex",
@@ -69,8 +69,8 @@ export const ItemCard = ({ item, onClick }: Props) => {
             priority
             src={item.image}
             alt={`select ${item}`}
-            width={200}
-            height={200}
+            width={150}
+            height={150}
           />
         ) : !isInstrument && item.image ? (
           // render players

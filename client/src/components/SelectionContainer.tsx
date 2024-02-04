@@ -70,6 +70,20 @@ const useStyles = makeStyles(() => ({
       pointerEvents: "auto",
     },
   },
+  buttonContainer: {
+    margin: "2rem",
+    padding: "5px",
+    width: "80%",
+    position: "relative",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    flexDirection: "column",
+  },
+  returnLink: {
+    marginTop: "0.5rem",
+    textDecoration: "underline white 0.100rem solid",
+  },
 }));
 
 export default function SelectionContainer({
@@ -154,12 +168,14 @@ export default function SelectionContainer({
         </Box>
         {/* only render link tag if selection criteria are met */}
         {!isSelected || !selectedEqual ? (
-          <CustomButton
-            variant="contained"
-            disabled={!isSelected || !selectedEqual}
-          >
-            Assign
-          </CustomButton>
+          <div className={classNames(classes.buttonContainer)}>
+            <CustomButton
+              variant="contained"
+              disabled={!isSelected || !selectedEqual}
+            >
+              Assign
+            </CustomButton>
+          </div>
         ) : (
           <Link
             href={{
@@ -169,18 +185,23 @@ export default function SelectionContainer({
               },
             }}
           >
-            <CustomButton
-              variant="contained"
-              disabled={!isSelected || !selectedEqual}
-            >
-              Assign
-            </CustomButton>
+            <div className={classNames(classes.buttonContainer)}>
+              <CustomButton
+                variant="contained"
+                disabled={!isSelected || !selectedEqual}
+              >
+                Assign
+              </CustomButton>
+            </div>
           </Link>
         )}
-        <button className={classes.button}>TEST</button>
-        <Link href="/">
-          <Typography color="white">Return to homepage</Typography>
-        </Link>
+        <div className={classNames(classes.buttonContainer)}>
+          <div className={classNames(classes.returnLink)}>
+            <Link href="/">
+              <Typography color="white">Return to homepage</Typography>
+            </Link>
+          </div>
+        </div>
       </Grid>
     </Grid>
   );
