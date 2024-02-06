@@ -41,6 +41,9 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  card: {
+    margin: 15,
+  },
 }));
 
 export default function SelectionContainer({
@@ -102,7 +105,7 @@ export default function SelectionContainer({
           <div className={classes.musicians}>
             {musicians.map((musician: Musician) => (
               <div
-                className={classNames({
+                className={classNames(classes.card, {
                   [classes.selected]: musician.selected,
                 })}
               >
@@ -122,7 +125,7 @@ export default function SelectionContainer({
           <div className={classes.musicians}>
             {instruments.map((instrument: Instrument) => (
               <div
-                className={classNames({
+                className={classNames(classes.card, {
                   [classes.selected]: instrument.selected,
                 })}
               >
