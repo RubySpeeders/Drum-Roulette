@@ -28,7 +28,8 @@ interface Props {
 const useStyles = makeStyles(() => ({
   selected: {
     boxShadow: "0 0 0 5px #D745D1",
-    borderRadius: "50%",
+    borderRadius: "100px",
+    height: "200px",
   },
   musicians: {
     display: "flex",

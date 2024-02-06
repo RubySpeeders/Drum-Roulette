@@ -23,8 +23,6 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    // marginTop: "5%",
-    // marginLeft: "2%",
   },
   image: {
     width: 200,
