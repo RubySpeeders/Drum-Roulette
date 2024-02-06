@@ -108,9 +108,9 @@ export default function SelectionContainer({
                 className={classNames(classes.card, {
                   [classes.selected]: musician.selected,
                 })}
+                key={musician.musician_id}
               >
                 <ItemCard
-                  key={musician.musician_id}
                   item={musician}
                   onClick={() => handleClickItem(musician)}
                 />
@@ -128,9 +128,9 @@ export default function SelectionContainer({
                 className={classNames(classes.card, {
                   [classes.selected]: instrument.selected,
                 })}
+                key={instrument.instrument_id}
               >
                 <ItemCard
-                  key={instrument.instrument_id}
                   item={instrument}
                   onClick={() => handleClickItem(instrument)}
                 />
