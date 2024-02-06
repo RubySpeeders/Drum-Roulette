@@ -26,28 +26,9 @@ interface Props {
 }
 
 const useStyles = makeStyles(() => ({
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  card: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: "5%",
-    marginLeft: "2%",
-  },
   selected: {
-    boxShadow: "0 0 0 5px #37A8FA",
-  },
-  image: {
-    width: 200,
-    height: 200,
-    overflow: "hidden",
+    boxShadow: "0 0 0 5px #D745D1",
     borderRadius: "50%",
-    display: "flex",
-    justifyContent: "center",
   },
   musicians: {
     display: "flex",
@@ -115,29 +96,41 @@ export default function SelectionContainer({
   return (
     <Grid container>
       <Grid item xs={12} md={6} className={classes.grid}>
-        <Box className={classNames(classes.container)}>
+        <Box className={classes.grid}>
           <h2>Select Musicians</h2>
-          <div className={classNames(classes.musicians)}>
+          <div className={classes.musicians}>
             {musicians.map((musician: Musician) => (
-              <ItemCard
-                key={musician.musician_id}
-                item={musician}
-                onClick={() => handleClickItem(musician)}
-              />
+              <div
+                className={classNames({
+                  [classes.selected]: musician.selected,
+                })}
+              >
+                <ItemCard
+                  key={musician.musician_id}
+                  item={musician}
+                  onClick={() => handleClickItem(musician)}
+                />
+              </div>
             ))}
           </div>
         </Box>
       </Grid>
       <Grid item xs={12} md={6}>
-        <Box className={classNames(classes.container)}>
+        <Box className={classes.grid}>
           <h2>Select Instruments</h2>
-          <div className={classNames(classes.musicians)}>
+          <div className={classes.musicians}>
             {instruments.map((instrument: Instrument) => (
-              <ItemCard
-                key={instrument.instrument_id}
-                item={instrument}
-                onClick={() => handleClickItem(instrument)}
-              />
+              <div
+                className={classNames({
+                  [classes.selected]: instrument.selected,
+                })}
+              >
+                <ItemCard
+                  key={instrument.instrument_id}
+                  item={instrument}
+                  onClick={() => handleClickItem(instrument)}
+                />
+              </div>
             ))}
           </div>
         </Box>
