@@ -1,6 +1,6 @@
 # Drum Roulette
 
-![DR-LandingPage]()
+![DR-LandingPage](https://github.com/RubySpeeders/Drum-Roulette/blob/develop/client/public/assets/images/DR-landingPage-Screenshot.png?raw=true)
 
 Drum Roulette is a web application built using [Next.js](https://nextjs.org/) and [TypeScript](https://www.typescriptlang.org/) on the frontend. Its purpose is to facilitate the random assignment of US Military band percussionists to instruments for specific jobs.
 
