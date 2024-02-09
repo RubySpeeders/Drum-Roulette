@@ -10,9 +10,6 @@ import { makeStyles } from "@mui/styles";
 import { Instrument } from "@/interfaces/instrument";
 import { Musician } from "@/interfaces/musician";
 
-// Styles or CSS Imports
-import classNames from "classnames";
-
 interface Props {
   item: Musician | Instrument;
   onClick?: (item: Musician | Instrument) => void;
