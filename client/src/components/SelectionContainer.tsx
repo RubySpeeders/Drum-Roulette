@@ -26,28 +26,10 @@ interface Props {
 }
 
 const useStyles = makeStyles(() => ({
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  card: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: "5%",
-    marginLeft: "2%",
-  },
   selected: {
-    boxShadow: "0 0 0 5px #37A8FA",
-  },
-  image: {
-    width: 200,
-    height: 200,
-    overflow: "hidden",
-    borderRadius: "50%",
-    display: "flex",
-    justifyContent: "center",
+    boxShadow: "0 0 0 5px #D745D1",
+    borderRadius: "100px",
+    height: "200px",
   },
   musicians: {
     display: "flex",
@@ -58,6 +40,9 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+  },
+  card: {
+    margin: 15,
   },
 }));
 
@@ -115,29 +100,41 @@ export default function SelectionContainer({
   return (
     <Grid container>
       <Grid item xs={12} md={6} className={classes.grid}>
-        <Box className={classNames(classes.container)}>
+        <Box className={classes.grid}>
           <h2>Select Musicians</h2>
-          <div className={classNames(classes.musicians)}>
+          <div className={classes.musicians}>
             {musicians.map((musician: Musician) => (
-              <ItemCard
+              <div
+                className={classNames(classes.card, {
+                  [classes.selected]: musician.selected,
+                })}
                 key={musician.musician_id}
-                item={musician}
-                onClick={() => handleClickItem(musician)}
-              />
+              >
+                <ItemCard
+                  item={musician}
+                  onClick={() => handleClickItem(musician)}
+                />
+              </div>
             ))}
           </div>
         </Box>
       </Grid>
       <Grid item xs={12} md={6}>
-        <Box className={classNames(classes.container)}>
+        <Box className={classes.grid}>
           <h2>Select Instruments</h2>
-          <div className={classNames(classes.musicians)}>
+          <div className={classes.musicians}>
             {instruments.map((instrument: Instrument) => (
-              <ItemCard
+              <div
+                className={classNames(classes.card, {
+                  [classes.selected]: instrument.selected,
+                })}
                 key={instrument.instrument_id}
-                item={instrument}
-                onClick={() => handleClickItem(instrument)}
-              />
+              >
+                <ItemCard
+                  item={instrument}
+                  onClick={() => handleClickItem(instrument)}
+                />
+              </div>
             ))}
           </div>
         </Box>

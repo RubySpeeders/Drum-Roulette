@@ -10,12 +10,9 @@ import { makeStyles } from "@mui/styles";
 import { Instrument } from "@/interfaces/instrument";
 import { Musician } from "@/interfaces/musician";
 
-// Styles or CSS Imports
-import classNames from "classnames";
-
 interface Props {
   item: Musician | Instrument;
-  onClick: (item: Musician | Instrument) => void;
+  onClick?: (item: Musician | Instrument) => void;
 }
 
 const useStyles = makeStyles(() => ({
@@ -23,11 +20,6 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "5%",
-    marginLeft: "2%",
-  },
-  selected: {
-    boxShadow: "0 0 0 5px #37A8FA",
   },
   image: {
     width: 200,
@@ -42,7 +34,8 @@ const useStyles = makeStyles(() => ({
 
 export const ItemCard = ({ item, onClick }: Props) => {
   const handleClick = () => {
-    onClick(item);
+    onClick && onClick(item);
+    onClick;
   };
 
   const [isInstrument, setInstrument] = useState(false);
@@ -56,12 +49,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
 
   return (
     <div className={classes.card}>
-      <div
-        className={classNames(classes.image, {
-          [classes.selected]: item.selected,
-        })}
-        onClick={handleClick}
-      >
+      <div className={classes.image} onClick={handleClick}>
         {isInstrument && item.image ? (
           // render instruments
           <Image
