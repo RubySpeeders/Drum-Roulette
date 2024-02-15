@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
   selected: {
     boxShadow: "0 0 0 5px #D745D1",
     borderRadius: "100px",
-    height: "200px",
+    height: "150px",
   },
   musicians: {
     display: "flex",
@@ -40,6 +40,31 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+  },
+  button: {
+    borderRadius: "3.75em",
+    fontSize: "1rem",
+    padding: ".75em 4.75em",
+    "&.Mui-disabled": {
+      backgroundColor: "#E9E5F3",
+      color: "white",
+      cursor: "not-allowed",
+      pointerEvents: "auto",
+    },
+  },
+  buttonContainer: {
+    margin: "2rem",
+    padding: "5px",
+    width: "80%",
+    position: "relative",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    flexDirection: "column",
+  },
+  returnLink: {
+    marginTop: "0.5rem",
+    textDecoration: "underline white 0.100rem solid",
   },
   card: {
     margin: 15,
@@ -140,12 +165,14 @@ export default function SelectionContainer({
         </Box>
         {/* only render link tag if selection criteria are met */}
         {!isSelected || !selectedEqual ? (
-          <CustomButton
-            variant="contained"
-            disabled={!isSelected || !selectedEqual}
-          >
-            Assign
-          </CustomButton>
+          <div className={classNames(classes.buttonContainer)}>
+            <CustomButton
+              variant="contained"
+              disabled={!isSelected || !selectedEqual}
+            >
+              Assign
+            </CustomButton>
+          </div>
         ) : (
           <Link
             href={{
@@ -155,17 +182,23 @@ export default function SelectionContainer({
               },
             }}
           >
-            <CustomButton
-              variant="contained"
-              disabled={!isSelected || !selectedEqual}
-            >
-              Assign
-            </CustomButton>
+            <div className={classNames(classes.buttonContainer)}>
+              <CustomButton
+                variant="contained"
+                disabled={!isSelected || !selectedEqual}
+              >
+                Assign
+              </CustomButton>
+            </div>
           </Link>
         )}
-        <Link href="/">
-          <Typography>Return to homepage</Typography>
-        </Link>
+        <div className={classNames(classes.buttonContainer)}>
+          <div className={classNames(classes.returnLink)}>
+            <Link href="/">
+              <Typography color="white">Return to homepage</Typography>
+            </Link>
+          </div>
+        </div>
       </Grid>
     </Grid>
   );
