@@ -2,7 +2,7 @@ import { Band } from "./band";
 import { Branch } from "./branch";
 import { Ensemble } from "./ensemble";
 
-export interface Musician {
+export type Musician = {
   first_name: string;
   image: string;
   last_name: string;
@@ -11,4 +11,4 @@ export interface Musician {
   band: Band;
   selected: boolean;
   ensemble: Ensemble;
-}
+};

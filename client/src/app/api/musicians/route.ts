@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+import { Musician } from "@/interfaces/musician";
+
 import pkg from "pg";
 const { Client } = pkg;
 
@@ -13,7 +15,7 @@ export const GET = async () => {
     // Connect to the database
     await client.connect();
 
-    // Your SQL query
+    // SQL query
     const query = `SELECT musician_id, first_name, last_name, ensemble.ensemble_id, ensemble_name, branch.branch_id, branch_name, nickname.nickname_id, nickname.nickname, musician.image FROM musician INNER JOIN ensemble ON ensemble.ensemble_id = musician.ensemble_id INNER JOIN branch ON ensemble.branch_id = branch.branch_id LEFT JOIN nickname ON branch.nickname_id = nickname.nickname_id`;
 
     // Execute the query
@@ -29,4 +31,9 @@ export const GET = async () => {
       { status: 500 }
     );
   }
+};
+
+export const POST = async (musicians: Musician[]) => {
+  // SQL query
+  const query = `INSERT INTO musician etc etc etc`;
 };

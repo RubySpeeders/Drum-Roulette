@@ -1,7 +1,3 @@
 export default async function getBranches() {
-  const res = await fetch(
-    `https://fryxz3d12d.execute-api.us-east-1.amazonaws.com/develop/branches`
-  );
-
-  return res.json();
+  return await fetch(`${process.env.BASEURL}/api/branches`);
 }

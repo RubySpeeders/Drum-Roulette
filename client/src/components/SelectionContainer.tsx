@@ -58,13 +58,13 @@ export default function SelectionContainer({
 
   const selectedEqual =
     instruments.filter((instrument) => instrument.selected).length ===
-    musicians.filter((name) => name.selected).length;
+    musicians?.filter((name) => name.selected).length;
 
   useEffect(() => {
     const selectedInstrumentsCount = instruments.filter(
       (instrument) => instrument.selected
     ).length;
-    const selectedMusiciansCount = musicians.filter(
+    const selectedMusiciansCount = musicians?.filter(
       (musician) => musician.selected
     ).length;
 
@@ -103,7 +103,7 @@ export default function SelectionContainer({
         <Box className={classes.grid}>
           <h2>Select Musicians</h2>
           <div className={classes.musicians}>
-            {musicians.map((musician: Musician) => (
+            {musicians?.map((musician: Musician) => (
               <div
                 className={classNames(classes.card, {
                   [classes.selected]: musician.selected,
