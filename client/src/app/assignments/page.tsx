@@ -73,7 +73,7 @@ export default function Assignments() {
           </div>
         );
       })}
-      <div className={classNames(classes.buttonContainer)}>
+      <div className={classes.buttonContainer}>
         <Button
           variant="contained"
           color="primary"
@@ -91,7 +91,7 @@ export default function Assignments() {
         >
           Return to Selection Page
         </Button>
-        <div className={classNames(classes.returnLink)}>
+        <div className={classes.returnLink}>
           <Link href="/">
             <Typography color="white">Return to homepage</Typography>
           </Link>

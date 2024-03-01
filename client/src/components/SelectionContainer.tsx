@@ -34,7 +34,7 @@ const useStyles = makeStyles(() => ({
   musicians: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-evenly",
+    justifyContent: "flex-start",
   },
   grid: {
     display: "flex",
@@ -165,7 +165,7 @@ export default function SelectionContainer({
         </Box>
         {/* only render link tag if selection criteria are met */}
         {!isSelected || !selectedEqual ? (
-          <div className={classNames(classes.buttonContainer)}>
+          <div className={classes.buttonContainer}>
             <CustomButton
               variant="contained"
               disabled={!isSelected || !selectedEqual}
@@ -182,7 +182,7 @@ export default function SelectionContainer({
               },
             }}
           >
-            <div className={classNames(classes.buttonContainer)}>
+            <div className={classes.buttonContainer}>
               <CustomButton
                 variant="contained"
                 disabled={!isSelected || !selectedEqual}
@@ -192,8 +192,8 @@ export default function SelectionContainer({
             </div>
           </Link>
         )}
-        <div className={classNames(classes.buttonContainer)}>
-          <div className={classNames(classes.returnLink)}>
+        <div className={classes.buttonContainer}>
+          <div className={classes.returnLink}>
             <Link href="/">
               <Typography color="white">Return to homepage</Typography>
             </Link>
