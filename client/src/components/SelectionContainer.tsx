@@ -39,7 +39,8 @@ const useStyles = makeStyles(() => ({
   grid: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "flex-start",
+    marginLeft: "5%",
   },
   button: {
     borderRadius: "3.75em",
@@ -126,7 +127,16 @@ export default function SelectionContainer({
     <Grid container>
       <Grid item xs={12} md={6} className={classes.grid}>
         <Box className={classes.grid}>
-          <h2>Select Musicians</h2>
+          <Typography
+            style={{
+              marginLeft: "5%",
+              marginBottom: "5%",
+              fontSize: "24px",
+              fontWeight: "bold",
+            }}
+          >
+            Select Musicians
+          </Typography>
           <div className={classes.musicians}>
             {musicians.map((musician: Musician) => (
               <div
@@ -146,7 +156,16 @@ export default function SelectionContainer({
       </Grid>
       <Grid item xs={12} md={6}>
         <Box className={classes.grid}>
-          <h2>Select Instruments</h2>
+          <Typography
+            style={{
+              marginLeft: "5%",
+              marginBottom: "5%",
+              fontSize: "24px",
+              fontWeight: "bold",
+            }}
+          >
+            Select Instruments
+          </Typography>
           <div className={classes.musicians}>
             {instruments.map((instrument: Instrument) => (
               <div
