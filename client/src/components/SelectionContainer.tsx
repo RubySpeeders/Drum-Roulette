@@ -29,17 +29,43 @@ const useStyles = makeStyles(() => ({
   selected: {
     boxShadow: "0 0 0 5px #D745D1",
     borderRadius: "100px",
-    height: "200px",
+    height: "150px",
   },
   musicians: {
     display: "flex",
     flexWrap: "wrap",
-    justifyContent: "space-evenly",
+    justifyContent: "flex-start",
   },
   grid: {
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "flex-start",
+    marginLeft: "5%",
+  },
+  button: {
+    borderRadius: "3.75em",
+    fontSize: "1rem",
+    padding: ".75em 4.75em",
+    "&.Mui-disabled": {
+      backgroundColor: "#E9E5F3",
+      color: "white",
+      cursor: "not-allowed",
+      pointerEvents: "auto",
+    },
+  },
+  buttonContainer: {
+    margin: "2rem",
+    padding: "5px",
+    width: "80%",
+    position: "relative",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    flexDirection: "column",
+  },
+  returnLink: {
+    marginTop: "0.5rem",
+    textDecoration: "underline white 0.100rem solid",
   },
   card: {
     margin: 15,
@@ -101,7 +127,16 @@ export default function SelectionContainer({
     <Grid container>
       <Grid item xs={12} md={6} className={classes.grid}>
         <Box className={classes.grid}>
-          <h2>Select Musicians</h2>
+          <Typography
+            style={{
+              marginLeft: "5%",
+              marginBottom: "5%",
+              fontSize: "24px",
+              fontWeight: "bold",
+            }}
+          >
+            Select Musicians
+          </Typography>
           <div className={classes.musicians}>
             {musicians.map((musician: Musician) => (
               <div
@@ -121,7 +156,16 @@ export default function SelectionContainer({
       </Grid>
       <Grid item xs={12} md={6}>
         <Box className={classes.grid}>
-          <h2>Select Instruments</h2>
+          <Typography
+            style={{
+              marginLeft: "5%",
+              marginBottom: "5%",
+              fontSize: "24px",
+              fontWeight: "bold",
+            }}
+          >
+            Select Instruments
+          </Typography>
           <div className={classes.musicians}>
             {instruments.map((instrument: Instrument) => (
               <div
@@ -140,12 +184,14 @@ export default function SelectionContainer({
         </Box>
         {/* only render link tag if selection criteria are met */}
         {!isSelected || !selectedEqual ? (
-          <CustomButton
-            variant="contained"
-            disabled={!isSelected || !selectedEqual}
-          >
-            Assign
-          </CustomButton>
+          <div className={classes.buttonContainer}>
+            <CustomButton
+              variant="contained"
+              disabled={!isSelected || !selectedEqual}
+            >
+              Assign
+            </CustomButton>
+          </div>
         ) : (
           <Link
             href={{
@@ -155,17 +201,23 @@ export default function SelectionContainer({
               },
             }}
           >
-            <CustomButton
-              variant="contained"
-              disabled={!isSelected || !selectedEqual}
-            >
-              Assign
-            </CustomButton>
+            <div className={classes.buttonContainer}>
+              <CustomButton
+                variant="contained"
+                disabled={!isSelected || !selectedEqual}
+              >
+                Assign
+              </CustomButton>
+            </div>
           </Link>
         )}
-        <Link href="/">
-          <Typography>Return to homepage</Typography>
-        </Link>
+        <div className={classes.buttonContainer}>
+          <div className={classes.returnLink}>
+            <Link href="/">
+              <Typography color="white">Return to homepage</Typography>
+            </Link>
+          </div>
+        </div>
       </Grid>
     </Grid>
   );
