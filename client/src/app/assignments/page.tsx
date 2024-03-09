@@ -1,11 +1,19 @@
 "use client";
 
-import { Typography, Button } from "@mui/material";
+// React/ Next.js Imports
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Assignment } from "@/interfaces/assignment";
-import Image from "next/image";
+
+// Library Imports
 import { makeStyles } from "@mui/styles";
+import { Button, Typography } from "@mui/material";
+
+// Type/ Interface Imports
+import { Assignment } from "@/interfaces/assignment";
+
+// Styles or CSS Imports
 import classNames from "classnames";
+import { ItemCard } from "@/components/ItemCard";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -13,6 +21,20 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "space-around",
     margin: "0 5em",
+  },
+  buttonContainer: {
+    margin: "6rem 2rem",
+    padding: "5px",
+    width: "80%",
+    position: "relative",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    flexDirection: "column",
+  },
+  returnLink: {
+    marginTop: "2rem",
+    textDecoration: "underline white 0.100rem solid",
   },
   card: {
     display: "flex",
@@ -22,8 +44,8 @@ const useStyles = makeStyles(() => ({
     marginLeft: "2%",
   },
   image: {
-    width: 200,
-    height: 200,
+    width: 150,
+    height: 150,
     overflow: "hidden",
     borderRadius: "50%",
     display: "flex",
@@ -40,7 +62,18 @@ export default function Assignments() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <div>
+      {assignments.map((assignment: Assignment) => {
+        return (
+          <div
+            key={assignment.musician.musician_id}
+            className={classes.container}
+          >
+            <ItemCard item={assignment.musician} />
+            <ItemCard item={assignment.instrument} />
+          </div>
+        );
+      })}
+      <div className={classes.buttonContainer}>
         <Button
           variant="contained"
           color="primary"
@@ -50,42 +83,20 @@ export default function Assignments() {
             router.push("/selection");
           }}
           type={"button"}
+          style={{
+            borderRadius: "3.75em",
+            fontSize: "1rem",
+            padding: ".75em 4.75em",
+          }}
         >
           Return to Selection Page
         </Button>
+        <div className={classes.returnLink}>
+          <Link href="/">
+            <Typography color="white">Return to homepage</Typography>
+          </Link>
+        </div>
       </div>
-      {assignments.map((assignment: Assignment) => {
-        return (
-          <div
-            key={assignment.musician.musician_id}
-            className={classNames(classes.container)}
-          >
-            <div className={classNames(classes.card)}>
-              <div className={classNames(classes.image)}>
-                <Image
-                  priority
-                  src={assignment.musician.image}
-                  alt={`assigned musician is ${assignment.musician.first_name}`}
-                  width={200}
-                  height={280}
-                />
-              </div>
-              <Typography>{assignment.musician.first_name}</Typography>
-            </div>
-            <div className={classNames(classes.card)}>
-              <div className={classNames(classes.image)}>
-                <Image
-                  src={assignment.instrument.image}
-                  alt={`assigned instrument is ${assignment.instrument.name}`}
-                  width={200}
-                  height={200}
-                />
-              </div>
-              <Typography>{assignment.instrument.name}</Typography>
-            </div>
-          </div>
-        );
-      })}
     </div>
   );
 }

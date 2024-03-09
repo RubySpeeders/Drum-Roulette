@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ThemeRegistry from "./ThemeRegistry";
+import Header from "@/components/Header";
 
 export const metadata: Metadata = {
   title: "Drum Roulette",
@@ -7,7 +8,11 @@ export const metadata: Metadata = {
   manifest: "/manifest.json", // '../manifest.json' ???
   icons: {
     icon: "/favicon.ico",
-    apple: { url: "/ios-icon.ico", sizes: "180x180", type: "image/ico" }, // might need to change manifest.json file source
+    apple: {
+      url: "/apple-icon.png",
+      sizes: "180x180",
+      type: "image/png",
+    }, // might need to change manifest.json file source
   },
   appleWebApp: {
     capable: true,
@@ -24,6 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Header />
         <ThemeRegistry options={{ key: "mui" }}>{children}</ThemeRegistry>
       </body>
     </html>
