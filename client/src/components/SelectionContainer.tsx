@@ -6,6 +6,9 @@ import Link from "next/link";
 
 // Library Imports
 import { Box, Grid, Typography } from "@mui/material";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 
 // Type/ Interface Imports
@@ -46,12 +49,6 @@ const useStyles = makeStyles(() => ({
     borderRadius: "3.75em",
     fontSize: "1rem",
     padding: ".75em 4.75em",
-    "&.Mui-disabled": {
-      backgroundColor: "#E9E5F3",
-      color: "white",
-      cursor: "not-allowed",
-      pointerEvents: "auto",
-    },
   },
   buttonContainer: {
     margin: "2rem",
@@ -123,6 +120,24 @@ export default function SelectionContainer({
     }
   };
 
+  const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.arrow}`]: {
+      "&::before": {
+        backgroundColor: "#F5F5F5",
+      },
+    },
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: "#F5F5F5",
+      color: "#4A2462",
+      padding: 20,
+      maxWidth: 330,
+      maxHeight: 90,
+      fontSize: theme.typography.pxToRem(16),
+    },
+  }));
+
   return (
     <Grid container>
       <Grid item xs={12} md={6} className={classes.grid}>
@@ -185,12 +200,21 @@ export default function SelectionContainer({
         {/* only render link tag if selection criteria are met */}
         {!isSelected || !selectedEqual ? (
           <div className={classes.buttonContainer}>
-            <CustomButton
-              variant="contained"
-              disabled={!isSelected || !selectedEqual}
+            <CustomTooltip
+              title="Please select at least 2 musicians and 2 instruments to continue."
+              placement="top-end"
+              arrow
             >
-              Assign
-            </CustomButton>
+              <IconButton>
+                <CustomButton
+                  // className={classes.button}
+                  variant="contained"
+                  disabled={!isSelected || !selectedEqual}
+                >
+                  Assign
+                </CustomButton>
+              </IconButton>
+            </CustomTooltip>
           </div>
         ) : (
           <Link
@@ -203,6 +227,7 @@ export default function SelectionContainer({
           >
             <div className={classes.buttonContainer}>
               <CustomButton
+                // className={classes.button}
                 variant="contained"
                 disabled={!isSelected || !selectedEqual}
               >
