@@ -29,6 +29,13 @@ interface Props {
 }
 
 const useStyles = makeStyles(() => ({
+  message: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    maxWidth: "830px",
+    minHeight: "95px",
+  },
   selected: {
     boxShadow: "0 0 0 5px #D745D1",
     borderRadius: "100px",
@@ -140,6 +147,20 @@ export default function SelectionContainer({
 
   return (
     <Grid container>
+      <Box className={classes.message}>
+        <Typography
+          style={{
+            marginTop: "3%",
+            marginBottom: "8%",
+            marginLeft: "5%",
+            fontSize: "32px",
+            fontWeight: 600,
+          }}
+        >
+          Please choose at least 2 musicians and 2 instruments, ensuring you
+          have an equal number of both.
+        </Typography>
+      </Box>
       <Grid item xs={12} md={6} className={classes.grid}>
         <Box className={classes.grid}>
           <Typography

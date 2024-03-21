@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 // Library Imports
 import { makeStyles } from "@mui/styles";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Box } from "@mui/material";
 
 // Type/ Interface Imports
 import { Assignment } from "@/interfaces/assignment";
@@ -21,6 +21,13 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
     justifyContent: "space-around",
     margin: "0 5em",
+  },
+  message: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    maxWidth: "830px",
+    minHeight: "95px",
   },
   buttonContainer: {
     margin: "6rem 2rem",
@@ -61,42 +68,57 @@ export default function Assignments() {
   const assignments = JSON.parse(searchParams.get("assignments") as string);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      {assignments.map((assignment: Assignment) => {
-        return (
-          <div
-            key={assignment.musician.musician_id}
-            className={classes.container}
-          >
-            <ItemCard item={assignment.musician} />
-            <ItemCard item={assignment.instrument} />
-          </div>
-        );
-      })}
-      <div className={classes.buttonContainer}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={(e) => {
-            e.preventDefault();
-
-            router.push("/selection");
-          }}
-          type={"button"}
+    <>
+      <Box className={classes.message}>
+        <Typography
           style={{
-            borderRadius: "3.75em",
-            fontSize: "1rem",
-            padding: ".75em 4.75em",
+            marginTop: "3%",
+            marginBottom: "8%",
+            marginLeft: "5%",
+            fontSize: "32px",
+            fontWeight: 600,
           }}
         >
-          Return to Selection Page
-        </Button>
-        <div className={classes.returnLink}>
-          <Link href="/">
-            <Typography color="white">Return to homepage</Typography>
-          </Link>
+          Your assignments have been generated!
+        </Typography>
+      </Box>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {assignments.map((assignment: Assignment) => {
+          return (
+            <div
+              key={assignment.musician.musician_id}
+              className={classes.container}
+            >
+              <ItemCard item={assignment.musician} />
+              <ItemCard item={assignment.instrument} />
+            </div>
+          );
+        })}
+        <div className={classes.buttonContainer}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={(e) => {
+              e.preventDefault();
+
+              router.push("/selection");
+            }}
+            type={"button"}
+            style={{
+              borderRadius: "3.75em",
+              fontSize: "1rem",
+              padding: ".75em 4.75em",
+            }}
+          >
+            Return to Selection Page
+          </Button>
+          <div className={classes.returnLink}>
+            <Link href="/">
+              <Typography color="white">Return to homepage</Typography>
+            </Link>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
