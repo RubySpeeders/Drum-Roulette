@@ -17,6 +17,7 @@ interface Props {
     | "warning";
   variant?: "text" | "outlined" | "contained";
   disabled?: boolean | undefined;
+  className?: string;
 }
 
 export const CustomButton = ({
@@ -32,6 +33,8 @@ export const CustomButton = ({
         borderRadius: "3.75em",
         fontSize: "1rem",
         padding: ".75em 4.75em",
+        backgroundColor: "#8763C4",
+        color: "white",
       }}
       color={color}
       variant={variant}

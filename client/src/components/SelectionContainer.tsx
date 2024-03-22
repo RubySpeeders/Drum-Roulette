@@ -6,6 +6,9 @@ import Link from "next/link";
 
 // Library Imports
 import { Box, Grid, Typography } from "@mui/material";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 
 // Type/ Interface Imports
@@ -16,9 +19,8 @@ import { Instrument } from "@/interfaces/instrument";
 import { CustomButton } from "./CustomButton";
 import { ItemCard } from "./ItemCard";
 
-// Styles or CSS Imports
+// Utility Imports
 import assign from "@/utils/assign";
-import classNames from "classnames";
 
 interface Props {
   musiciansData: Musician[];
@@ -26,32 +28,22 @@ interface Props {
 }
 
 const useStyles = makeStyles(() => ({
-  selected: {
-    boxShadow: "0 0 0 5px #D745D1",
-    borderRadius: "100px",
-    height: "150px",
+  message: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    maxWidth: "830px",
+    minHeight: "95px",
   },
   musicians: {
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "flex-start",
   },
-  grid: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    marginLeft: "5%",
-  },
   button: {
     borderRadius: "3.75em",
     fontSize: "1rem",
     padding: ".75em 4.75em",
-    "&.Mui-disabled": {
-      backgroundColor: "#E9E5F3",
-      color: "white",
-      cursor: "not-allowed",
-      pointerEvents: "auto",
-    },
   },
   buttonContainer: {
     margin: "2rem",
@@ -123,10 +115,48 @@ export default function SelectionContainer({
     }
   };
 
+  const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.arrow}`]: {
+      "&::before": {
+        backgroundColor: "#F5F5F5",
+      },
+    },
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: "#F5F5F5",
+      color: "#4A2462",
+      padding: 20,
+      maxWidth: 330,
+      maxHeight: 90,
+      fontSize: theme.typography.pxToRem(16),
+    },
+  }));
+
   return (
-    <Grid container>
-      <Grid item xs={12} md={6} className={classes.grid}>
-        <Box className={classes.grid}>
+    <>
+      <Box className={classes.message}>
+        <Typography
+          style={{
+            marginTop: "3%",
+            marginBottom: "8%",
+            marginLeft: "5%",
+            fontSize: "32px",
+            fontWeight: 600,
+          }}
+        >
+          Please choose at least 2 musicians and 2 instruments, ensuring you
+          have an equal number of both.
+        </Typography>
+      </Box>
+      <Grid container>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          direction={"column"}
+          alignItems={"flex-start"}
+        >
           <Typography
             style={{
               marginLeft: "5%",
@@ -139,12 +169,7 @@ export default function SelectionContainer({
           </Typography>
           <div className={classes.musicians}>
             {musicians.map((musician: Musician) => (
-              <div
-                className={classNames(classes.card, {
-                  [classes.selected]: musician.selected,
-                })}
-                key={musician.musician_id}
-              >
+              <div className={classes.card} key={musician.musician_id}>
                 <ItemCard
                   item={musician}
                   onClick={() => handleClickItem(musician)}
@@ -152,10 +177,14 @@ export default function SelectionContainer({
               </div>
             ))}
           </div>
-        </Box>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Box className={classes.grid}>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          direction={"column"}
+          alignItems={"flex-start"}
+        >
           <Typography
             style={{
               marginLeft: "5%",
@@ -168,12 +197,7 @@ export default function SelectionContainer({
           </Typography>
           <div className={classes.musicians}>
             {instruments.map((instrument: Instrument) => (
-              <div
-                className={classNames(classes.card, {
-                  [classes.selected]: instrument.selected,
-                })}
-                key={instrument.instrument_id}
-              >
+              <div className={classes.card} key={instrument.instrument_id}>
                 <ItemCard
                   item={instrument}
                   onClick={() => handleClickItem(instrument)}
@@ -181,44 +205,54 @@ export default function SelectionContainer({
               </div>
             ))}
           </div>
-        </Box>
-        {/* only render link tag if selection criteria are met */}
-        {!isSelected || !selectedEqual ? (
-          <div className={classes.buttonContainer}>
-            <CustomButton
-              variant="contained"
-              disabled={!isSelected || !selectedEqual}
-            >
-              Assign
-            </CustomButton>
-          </div>
-        ) : (
-          <Link
-            href={{
-              pathname: "/assignments",
-              query: {
-                assignments: JSON.stringify(assign(musicians, instruments)),
-              },
-            }}
-          >
+          {/* only render link tag if selection criteria are met */}
+          {!isSelected || !selectedEqual ? (
             <div className={classes.buttonContainer}>
-              <CustomButton
-                variant="contained"
-                disabled={!isSelected || !selectedEqual}
+              <CustomTooltip
+                title="Please select at least 2 musicians and 2 instruments to continue."
+                placement="top-end"
+                arrow
               >
-                Assign
-              </CustomButton>
+                <IconButton>
+                  <CustomButton
+                    // className={classes.button}
+                    variant="contained"
+                    disabled={!isSelected || !selectedEqual}
+                  >
+                    Assign
+                  </CustomButton>
+                </IconButton>
+              </CustomTooltip>
             </div>
-          </Link>
-        )}
-        <div className={classes.buttonContainer}>
-          <div className={classes.returnLink}>
-            <Link href="/">
-              <Typography color="white">Return to homepage</Typography>
+          ) : (
+            <Link
+              href={{
+                pathname: "/assignments",
+                query: {
+                  assignments: JSON.stringify(assign(musicians, instruments)),
+                },
+              }}
+            >
+              <div className={classes.buttonContainer}>
+                <CustomButton
+                  // className={classes.button}
+                  variant="contained"
+                  disabled={!isSelected || !selectedEqual}
+                >
+                  Assign
+                </CustomButton>
+              </div>
             </Link>
+          )}
+          <div className={classes.buttonContainer}>
+            <div className={classes.returnLink}>
+              <Link href="/">
+                <Typography color="white">Return to homepage</Typography>
+              </Link>
+            </div>
           </div>
-        </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }
