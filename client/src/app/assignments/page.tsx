@@ -6,22 +6,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 // Library Imports
 import { makeStyles } from "@mui/styles";
-import { Button, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 
 // Type/ Interface Imports
 import { Assignment } from "@/interfaces/assignment";
 
-// Styles or CSS Imports
-import classNames from "classnames";
-import { ItemCard } from "@/components/ItemCard";
+// Component Imports
+import AssignmentBox from "@/components/AssignmentBox";
 
 const useStyles = makeStyles(() => ({
-  container: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-around",
-    margin: "0 5em",
-  },
   buttonContainer: {
     margin: "6rem 2rem",
     padding: "5px",
@@ -53,6 +46,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const ASSIGNMENT_COLORS = ["#8763C4", "#D1A4CF", "#E9E5F3", "#D745D1"];
+
 export default function Assignments() {
   const classes = useStyles();
   const router = useRouter();
@@ -62,17 +57,17 @@ export default function Assignments() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      {assignments.map((assignment: Assignment) => {
-        return (
-          <div
-            key={assignment.musician.musician_id}
-            className={classes.container}
-          >
-            <ItemCard item={assignment.musician} />
-            <ItemCard item={assignment.instrument} />
-          </div>
-        );
-      })}
+      <Grid container spacing={4} sx={{ padding: "0 3rem" }}>
+        {assignments.map((assignment: Assignment, i: number) => (
+          <AssignmentBox
+            key={assignment.id}
+            assignment={assignment}
+            // cycles through each of the 4 assignment colors
+            color={ASSIGNMENT_COLORS[i % 4]}
+          />
+        ))}
+      </Grid>
+
       <div className={classes.buttonContainer}>
         <Button
           variant="contained"
