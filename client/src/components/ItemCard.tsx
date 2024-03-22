@@ -53,7 +53,6 @@ export const ItemCard = ({ item, onClick }: Props) => {
         {isInstrument && item.image ? (
           // render instruments
           <Image
-            style={{ width: "auto", height: "auto" }}
             priority
             src={item.image}
             alt={`select ${item}`}
@@ -63,7 +62,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
         ) : !isInstrument && item.image ? (
           // render players
           <Image
-            style={{ width: "auto", height: "280px" }}
+            style={{ width: "auto", height: "auto" }}
             priority
             src={item.image}
             alt={`select ${

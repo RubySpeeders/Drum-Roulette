@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around",
-    padding: "3rem 1rem",
+    padding: "2rem 1rem 1rem 1rem",
     border: ".12em dashed #E9E5F3",
     borderRadius: "12px",
     position: "relative",

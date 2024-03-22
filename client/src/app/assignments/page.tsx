@@ -15,34 +15,24 @@ import { Assignment } from "@/interfaces/assignment";
 import AssignmentBox from "@/components/AssignmentBox";
 
 const useStyles = makeStyles(() => ({
+  subtitle: {
+    fontSize: "2rem",
+    margin: "1rem 0 2rem 0",
+  },
   buttonContainer: {
-    margin: "6rem 2rem",
+    margin: "3rem 2rem",
     padding: "5px",
-    width: "80%",
-    position: "relative",
     display: "flex",
-    justifyContent: "flex-end",
     alignItems: "flex-end",
     flexDirection: "column",
   },
   returnLink: {
     marginTop: "2rem",
-    textDecoration: "underline white 0.100rem solid",
+    textDecoration: "underline white 0.1rem solid",
   },
-  card: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: "5%",
-    marginLeft: "2%",
-  },
-  image: {
-    width: 150,
-    height: 150,
-    overflow: "hidden",
-    borderRadius: "50%",
-    display: "flex",
-    justifyContent: "center",
+  linkText: {
+    color: "white",
+    fontSize: "2rem",
   },
 }));
 
@@ -56,8 +46,13 @@ export default function Assignments() {
   const assignments = JSON.parse(searchParams.get("assignments") as string);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <Grid container spacing={4} sx={{ padding: "0 3rem" }}>
+    <div
+      style={{ display: "flex", flexDirection: "column", padding: "0 3rem" }}
+    >
+      <h3 className={classes.subtitle}>
+        Your assignments have been generated!
+      </h3>
+      <Grid container spacing={4}>
         {assignments.map((assignment: Assignment, i: number) => (
           <AssignmentBox
             key={assignment.id}
@@ -78,7 +73,7 @@ export default function Assignments() {
             router.push("/selection");
           }}
           type={"button"}
-          style={{
+          sx={{
             borderRadius: "3.75em",
             fontSize: "1rem",
             padding: ".75em 4.75em",
@@ -88,7 +83,9 @@ export default function Assignments() {
         </Button>
         <div className={classes.returnLink}>
           <Link href="/">
-            <Typography color="white">Return to homepage</Typography>
+            <Typography className={classes.linkText}>
+              Return to homepage
+            </Typography>
           </Link>
         </div>
       </div>
