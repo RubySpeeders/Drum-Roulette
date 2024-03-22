@@ -5,6 +5,11 @@ import { Open_Sans } from "next/font/google";
 declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
+declare module "@mui/system" {
+  interface BreakpointOverrides {
+    assignmentsGrid: true;
+  }
+}
 
 const open_Sans = Open_Sans({
   subsets: ["latin"],
@@ -13,6 +18,18 @@ const open_Sans = Open_Sans({
 export const theme: Theme = createTheme({
   typography: {
     fontFamily: open_Sans.style.fontFamily,
+  },
+  breakpoints: {
+    values: {
+      // default values
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+      // custom breakpoint for assignment page grid
+      assignmentsGrid: 1038,
+    },
   },
   components: {
     MuiCssBaseline: {
