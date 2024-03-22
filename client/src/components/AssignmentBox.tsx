@@ -39,7 +39,7 @@ const AssignmentBox = ({ assignment, color }: Props) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} assignmentsGrid={6} sx={{ minWidth: "30rem" }}>
+    <Grid item xs={12} assignmentsGrid={6} sx={{ minWidth: "20rem" }}>
       <div className={classes.color} style={{ backgroundColor: color }}></div>
 
       <div className={classes.cardContainer}>

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 // Library Imports
-import { Typography } from "@mui/material";
+import { Typography, useMediaQuery } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 // Type/ Interface Imports
@@ -22,8 +22,6 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
   image: {
-    width: 150,
-    height: 150,
     overflow: "hidden",
     borderRadius: "50%",
     display: "flex",
@@ -39,6 +37,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
   };
 
   const [isInstrument, setInstrument] = useState(false);
+  const isMobile = useMediaQuery("(max-width:500px)");
 
   // check if the image is an instrument
   useEffect(() => {
@@ -49,15 +48,23 @@ export const ItemCard = ({ item, onClick }: Props) => {
 
   return (
     <div className={classes.card}>
-      <div className={classes.image} onClick={handleClick}>
+      <div
+        className={classes.image}
+        style={{
+          width: isMobile ? 100 : 150,
+          height: isMobile ? 100 : 150,
+        }}
+        onClick={handleClick}
+      >
         {isInstrument && item.image ? (
           // render instruments
           <Image
             priority
+            style={{ width: "auto", height: "auto" }}
             src={item.image}
             alt={`select ${item}`}
-            width={150}
-            height={150}
+            width={isMobile ? 100 : 150}
+            height={isMobile ? 100 : 150}
           />
         ) : !isInstrument && item.image ? (
           // render players
@@ -70,8 +77,8 @@ export const ItemCard = ({ item, onClick }: Props) => {
                 ? `${item.first_name} ${item.last_name}`
                 : item.name
             }`}
-            width={200}
-            height={280}
+            width={isMobile ? 100 : 200}
+            height={isMobile ? 140 : 280}
           />
         ) : (
           <Image
