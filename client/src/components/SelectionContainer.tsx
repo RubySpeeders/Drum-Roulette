@@ -113,7 +113,7 @@ export default function SelectionContainer({
       setMusicians(nextMusicians);
     } else {
       const nextInstruments = instruments.map((instrument) => {
-        if (instrument.name === item.name) {
+        if (instrument.instrument_id === item.instrument_id) {
           return { ...instrument, selected: !item.selected };
         } else {
           return instrument;
