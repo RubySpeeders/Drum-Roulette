@@ -4,7 +4,6 @@ export async function getAllMusicians() {
 }
 
 export async function getAllMusiciansByBranch(branch_name: Branch_Name) {
-  console.log("helper", branch_name);
   const res = await fetch(
     `${process.env.BASEURL}/api/musicians/${branch_name}`
   );
