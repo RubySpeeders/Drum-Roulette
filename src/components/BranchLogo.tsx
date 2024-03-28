@@ -46,7 +46,7 @@ const BranchLogo = ({ branch }: Props) => {
   return (
     <Grid item xs={6} md={3}>
       <div className={classes.branchContainer}>
-        <Link href="/selection">
+        <Link href={`/selection/${branch.branch_name}`}>
           <div
             className={
               matches ? classes.imageContainerSmall : classes.imageContainer
