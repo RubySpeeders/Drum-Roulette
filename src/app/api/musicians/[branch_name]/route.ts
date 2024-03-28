@@ -1,4 +1,3 @@
-import { Branch_Name } from "@/interfaces/branch_name";
 import kebabToTitle from "@/utils/kebabToTitle";
 import _ from "lodash";
 import { NextResponse } from "next/server";

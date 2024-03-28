@@ -1,6 +1,5 @@
 import SelectionContainer from "@/components/SelectionContainer";
-import { Branch_Name } from "@/interfaces/branch_name";
-import getAllInstruments from "@/utils/api/getAllInstruments";
+import getAllInstruments from "@/utils/api/instruments";
 import { getAllMusiciansByBranch } from "@/utils/api/musicians";
 import { kebabCase } from "lodash";
 

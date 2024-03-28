@@ -1,5 +1,3 @@
-import { Branch_Name } from "@/interfaces/branch_name";
-
 export async function getAllMusicians() {
   const res = await fetch(`${process.env.BASEURL}/api/musicians`);
   return res.json();
