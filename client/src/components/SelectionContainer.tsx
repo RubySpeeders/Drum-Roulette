@@ -13,12 +13,14 @@ import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
 
 // Other component Imports
-import { CustomButton } from "./CustomButton";
-import { ItemCard } from "./ItemCard";
+import CustomButton from "./CustomButton";
+import ItemCard from "./ItemCard";
 
 // Styles or CSS Imports
 import assign from "@/utils/assign";
 import classNames from "classnames";
+import Filter from "./Filter";
+import { Ensemble } from "@/interfaces/ensemble";
 
 interface Props {
   musiciansData: Musician[];
@@ -78,9 +80,28 @@ export default function SelectionContainer({
 }: Props) {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
+  const [filteredMusicians, setFilteredMusicians] =
+    useState<Musician[]>(musicians);
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
+  const [ensembles, setEnsembles] = useState<Ensemble[]>([
+    { ensemble_id: 10, ensemble_name: "The Ceremonial Brass" },
+    { ensemble_id: 2, ensemble_name: "Concert Band" },
+    { ensemble_id: 12, ensemble_name: "The Singing Sergeants" },
+    { ensemble_id: 11, ensemble_name: "Max Impact" },
+    { ensemble_id: 9, ensemble_name: "Airmen of Note" },
+  ]);
 
   const [isSelected, setIsSelected] = useState(false);
+
+  const handleFilterChange = (selectedEnsembles: Ensemble[]) => {
+    // Filter musicians based on selected ensembles
+    const updatedFilteredMusicians = musicians.filter((musician) =>
+      selectedEnsembles.some(
+        (ensemble) => musician.ensemble.ensemble_id === ensemble.ensemble_id
+      )
+    );
+    setFilteredMusicians(updatedFilteredMusicians);
+  };
 
   const selectedEqual =
     instruments.filter((instrument) => instrument.selected).length ===
@@ -124,83 +145,68 @@ export default function SelectionContainer({
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12} md={6} className={classes.grid}>
-        <Box className={classes.grid}>
-          <Typography
-            style={{
-              marginLeft: "5%",
-              marginBottom: "5%",
-              fontSize: "24px",
-              fontWeight: "bold",
-            }}
-          >
-            Select Musicians
-          </Typography>
-          <div className={classes.musicians}>
-            {musicians.map((musician: Musician) => (
-              <div
-                className={classNames(classes.card, {
-                  [classes.selected]: musician.selected,
-                })}
-                key={musician.musician_id}
-              >
-                <ItemCard
-                  item={musician}
-                  onClick={() => handleClickItem(musician)}
-                />
-              </div>
-            ))}
-          </div>
-        </Box>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Box className={classes.grid}>
-          <Typography
-            style={{
-              marginLeft: "5%",
-              marginBottom: "5%",
-              fontSize: "24px",
-              fontWeight: "bold",
-            }}
-          >
-            Select Instruments
-          </Typography>
-          <div className={classes.musicians}>
-            {instruments.map((instrument: Instrument) => (
-              <div
-                className={classNames(classes.card, {
-                  [classes.selected]: instrument.selected,
-                })}
-                key={instrument.instrument_id}
-              >
-                <ItemCard
-                  item={instrument}
-                  onClick={() => handleClickItem(instrument)}
-                />
-              </div>
-            ))}
-          </div>
-        </Box>
-        {/* only render link tag if selection criteria are met */}
-        {!isSelected || !selectedEqual ? (
-          <div className={classes.buttonContainer}>
-            <CustomButton
-              variant="contained"
-              disabled={!isSelected || !selectedEqual}
+    <>
+      <Grid container>
+        <Grid item xs={12} md={6} className={classes.grid}>
+          <Box className={classes.grid}>
+            <Typography
+              style={{
+                marginLeft: "5%",
+                marginBottom: "5%",
+                fontSize: "24px",
+                fontWeight: "bold",
+              }}
             >
-              Assign
-            </CustomButton>
-          </div>
-        ) : (
-          <Link
-            href={{
-              pathname: "/assignments",
-              query: {
-                assignments: JSON.stringify(assign(musicians, instruments)),
-              },
-            }}
-          >
+              Select Musicians
+            </Typography>
+            <Filter ensembles={ensembles} onChange={handleFilterChange} />
+            <div className={classes.musicians}>
+              {filteredMusicians.map((musician: Musician) => (
+                <div
+                  className={classNames(classes.card, {
+                    [classes.selected]: musician.selected,
+                  })}
+                  key={musician.musician_id}
+                >
+                  <ItemCard
+                    item={musician}
+                    onClick={() => handleClickItem(musician)}
+                  />
+                </div>
+              ))}
+            </div>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Box className={classes.grid}>
+            <Typography
+              style={{
+                marginLeft: "5%",
+                marginBottom: "5%",
+                fontSize: "24px",
+                fontWeight: "bold",
+              }}
+            >
+              Select Instruments
+            </Typography>
+            <div className={classes.musicians}>
+              {instruments.map((instrument: Instrument) => (
+                <div
+                  className={classNames(classes.card, {
+                    [classes.selected]: instrument.selected,
+                  })}
+                  key={instrument.instrument_id}
+                >
+                  <ItemCard
+                    item={instrument}
+                    onClick={() => handleClickItem(instrument)}
+                  />
+                </div>
+              ))}
+            </div>
+          </Box>
+          {/* only render link tag if selection criteria are met */}
+          {!isSelected || !selectedEqual ? (
             <div className={classes.buttonContainer}>
               <CustomButton
                 variant="contained"
@@ -209,16 +215,34 @@ export default function SelectionContainer({
                 Assign
               </CustomButton>
             </div>
-          </Link>
-        )}
-        <div className={classes.buttonContainer}>
-          <div className={classes.returnLink}>
-            <Link href="/">
-              <Typography color="white">Return to homepage</Typography>
+          ) : (
+            <Link
+              href={{
+                pathname: "/assignments",
+                query: {
+                  assignments: JSON.stringify(assign(musicians, instruments)),
+                },
+              }}
+            >
+              <div className={classes.buttonContainer}>
+                <CustomButton
+                  variant="contained"
+                  disabled={!isSelected || !selectedEqual}
+                >
+                  Assign
+                </CustomButton>
+              </div>
             </Link>
+          )}
+          <div className={classes.buttonContainer}>
+            <div className={classes.returnLink}>
+              <Link href="/">
+                <Typography color="white">Return to homepage</Typography>
+              </Link>
+            </div>
           </div>
-        </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 }

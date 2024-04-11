@@ -19,13 +19,13 @@ interface Props {
   disabled?: boolean | undefined;
 }
 
-export const CustomButton = ({
+export default function CustomButton({
   children,
   onClick,
   color = "primary",
   variant = "contained",
   disabled = false,
-}: Props) => {
+}: Props) {
   return (
     <Button
       style={{
@@ -41,4 +41,4 @@ export const CustomButton = ({
       {children}
     </Button>
   );
-};
+}

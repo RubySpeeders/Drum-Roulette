@@ -39,7 +39,7 @@ interface Props {
   branch: Branch;
 }
 
-const BranchLogo = ({ branch }: Props) => {
+export default function BranchLogo({ branch }: Props) {
   const classes = useStyles();
   const matches = useMediaQuery("(max-width: 899px)");
 
@@ -72,6 +72,4 @@ const BranchLogo = ({ branch }: Props) => {
       </div>
     </Grid>
   );
-};
-
-export default BranchLogo;
+}

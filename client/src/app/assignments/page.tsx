@@ -12,8 +12,7 @@ import { Button, Typography } from "@mui/material";
 import { Assignment } from "@/interfaces/assignment";
 
 // Styles or CSS Imports
-import classNames from "classnames";
-import { ItemCard } from "@/components/ItemCard";
+import ItemCard from "@/components/ItemCard";
 
 const useStyles = makeStyles(() => ({
   container: {
