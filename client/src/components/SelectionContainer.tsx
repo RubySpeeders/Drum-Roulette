@@ -43,6 +43,7 @@ const useStyles = makeStyles(() => ({
     flexDirection: "column",
     alignItems: "flex-start",
     marginLeft: "5%",
+    width: "100%",
   },
   button: {
     borderRadius: "3.75em",

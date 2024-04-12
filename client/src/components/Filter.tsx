@@ -71,7 +71,14 @@ export default function Filter({ ensembles, onChange }: Props) {
       </Button>
       {isFilterOpen && (
         <FormControl
-          sx={{ background: "#E9E5F3", borderRadius: "10px", padding: "10px" }}
+          sx={{
+            background: "#E9E5F3",
+            borderRadius: "10px",
+            padding: "1.5rem",
+            position: "absolute",
+            marginTop: "65px",
+            width: "308px",
+          }}
         >
           <div style={{ display: "flex" }}>
             <Button onClick={handleSelectAll} style={{ color: "#D745D1" }}>
@@ -93,14 +100,12 @@ export default function Filter({ ensembles, onChange }: Props) {
                   />
                 }
                 label={ensemble.ensemble_name}
+                sx={{ color: "#4A2462" }}
               />
             ))}
-            <CustomButton
-              onClick={handleApplyFilter}
-              //   style={{ alignSelf: "center" }}
-            >
-              Apply
-            </CustomButton>
+            <div style={{ alignSelf: "center", marginTop: "1rem" }}>
+              <CustomButton onClick={handleApplyFilter}>Apply</CustomButton>
+            </div>
           </FormGroup>
         </FormControl>
       )}
