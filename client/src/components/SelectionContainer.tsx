@@ -147,12 +147,11 @@ export default function SelectionContainer({
 
   return (
     <>
-      <Grid container>
+      <Grid container sx={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}>
         <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginLeft: "5%",
                 marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
@@ -182,7 +181,6 @@ export default function SelectionContainer({
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginLeft: "5%",
                 marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
