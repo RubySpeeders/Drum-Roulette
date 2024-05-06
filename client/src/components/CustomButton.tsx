@@ -25,7 +25,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1rem",
     padding: ".75em 4.75em",
     [theme.breakpoints.down("sm")]: {
-      padding: "1rem",
+      padding: ".75em 1em",
+      minWidth: "12rem",
     },
   },
 }));
