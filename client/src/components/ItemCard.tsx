@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 // Library Imports
-import { Typography } from "@mui/material";
+import { Typography, useMediaQuery } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 // Type/ Interface Imports
@@ -53,8 +53,8 @@ export default function ItemCard({ item, onClick }: Props) {
         {isInstrument && item.image ? (
           // render instruments
           <Image
-            style={{ width: "auto", height: "auto" }}
             priority
+            style={{ width: "auto", height: "auto" }}
             src={item.image}
             alt={`select ${item}`}
             width={150}

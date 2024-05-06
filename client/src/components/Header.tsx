@@ -7,7 +7,7 @@ import Image from "next/image";
 import { makeStyles } from "@mui/styles";
 import { Grid } from "@mui/material";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     padding: "2.5rem 4rem",
   },
@@ -17,6 +17,9 @@ const useStyles = makeStyles(() => ({
     width: "18rem",
     height: "2rem",
     position: "relative",
+    [theme.breakpoints.down("xxs")]: {
+      marginLeft: "1rem",
+    },
   },
 }));
 
