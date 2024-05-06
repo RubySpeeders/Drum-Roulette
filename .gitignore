@@ -5,3 +5,5 @@ exportVars.sh
 # dependencies
 node_modules/
 .yarn.lock
+.env.local
+.next
