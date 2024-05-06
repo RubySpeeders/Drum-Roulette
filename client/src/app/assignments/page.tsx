@@ -6,18 +6,31 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 // Library Imports
 import { makeStyles } from "@mui/styles";
-import { Button, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 // Type/ Interface Imports
 import { Assignment } from "@/interfaces/assignment";
 
 // Component Imports
 import AssignmentBox from "@/components/AssignmentBox";
+import { CustomButton } from "@/components/CustomButton";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    padding: "0 3rem",
+    [theme.breakpoints.down("xxs")]: {
+      padding: "0 1rem",
+    },
+  },
   subtitle: {
     fontSize: "2rem",
-    margin: "1rem 0 2rem 0",
+    margin: "1rem 0 2rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.2rem",
+      marginTop: "0",
+    },
   },
   buttonContainer: {
     margin: "3rem 2rem",
@@ -25,10 +38,14 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     alignItems: "flex-end",
     flexDirection: "column",
+    [theme.breakpoints.down("md")]: {
+      alignItems: "center",
+    },
   },
   returnLink: {
     marginTop: "2rem",
     textDecoration: "underline white 0.1rem solid",
+    textAlign: "center",
   },
   linkText: {
     color: "white",
@@ -46,9 +63,7 @@ export default function Assignments() {
   const assignments = JSON.parse(searchParams.get("assignments") as string);
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", padding: "0 3rem" }}
-    >
+    <div className={classes.container}>
       <h3 className={classes.subtitle}>
         Your assignments have been generated!
       </h3>
@@ -64,7 +79,7 @@ export default function Assignments() {
       </Grid>
 
       <div className={classes.buttonContainer}>
-        <Button
+        <CustomButton
           variant="contained"
           color="primary"
           onClick={(e) => {
@@ -72,15 +87,9 @@ export default function Assignments() {
 
             router.push("/selection");
           }}
-          type={"button"}
-          sx={{
-            borderRadius: "3.75em",
-            fontSize: "1rem",
-            padding: ".75em 4.75em",
-          }}
         >
           Return to Selection Page
-        </Button>
+        </CustomButton>
         <div className={classes.returnLink}>
           <Link href="/">
             <Typography className={classes.linkText}>

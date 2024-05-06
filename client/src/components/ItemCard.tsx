@@ -22,6 +22,8 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
   image: {
+    width: 150,
+    height: 150,
     overflow: "hidden",
     borderRadius: "50%",
     display: "flex",
@@ -37,7 +39,6 @@ export const ItemCard = ({ item, onClick }: Props) => {
   };
 
   const [isInstrument, setInstrument] = useState(false);
-  const isMobile = useMediaQuery("(max-width:500px)");
 
   // check if the image is an instrument
   useEffect(() => {
@@ -48,14 +49,7 @@ export const ItemCard = ({ item, onClick }: Props) => {
 
   return (
     <div className={classes.card}>
-      <div
-        className={classes.image}
-        style={{
-          width: isMobile ? 100 : 150,
-          height: isMobile ? 100 : 150,
-        }}
-        onClick={handleClick}
-      >
+      <div className={classes.image} onClick={handleClick}>
         {isInstrument && item.image ? (
           // render instruments
           <Image
@@ -63,13 +57,13 @@ export const ItemCard = ({ item, onClick }: Props) => {
             style={{ width: "auto", height: "auto" }}
             src={item.image}
             alt={`select ${item}`}
-            width={isMobile ? 100 : 150}
-            height={isMobile ? 100 : 150}
+            width={150}
+            height={150}
           />
         ) : !isInstrument && item.image ? (
           // render players
           <Image
-            style={{ width: "auto", height: "auto" }}
+            style={{ width: "auto", height: "280px" }}
             priority
             src={item.image}
             alt={`select ${
@@ -77,8 +71,8 @@ export const ItemCard = ({ item, onClick }: Props) => {
                 ? `${item.first_name} ${item.last_name}`
                 : item.name
             }`}
-            width={isMobile ? 100 : 200}
-            height={isMobile ? 140 : 280}
+            width={200}
+            height={280}
           />
         ) : (
           <Image

@@ -5,9 +5,10 @@ import { Open_Sans } from "next/font/google";
 declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
+
 declare module "@mui/system" {
   interface BreakpointOverrides {
-    assignmentsGrid: true;
+    xxs: true;
   }
 }
 
@@ -22,13 +23,12 @@ export const theme: Theme = createTheme({
   breakpoints: {
     values: {
       // default values
-      xs: 0,
+      xxs: 375,
+      xs: 480,
       sm: 600,
       md: 900,
       lg: 1200,
       xl: 1536,
-      // custom breakpoint for assignment page grid
-      assignmentsGrid: 1038,
     },
   },
   components: {
@@ -45,6 +45,7 @@ export const theme: Theme = createTheme({
           width: "fit-content",
           textTransform: "none",
           lineHeight: "1.5em",
+          borderRadius: "3.75em",
         },
       },
       variants: [
