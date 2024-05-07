@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { makeStyles } from "@mui/styles";
+import { makeStyles, useTheme } from "@mui/styles";
 
 // Type/ Interface Imports
 import { Ensemble } from "@/interfaces/ensemble";
@@ -34,12 +34,22 @@ const useStyles = makeStyles(() => ({
     width: "308px",
     justifyContent: "space-between",
   },
+  buttonContainer: { alignSelf: "center", marginTop: "1rem" },
+  formContainer: {
+    background: "#E9E5F3",
+    borderRadius: "10px",
+    padding: "1.5rem",
+    position: "absolute",
+    marginTop: "65px",
+    width: "308px",
+  },
 }));
 
 export default function Filter({ ensembles, onChange }: Props) {
   const [checked, setChecked] = useState<number[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const classes = useStyles();
+  const theme = useTheme();
 
   const handleFilterToggle = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -73,30 +83,34 @@ export default function Filter({ ensembles, onChange }: Props) {
   return (
     <div className={classes.container}>
       <Button onClick={handleFilterToggle} className={classes.button}>
-        <Typography color="#E9E5F3">Filter </Typography>
+        <Typography color={theme.palette.primary.light}>Filter </Typography>
         {isFilterOpen ? (
-          <ExpandLessIcon style={{ color: "#E9E5F3" }} />
+          <ExpandLessIcon style={{ color: theme.palette.primary.light }} />
         ) : (
-          <ExpandMoreIcon style={{ color: "#E9E5F3" }} />
+          <ExpandMoreIcon style={{ color: theme.palette.primary.light }} />
         )}
       </Button>
       {isFilterOpen && (
-        <FormControl
-          sx={{
-            background: "#E9E5F3",
-            borderRadius: "10px",
-            padding: "1.5rem",
-            position: "absolute",
-            marginTop: "65px",
-            width: "308px",
-          }}
-        >
+        <FormControl className={classes.formContainer}>
           <div style={{ display: "flex" }}>
-            <Button onClick={handleSelectAll} style={{ color: "#D745D1" }}>
+            <Button
+              onClick={handleSelectAll}
+              style={{ color: theme.palette.info.main }}
+            >
               Select All
             </Button>
-            <div style={{ margin: "5px 5px", color: "#D745D1" }}>|</div>
-            <Button onClick={handleDeselectAll} style={{ color: "#D745D1" }}>
+            <div
+              style={{
+                margin: ".2rem .3rem 0",
+                color: theme.palette.info.main,
+              }}
+            >
+              |
+            </div>
+            <Button
+              onClick={handleDeselectAll}
+              style={{ color: theme.palette.info.main }}
+            >
               Deselect All
             </Button>
           </div>
@@ -111,10 +125,10 @@ export default function Filter({ ensembles, onChange }: Props) {
                   />
                 }
                 label={ensemble.ensemble_name}
-                sx={{ color: "#4A2462" }}
+                sx={{ color: theme.palette.primary.dark }}
               />
             ))}
-            <div style={{ alignSelf: "center", marginTop: "1rem" }}>
+            <div className={classes.buttonContainer}>
               <CustomButton onClick={handleApplyFilter}>Apply</CustomButton>
             </div>
           </FormGroup>

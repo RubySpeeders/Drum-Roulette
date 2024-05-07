@@ -62,10 +62,15 @@ export const theme: Theme = createTheme({
   },
   palette: {
     primary: {
+      light: "#E9E5F3",
       main: "#8763C4",
+      dark: "#4A2462",
     },
     secondary: {
       main: "#515A6B",
+    },
+    info: {
+      main: "#D745D1",
     },
     text: {
       primary: "#ffffff",
