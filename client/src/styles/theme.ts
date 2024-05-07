@@ -73,7 +73,7 @@ export const theme: Theme = createTheme({
       main: "#D745D1",
     },
     text: {
-      primary: "#ffffff",
+      primary: "#fff",
     },
     background: {
       default: "#402E4B",

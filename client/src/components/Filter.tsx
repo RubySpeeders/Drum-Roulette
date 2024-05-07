@@ -65,9 +65,16 @@ export default function Filter({ ensembles, onChange }: Props) {
   };
 
   const handleApplyFilter = () => {
-    const selectedEnsembles = ensembles.filter((ensemble) =>
-      checked.includes(ensemble.ensemble_id)
-    );
+    let selectedEnsembles = [];
+    if (checked.length === 0) {
+      // If nothing is checked, select all ensembles
+      selectedEnsembles = ensembles;
+    } else {
+      // Filter ensembles based on checked IDs
+      selectedEnsembles = ensembles.filter((ensemble) =>
+        checked.includes(ensemble.ensemble_id)
+      );
+    }
     onChange(selectedEnsembles);
     handleFilterToggle();
   };
