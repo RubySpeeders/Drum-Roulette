@@ -42,7 +42,6 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    marginLeft: "5%",
     width: "100%",
   },
   button: {
@@ -106,13 +105,13 @@ export default function SelectionContainer({
 
   const selectedEqual =
     instruments.filter((instrument) => instrument.selected).length ===
-    musicians.filter((name) => name.selected).length;
+    filteredMusicians.filter((name) => name.selected).length;
 
   useEffect(() => {
     const selectedInstrumentsCount = instruments.filter(
       (instrument) => instrument.selected
     ).length;
-    const selectedMusiciansCount = musicians.filter(
+    const selectedMusiciansCount = filteredMusicians.filter(
       (musician) => musician.selected
     ).length;
 
@@ -125,14 +124,14 @@ export default function SelectionContainer({
 
   const handleClickItem = (item: Musician | Instrument) => {
     if ("musician_id" in item) {
-      const nextMusicians = musicians.map((musician) => {
+      const nextMusicians = filteredMusicians.map((musician) => {
         if (musician.musician_id === item.musician_id) {
           return { ...musician, selected: !item.selected };
         } else {
           return musician;
         }
       });
-      setMusicians(nextMusicians);
+      setFilteredMusicians(nextMusicians);
     } else {
       const nextInstruments = instruments.map((instrument) => {
         if (instrument.name === item.name) {
@@ -147,7 +146,14 @@ export default function SelectionContainer({
 
   return (
     <>
-      <Grid container sx={{ paddingLeft: "2.5rem", paddingRight: "2.5rem" }}>
+      <Grid
+        container
+        sx={{
+          paddingLeft: "2.5rem",
+          paddingRight: "2.5rem",
+          marginTop: "3rem",
+        }}
+      >
         <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classes.grid}>
             <Typography
@@ -219,7 +225,9 @@ export default function SelectionContainer({
               href={{
                 pathname: "/assignments",
                 query: {
-                  assignments: JSON.stringify(assign(musicians, instruments)),
+                  assignments: JSON.stringify(
+                    assign(filteredMusicians, instruments)
+                  ),
                 },
               }}
             >

@@ -1,4 +1,7 @@
+// React/ Next.js Imports
 import { useState } from "react";
+
+// Library Imports
 import {
   Button,
   Checkbox,
@@ -9,7 +12,12 @@ import {
 } from "@mui/material";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { makeStyles } from "@mui/styles";
+
+// Type/ Interface Imports
 import { Ensemble } from "@/interfaces/ensemble";
+
+// Other component Imports
 import CustomButton from "./CustomButton";
 
 interface Props {
@@ -17,9 +25,21 @@ interface Props {
   onChange: (ensembles: Ensemble[]) => void;
 }
 
+const useStyles = makeStyles(() => ({
+  container: { display: "flex", flexDirection: "column" },
+  button: {
+    border: "2px solid #E9E5F3",
+    borderRadius: "10px",
+    height: "50px",
+    width: "308px",
+    justifyContent: "space-between",
+  },
+}));
+
 export default function Filter({ ensembles, onChange }: Props) {
   const [checked, setChecked] = useState<number[]>([]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const classes = useStyles();
 
   const handleFilterToggle = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -51,17 +71,8 @@ export default function Filter({ ensembles, onChange }: Props) {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <Button
-        onClick={handleFilterToggle}
-        sx={{
-          border: "2px solid #E9E5F3",
-          borderRadius: "10px",
-          height: "50px",
-          width: "308px",
-          justifyContent: "space-between",
-        }}
-      >
+    <div className={classes.container}>
+      <Button onClick={handleFilterToggle} className={classes.button}>
         <Typography color="#E9E5F3">Filter </Typography>
         {isFilterOpen ? (
           <ExpandLessIcon style={{ color: "#E9E5F3" }} />

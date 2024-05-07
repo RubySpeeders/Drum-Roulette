@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "2.5rem 4rem",
   },
   logoContainer: {
-    margin: "3rem",
+    margin: "3rem 3rem 0",
     maxWidth: "90vw",
     width: "18rem",
     height: "2rem",
@@ -33,7 +33,6 @@ export default function Header() {
           src="/assets/logos/dr-logo-dark.svg"
           fill
           priority
-          style={{ objectFit: "contain" }}
           sizes="50vw"
         />
       </div>

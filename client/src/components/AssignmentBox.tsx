@@ -8,7 +8,7 @@ import { Grid } from "@mui/material";
 import { Assignment } from "@/interfaces/assignment";
 
 // Component Imports
-import { ItemCard } from "@/components/ItemCard";
+import ItemCard from "@/components/ItemCard";
 
 const useStyles = makeStyles((theme) => ({
   cardContainer: {
