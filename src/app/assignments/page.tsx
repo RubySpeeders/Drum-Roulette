@@ -13,11 +13,7 @@ import { Assignment } from "@/interfaces/assignment";
 
 // Component Imports
 import AssignmentBox from "@/components/AssignmentBox";
-import { CustomButton } from "@/components/CustomButton";
-
-// Styles or CSS Imports
-import classNames from "classnames";
-import { ItemCard } from "@/components/ItemCard";
+import CustomButton from "@/components/CustomButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
