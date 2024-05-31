@@ -15,6 +15,10 @@ import { Assignment } from "@/interfaces/assignment";
 import AssignmentBox from "@/components/AssignmentBox";
 import { CustomButton } from "@/components/CustomButton";
 
+// Styles or CSS Imports
+import classNames from "classnames";
+import { ItemCard } from "@/components/ItemCard";
+
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
