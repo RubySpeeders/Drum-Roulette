@@ -34,7 +34,7 @@ interface Props {
   branches: Branch[];
 }
 
-export default function Landing({ branches }: Props) {
+const Landing = ({ branches }: Props) => {
   const classes = useStyles();
 
   return (
@@ -56,4 +56,6 @@ export default function Landing({ branches }: Props) {
       </div>
     </>
   );
-}
+};
+
+export default Landing;

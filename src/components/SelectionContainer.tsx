@@ -13,8 +13,8 @@ import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
 
 // Other component Imports
-import { CustomButton } from "./CustomButton";
-import { ItemCard } from "./ItemCard";
+import CustomButton from "./CustomButton";
+import ItemCard from "./ItemCard";
 
 // Styles or CSS Imports
 import assign from "@/utils/assign";
@@ -72,10 +72,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function SelectionContainer({
-  musiciansData,
-  instrumentsData,
-}: Props) {
+const SelectionContainer = ({ musiciansData, instrumentsData }: Props) => {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
@@ -221,4 +218,6 @@ export default function SelectionContainer({
       </Grid>
     </Grid>
   );
-}
+};
+
+export default SelectionContainer;
