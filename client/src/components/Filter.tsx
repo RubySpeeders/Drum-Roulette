@@ -1,13 +1,15 @@
 // React/ Next.js Imports
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 // Library Imports
 import {
+  Box,
   Button,
   Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
+  Popover,
   Typography,
 } from "@mui/material";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -22,7 +24,13 @@ import CustomButton from "./CustomButton";
 
 interface Props {
   ensembles: Ensemble[];
-  onChange: (ensembles: Ensemble[]) => void;
+  checked: Ensemble[];
+  isFilterOpen: boolean;
+  onChange: () => void;
+  handleChange: (ensemble: Ensemble) => void;
+  handleSelectAll: () => void;
+  handleDeselectAll: () => void;
+  handleFilterToggle: () => void;
 }
 
 const useStyles = makeStyles(() => ({
@@ -39,66 +47,66 @@ const useStyles = makeStyles(() => ({
     background: "#E9E5F3",
     borderRadius: "10px",
     padding: "1.5rem",
-    position: "absolute",
-    marginTop: "65px",
     width: "308px",
   },
 }));
 
-export default function Filter({ ensembles, onChange }: Props) {
-  const [checked, setChecked] = useState<number[]>([]);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+export default function Filter({
+  ensembles,
+  onChange,
+  handleChange,
+  checked,
+  isFilterOpen,
+  handleDeselectAll,
+  handleSelectAll,
+  handleFilterToggle,
+}: Props) {
   const classes = useStyles();
   const theme = useTheme();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleFilterToggle = () => {
-    setIsFilterOpen(!isFilterOpen);
-  };
-
-  const handleSelectAll = () => {
-    const allEnsembleIds = ensembles.map((ensemble) => ensemble.ensemble_id);
-    setChecked(allEnsembleIds);
-  };
-
-  const handleDeselectAll = () => {
-    setChecked([]);
-  };
-
-  const handleApplyFilter = () => {
-    let selectedEnsembles = [];
-    if (checked.length === 0) {
-      // If nothing is checked, select all ensembles
-      selectedEnsembles = ensembles;
-    } else {
-      // Filter ensembles based on checked IDs
-      selectedEnsembles = ensembles.filter((ensemble) =>
-        checked.includes(ensemble.ensemble_id)
-      );
-    }
-    onChange(selectedEnsembles);
+  const handleButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     handleFilterToggle();
+    setAnchorEl(event.currentTarget);
   };
 
-  const handleChange = (ensembleId: number) => {
-    if (checked.includes(ensembleId)) {
-      setChecked(checked.filter((id) => id !== ensembleId));
-    } else {
-      setChecked([...checked, ensembleId]);
-    }
+  const handlePopoverClose = () => {
+    handleFilterToggle();
+    setAnchorEl(null);
   };
 
   return (
     <div className={classes.container}>
-      <Button onClick={handleFilterToggle} className={classes.button}>
-        <Typography color={theme.palette.primary.light}>Filter </Typography>
+      <Button onClick={handleButtonClick} className={classes.button}>
+        <Typography color={theme.palette.primary.light}>Filter</Typography>
         {isFilterOpen ? (
           <ExpandLessIcon style={{ color: theme.palette.primary.light }} />
         ) : (
           <ExpandMoreIcon style={{ color: theme.palette.primary.light }} />
         )}
       </Button>
-      {isFilterOpen && (
+      <Popover
+        open={isFilterOpen}
+        anchorEl={anchorEl}
+        onClose={handlePopoverClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: -15, // Add a 5px space
+          horizontal: "left",
+        }}
+        sx={{
+          "& .MuiPaper-root": {
+            borderRadius: "10px", // Override the default border radius
+          },
+        }}
+      >
         <FormControl className={classes.formContainer}>
+          <Typography style={{ color: theme.palette.primary.dark }}>
+            Ensemble
+          </Typography>
           <div style={{ display: "flex" }}>
             <Button
               onClick={handleSelectAll}
@@ -127,8 +135,8 @@ export default function Filter({ ensembles, onChange }: Props) {
                 key={ensemble.ensemble_id}
                 control={
                   <Checkbox
-                    checked={checked.includes(ensemble.ensemble_id)}
-                    onChange={() => handleChange(ensemble.ensemble_id)}
+                    checked={checked.includes(ensemble)}
+                    onChange={() => handleChange(ensemble)}
                   />
                 }
                 label={ensemble.ensemble_name}
@@ -136,11 +144,11 @@ export default function Filter({ ensembles, onChange }: Props) {
               />
             ))}
             <div className={classes.buttonContainer}>
-              <CustomButton onClick={handleApplyFilter}>Apply</CustomButton>
+              <CustomButton onClick={onChange}>Apply</CustomButton>
             </div>
           </FormGroup>
         </FormControl>
-      )}
+      </Popover>
     </div>
   );
 }

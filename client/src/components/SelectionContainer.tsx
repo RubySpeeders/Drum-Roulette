@@ -92,6 +92,42 @@ export default function SelectionContainer({
   ]);
 
   const [isSelected, setIsSelected] = useState(false);
+  const [selectedEnsembles, setSelectedEnsembles] =
+    useState<Ensemble[]>(ensembles);
+  const [checked, setChecked] = useState<Ensemble[]>([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  const handleFilterToggle = () => {
+    setIsFilterOpen(!isFilterOpen);
+  };
+
+  const handleSelectAll = () => {
+    const allEnsembles = ensembles.map((ensemble) => ensemble);
+    setChecked(allEnsembles);
+  };
+
+  const handleDeselectAll = () => {
+    setChecked([]);
+  };
+
+  const handleApplyFilter = () => {
+    if (checked.length === 0) {
+      // If nothing is checked, filter musicians to everything
+      setFilteredMusicians(musicians);
+      setSelectedEnsembles(ensembles);
+    } else {
+      console.log("the else");
+      // Filter musicians based on checked ensembles
+      setSelectedEnsembles(
+        ensembles.filter((ensemble) => checked.includes(ensemble))
+      );
+    }
+    handleFilterToggle();
+  };
+
+  useEffect(() => {
+    handleFilterChange(selectedEnsembles);
+  }, [selectedEnsembles]);
 
   const handleFilterChange = (selectedEnsembles: Ensemble[]) => {
     // Filter musicians based on selected ensembles
@@ -101,6 +137,19 @@ export default function SelectionContainer({
       )
     );
     setFilteredMusicians(updatedFilteredMusicians);
+  };
+
+  const handleEnsembleChange = (ensemble: Ensemble) => {
+    if (checked.includes(ensemble)) {
+      setChecked(
+        checked.filter(
+          (checkedEnsemble) =>
+            checkedEnsemble.ensemble_id !== ensemble.ensemble_id
+        )
+      );
+    } else {
+      setChecked([...checked, ensemble]);
+    }
   };
 
   const selectedEqual =
@@ -165,7 +214,16 @@ export default function SelectionContainer({
             >
               Select Musicians
             </Typography>
-            <Filter ensembles={ensembles} onChange={handleFilterChange} />
+            <Filter
+              ensembles={ensembles}
+              checked={checked}
+              onChange={handleApplyFilter}
+              isFilterOpen={isFilterOpen}
+              handleChange={handleEnsembleChange}
+              handleDeselectAll={handleDeselectAll}
+              handleSelectAll={handleSelectAll}
+              handleFilterToggle={handleFilterToggle}
+            />
             <div className={classes.musicians}>
               {filteredMusicians.map((musician: Musician) => (
                 <div
