@@ -6,52 +6,58 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 // Library Imports
 import { makeStyles } from "@mui/styles";
-import { Button, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 
 // Type/ Interface Imports
 import { Assignment } from "@/interfaces/assignment";
+
+// Component Imports
+import AssignmentBox from "@/components/AssignmentBox";
+import { CustomButton } from "@/components/CustomButton";
 
 // Styles or CSS Imports
 import classNames from "classnames";
 import { ItemCard } from "@/components/ItemCard";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
-    alignItems: "center",
-    justifyContent: "space-around",
-    margin: "0 5em",
+    flexDirection: "column",
+    padding: "0 3rem",
+    [theme.breakpoints.down("xxs")]: {
+      padding: "0 1rem",
+    },
+  },
+  subtitle: {
+    fontSize: "2rem",
+    margin: "1rem 0 2rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1.2rem",
+      marginTop: "0",
+    },
   },
   buttonContainer: {
-    margin: "6rem 2rem",
+    margin: "3rem 2rem",
     padding: "5px",
-    width: "80%",
-    position: "relative",
     display: "flex",
-    justifyContent: "flex-end",
     alignItems: "flex-end",
     flexDirection: "column",
+    [theme.breakpoints.down("md")]: {
+      alignItems: "center",
+    },
   },
   returnLink: {
     marginTop: "2rem",
-    textDecoration: "underline white 0.100rem solid",
+    textDecoration: "underline white 0.1rem solid",
+    textAlign: "center",
   },
-  card: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginTop: "5%",
-    marginLeft: "2%",
-  },
-  image: {
-    width: 150,
-    height: 150,
-    overflow: "hidden",
-    borderRadius: "50%",
-    display: "flex",
-    justifyContent: "center",
+  linkText: {
+    color: "white",
+    fontSize: "2rem",
   },
 }));
+
+const ASSIGNMENT_COLORS = ["#8763C4", "#D1A4CF", "#E9E5F3", "#D745D1"];
 
 export default function Assignments() {
   const classes = useStyles();
@@ -61,20 +67,23 @@ export default function Assignments() {
   const assignments = JSON.parse(searchParams.get("assignments") as string);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      {assignments.map((assignment: Assignment) => {
-        return (
-          <div
-            key={assignment.musician.musician_id}
-            className={classes.container}
-          >
-            <ItemCard item={assignment.musician} />
-            <ItemCard item={assignment.instrument} />
-          </div>
-        );
-      })}
+    <div className={classes.container}>
+      <h3 className={classes.subtitle}>
+        Your assignments have been generated!
+      </h3>
+      <Grid container spacing={4}>
+        {assignments.map((assignment: Assignment, i: number) => (
+          <AssignmentBox
+            key={assignment.id}
+            assignment={assignment}
+            // cycles through each of the 4 assignment colors
+            color={ASSIGNMENT_COLORS[i % 4]}
+          />
+        ))}
+      </Grid>
+
       <div className={classes.buttonContainer}>
-        <Button
+        <CustomButton
           variant="contained"
           color="primary"
           onClick={(e) => {
@@ -82,18 +91,14 @@ export default function Assignments() {
 
             router.push("/selection");
           }}
-          type={"button"}
-          style={{
-            borderRadius: "3.75em",
-            fontSize: "1rem",
-            padding: ".75em 4.75em",
-          }}
         >
           Return to Selection Page
-        </Button>
+        </CustomButton>
         <div className={classes.returnLink}>
           <Link href="/">
-            <Typography color="white">Return to homepage</Typography>
+            <Typography className={classes.linkText}>
+              Return to homepage
+            </Typography>
           </Link>
         </div>
       </div>

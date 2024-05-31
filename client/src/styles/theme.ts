@@ -6,6 +6,12 @@ declare module "@mui/styles/defaultTheme" {
   interface DefaultTheme extends Theme {}
 }
 
+declare module "@mui/system" {
+  interface BreakpointOverrides {
+    xxs: true;
+  }
+}
+
 const open_Sans = Open_Sans({
   subsets: ["latin"],
 });
@@ -13,6 +19,17 @@ const open_Sans = Open_Sans({
 export const theme: Theme = createTheme({
   typography: {
     fontFamily: open_Sans.style.fontFamily,
+  },
+  breakpoints: {
+    values: {
+      // default values
+      xxs: 375,
+      xs: 480,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
+    },
   },
   components: {
     MuiCssBaseline: {
@@ -28,6 +45,7 @@ export const theme: Theme = createTheme({
           width: "fit-content",
           textTransform: "none",
           lineHeight: "1.5em",
+          borderRadius: "3.75em",
         },
       },
       variants: [

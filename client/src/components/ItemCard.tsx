@@ -53,8 +53,8 @@ export const ItemCard = ({ item, onClick }: Props) => {
         {isInstrument && item.image ? (
           // render instruments
           <Image
-            style={{ width: "auto", height: "auto" }}
             priority
+            style={{ width: "auto", height: "auto" }}
             src={item.image}
             alt={`select ${item}`}
             width={150}

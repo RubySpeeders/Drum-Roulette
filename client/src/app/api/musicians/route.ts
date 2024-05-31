@@ -24,9 +24,8 @@ export const GET = async () => {
 
     return NextResponse.json(result.rows);
   } catch (error) {
-    return NextResponse.json(
-      { error: "Ouch, GET is not working my friend" },
-      { status: 500 }
-    );
+
+    return NextResponse.json({ error }, { status: 500 });
+
   }
 };

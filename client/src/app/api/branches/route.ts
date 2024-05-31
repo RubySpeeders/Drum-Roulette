@@ -24,14 +24,8 @@ export const GET = async () => {
 
     return NextResponse.json(result.rows);
   } catch (error) {
-    console.error("Error:", error);
 
-    return NextResponse.json({
-      statusCode: 500,
-      body: JSON.stringify({
-        message: "An error occurred",
-        // error: error.message,
-      }),
-    });
+    return NextResponse.json({ error }, { status: 500 });
+
   }
 };
