@@ -19,33 +19,13 @@ interface Props {
   disabled?: boolean | undefined;
 }
 
-<<<<<<< HEAD:client/src/components/CustomButton.tsx
-const useStyles = makeStyles((theme) => ({
-  button: {
-    fontSize: "1rem",
-    padding: ".75em 4.75em",
-    [theme.breakpoints.down("sm")]: {
-      padding: "1rem",
-    },
-  },
-}));
-
-export default function CustomButton({
-=======
 const CustomButton = ({
->>>>>>> develop:src/components/CustomButton.tsx
   children,
   onClick,
   color = "primary",
   variant = "contained",
   disabled = false,
-<<<<<<< HEAD:client/src/components/CustomButton.tsx
-}: Props) {
-  const classes = useStyles();
-
-=======
 }: Props) => {
->>>>>>> develop:src/components/CustomButton.tsx
   return (
     <Button
       style={{
@@ -61,10 +41,6 @@ const CustomButton = ({
       {children}
     </Button>
   );
-<<<<<<< HEAD:client/src/components/CustomButton.tsx
-}
-=======
 };
 
 export default CustomButton;
->>>>>>> develop:src/components/CustomButton.tsx

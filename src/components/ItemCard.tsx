@@ -32,11 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-<<<<<<< HEAD:client/src/components/ItemCard.tsx
-export default function ItemCard({ item, onClick }: Props) {
-=======
 const ItemCard = ({ item, onClick }: Props) => {
->>>>>>> develop:src/components/ItemCard.tsx
   const handleClick = () => {
     onClick && onClick(item);
     onClick;
@@ -96,10 +92,6 @@ const ItemCard = ({ item, onClick }: Props) => {
       </Typography>
     </div>
   );
-<<<<<<< HEAD:client/src/components/ItemCard.tsx
-}
-=======
 };
 
 export default ItemCard;
->>>>>>> develop:src/components/ItemCard.tsx

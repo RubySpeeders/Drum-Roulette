@@ -3,7 +3,6 @@ import { useRef, useState } from "react";
 
 // Library Imports
 import {
-  Box,
   Button,
   Checkbox,
   FormControl,

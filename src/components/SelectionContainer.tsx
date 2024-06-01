@@ -25,6 +25,7 @@ import { Ensemble } from "@/interfaces/ensemble";
 interface Props {
   musiciansData: Musician[];
   instrumentsData: Instrument[];
+  ensemblesData: Ensemble[];
   branchName: Branch_Name;
 }
 
@@ -67,6 +68,7 @@ const useStyles = makeStyles(() => ({
 const SelectionContainer = ({
   musiciansData,
   instrumentsData,
+  ensemblesData,
   branchName,
 }: Props) => {
   const classes = useStyles();
@@ -74,6 +76,8 @@ const SelectionContainer = ({
   const [filteredMusicians, setFilteredMusicians] =
     useState<Musician[]>(musicians);
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
+
+  console.log(ensemblesData);
   const [ensembles, setEnsembles] = useState<Ensemble[]>([
     { ensemble_id: 10, ensemble_name: "The Ceremonial Brass" },
     { ensemble_id: 2, ensemble_name: "Concert Band" },
@@ -107,7 +111,6 @@ const SelectionContainer = ({
       setFilteredMusicians(musicians);
       setSelectedEnsembles(ensembles);
     } else {
-      console.log("the else");
       // Filter musicians based on checked ensembles
       setSelectedEnsembles(
         ensembles.filter((ensemble) => checked.includes(ensemble))
@@ -124,7 +127,7 @@ const SelectionContainer = ({
     // Filter musicians based on selected ensembles
     const updatedFilteredMusicians = musicians.filter((musician) =>
       selectedEnsembles.some(
-        (ensemble) => musician.ensemble.ensemble_id === ensemble.ensemble_id
+        (ensemble) => musician.ensemble?.ensemble_id === ensemble.ensemble_id
       )
     );
     setFilteredMusicians(updatedFilteredMusicians);

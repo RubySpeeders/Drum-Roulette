@@ -7,6 +7,7 @@ import Link from "next/link";
 // Library Imports
 import { makeStyles } from "@mui/styles";
 import { Grid } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 // Type/ Interface Imports
 import { Branch } from "@/interfaces/branch";
@@ -32,6 +33,10 @@ const useStyles = makeStyles((theme) => ({
       width: "30vw",
     },
   },
+  imageContainerSmall: {
+    height: "30vw",
+    width: "30vw",
+  },
 }));
 
 interface Props {
@@ -40,21 +45,17 @@ interface Props {
 
 export default function BranchLogo({ branch }: Props) {
   const classes = useStyles();
+  const matches = useMediaQuery("(max-width: 899px)");
 
   return (
     <Grid item xs={6} md={3}>
       <div className={classes.branchContainer}>
-<<<<<<< HEAD:client/src/components/BranchLogo.tsx
-        <Link href="/selection">
-          <div className={classes.imageContainer}>
-=======
         <Link href={`/selection/${branch.branch_name}`}>
           <div
             className={
               matches ? classes.imageContainerSmall : classes.imageContainer
             }
           >
->>>>>>> develop:src/components/BranchLogo.tsx
             <Image
               alt={`${branch.branch_name} logo`}
               src={branch.image}
