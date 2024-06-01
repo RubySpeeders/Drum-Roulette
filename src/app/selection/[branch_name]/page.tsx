@@ -18,6 +18,7 @@ export default async function Selection({
     <SelectionContainer
       musiciansData={musiciansData}
       instrumentsData={instrumentsData}
+      branchName={decoded_branch_name as Branch_Name}
     />
   );
 }

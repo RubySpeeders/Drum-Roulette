@@ -23,6 +23,7 @@ import classNames from "classnames";
 interface Props {
   musiciansData: Musician[];
   instrumentsData: Instrument[];
+  branchName: Branch_Name;
 }
 
 const useStyles = makeStyles(() => ({
@@ -40,18 +41,7 @@ const useStyles = makeStyles(() => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    marginLeft: "5%",
-  },
-  button: {
-    borderRadius: "3.75em",
-    fontSize: "1rem",
-    padding: ".75em 4.75em",
-    "&.Mui-disabled": {
-      backgroundColor: "#E9E5F3",
-      color: "white",
-      cursor: "not-allowed",
-      pointerEvents: "auto",
-    },
+    width: "100%",
   },
   buttonContainer: {
     margin: "2rem",
@@ -72,11 +62,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const SelectionContainer = ({ musiciansData, instrumentsData }: Props) => {
+const SelectionContainer = ({
+  musiciansData,
+  instrumentsData,
+  branchName,
+}: Props) => {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
-
   const [isSelected, setIsSelected] = useState(false);
 
   const selectedEqual =
@@ -121,83 +114,74 @@ const SelectionContainer = ({ musiciansData, instrumentsData }: Props) => {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12} md={6} className={classes.grid}>
-        <Box className={classes.grid}>
-          <Typography
-            style={{
-              marginLeft: "5%",
-              marginBottom: "5%",
-              fontSize: "24px",
-              fontWeight: "bold",
-            }}
-          >
-            Select Musicians
-          </Typography>
-          <div className={classes.musicians}>
-            {musicians.map((musician: Musician) => (
-              <div
-                className={classNames(classes.card, {
-                  [classes.selected]: musician.selected,
-                })}
-                key={musician.musician_id}
-              >
-                <ItemCard
-                  item={musician}
-                  onClick={() => handleClickItem(musician)}
-                />
-              </div>
-            ))}
-          </div>
-        </Box>
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <Box className={classes.grid}>
-          <Typography
-            style={{
-              marginLeft: "5%",
-              marginBottom: "5%",
-              fontSize: "24px",
-              fontWeight: "bold",
-            }}
-          >
-            Select Instruments
-          </Typography>
-          <div className={classes.musicians}>
-            {instruments.map((instrument: Instrument) => (
-              <div
-                className={classNames(classes.card, {
-                  [classes.selected]: instrument.selected,
-                })}
-                key={instrument.instrument_id}
-              >
-                <ItemCard
-                  item={instrument}
-                  onClick={() => handleClickItem(instrument)}
-                />
-              </div>
-            ))}
-          </div>
-        </Box>
-        {/* only render link tag if selection criteria are met */}
-        {!isSelected || !selectedEqual ? (
-          <div className={classes.buttonContainer}>
-            <CustomButton
-              variant="contained"
-              disabled={!isSelected || !selectedEqual}
+    <>
+      <Grid
+        container
+        sx={{
+          paddingLeft: "2.5rem",
+          paddingRight: "2.5rem",
+          marginTop: "3rem",
+        }}
+      >
+        <Grid item xs={12} md={6} className={classes.grid}>
+          <Box className={classes.grid}>
+            <Typography
+              style={{
+                marginLeft: "5%",
+                marginBottom: "5%",
+                fontSize: "24px",
+                fontWeight: "bold",
+              }}
             >
-              Assign
-            </CustomButton>
-          </div>
-        ) : (
-          <Link
-            href={{
-              pathname: "/assignments",
-              query: {
-                assignments: JSON.stringify(assign(musicians, instruments)),
-              },
-            }}
-          >
+              Select Musicians
+            </Typography>
+            <div className={classes.musicians}>
+              {musicians.map((musician: Musician) => (
+                <div
+                  className={classNames(classes.card, {
+                    [classes.selected]: musician.selected,
+                  })}
+                  key={musician.musician_id}
+                >
+                  <ItemCard
+                    item={musician}
+                    onClick={() => handleClickItem(musician)}
+                  />
+                </div>
+              ))}
+            </div>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <Box className={classes.grid}>
+            <Typography
+              style={{
+                marginLeft: "5%",
+                marginBottom: "5%",
+                fontSize: "24px",
+                fontWeight: "bold",
+              }}
+            >
+              Select Instruments
+            </Typography>
+            <div className={classes.musicians}>
+              {instruments.map((instrument: Instrument) => (
+                <div
+                  className={classNames(classes.card, {
+                    [classes.selected]: instrument.selected,
+                  })}
+                  key={instrument.instrument_id}
+                >
+                  <ItemCard
+                    item={instrument}
+                    onClick={() => handleClickItem(instrument)}
+                  />
+                </div>
+              ))}
+            </div>
+          </Box>
+          {/* only render link tag if selection criteria are met */}
+          {!isSelected || !selectedEqual ? (
             <div className={classes.buttonContainer}>
               <CustomButton
                 variant="contained"
@@ -206,17 +190,36 @@ const SelectionContainer = ({ musiciansData, instrumentsData }: Props) => {
                 Assign
               </CustomButton>
             </div>
-          </Link>
-        )}
-        <div className={classes.buttonContainer}>
-          <div className={classes.returnLink}>
-            <Link href="/">
-              <Typography color="white">Return to homepage</Typography>
+          ) : (
+            <Link
+              href={{
+                pathname: "/assignments",
+                query: {
+                  branch: branchName,
+                  assignments: JSON.stringify(assign(musicians, instruments)),
+                },
+              }}
+            >
+              <div className={classes.buttonContainer}>
+                <CustomButton
+                  variant="contained"
+                  disabled={!isSelected || !selectedEqual}
+                >
+                  Assign
+                </CustomButton>
+              </div>
             </Link>
+          )}
+          <div className={classes.buttonContainer}>
+            <div className={classes.returnLink}>
+              <Link href="/">
+                <Typography color="white">Return to homepage</Typography>
+              </Link>
+            </div>
           </div>
-        </div>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 

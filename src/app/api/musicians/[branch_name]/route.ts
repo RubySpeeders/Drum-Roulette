@@ -1,5 +1,4 @@
 import kebabToTitle from "@/utils/kebabToTitle";
-import _ from "lodash";
 import { NextResponse } from "next/server";
 
 import pkg from "pg";
@@ -21,7 +20,7 @@ export const GET = async (
     const branchName = kebabToTitle(params.branch_name);
 
     // Your SQL query
-    const query = `SELECT musician_id, first_name, last_name, ensemble.ensemble_id, ensemble_name, branch.branch_id, branch_name, nickname.nickname_id, nickname.nickname, musician.image FROM musician INNER JOIN ensemble ON ensemble.ensemble_id = musician.ensemble_id INNER JOIN branch ON ensemble.branch_id = branch.branch_id LEFT JOIN nickname ON branch.nickname_id = nickname.nickname_id WHERE branch.branch_name LIKE $1`;
+    const query = `SELECT musician_id, first_name, last_name, ensemble.ensemble_id, ensemble_name, branch.branch_id, branch_name, nickname.nickname_id, nickname.nickname, musician.image FROM musician INNER JOIN ensemble ON ensemble.ensemble_id = musician.ensemble_id INNER JOIN branch ON ensemble.branch_id = branch.branch_id LEFT JOIN nickname ON branch.nickname_id = nickname.nickname_id WHERE branch.branch_name LIKE $1 ORDER BY last_name`;
 
     // Execute the query
     const result = await client.query(query, [branchName]);
