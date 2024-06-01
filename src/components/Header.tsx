@@ -22,8 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-export default function Header() {
+const Header = () => {
   const classes = useStyles();
   return (
     <Grid>
@@ -39,4 +38,6 @@ export default function Header() {
       </div>
     </Grid>
   );
-}
+};
+
+export default Header;

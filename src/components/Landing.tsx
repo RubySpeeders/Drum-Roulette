@@ -34,7 +34,7 @@ interface Props {
   branches: Branch[];
 }
 
-export default function Landing({ branches }: Props) {
+const Landing = ({ branches }: Props) => {
   const classes = useStyles();
 
   return (
@@ -49,11 +49,13 @@ export default function Landing({ branches }: Props) {
         </div>
 
         <Grid container spacing={{ xs: 2, md: 3 }}>
-          {branches.map((branch) => (
+          {branches?.map((branch) => (
             <BranchLogo branch={branch} key={branch.branch_id} />
           ))}
         </Grid>
       </div>
     </>
   );
-}
+};
+
+export default Landing;

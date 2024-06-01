@@ -13,11 +13,7 @@ import { Assignment } from "@/interfaces/assignment";
 
 // Component Imports
 import AssignmentBox from "@/components/AssignmentBox";
-import { CustomButton } from "@/components/CustomButton";
-
-// Styles or CSS Imports
-import classNames from "classnames";
-import { ItemCard } from "@/components/ItemCard";
+import CustomButton from "@/components/CustomButton";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -64,6 +60,8 @@ export default function Assignments() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const branchName = searchParams.get("branch");
+
   const assignments = JSON.parse(searchParams.get("assignments") as string);
 
   return (
@@ -89,7 +87,7 @@ export default function Assignments() {
           onClick={(e) => {
             e.preventDefault();
 
-            router.push("/selection");
+            router.push(`/selection/${branchName}`);
           }}
         >
           Return to Selection Page
