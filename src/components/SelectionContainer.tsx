@@ -37,6 +37,7 @@ const useStyles = makeStyles(() => ({
     height: "150px",
   },
   musicians: {
+    marginTop: "5%",
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "flex-start",
@@ -199,7 +200,6 @@ const SelectionContainer = ({
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
               }}
@@ -240,7 +240,6 @@ const SelectionContainer = ({
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
               }}
@@ -285,7 +284,7 @@ const SelectionContainer = ({
                   branchName: branch.branch_name,
                   branchId: branch.branch_id,
                   assignments: JSON.stringify(
-                    assign(filteredMusicians, instruments)
+                    assign(selectedMusicians, selectedInstruments)
                   ),
                 },
               }}

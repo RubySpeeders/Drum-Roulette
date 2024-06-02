@@ -33,7 +33,7 @@ interface Props {
 }
 
 const useStyles = makeStyles(() => ({
-  container: { display: "flex", flexDirection: "column" },
+  container: { display: "flex", flexDirection: "column", marginTop: "5%" },
   button: {
     border: "2px solid #E9E5F3",
     borderRadius: "10px",
