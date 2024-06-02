@@ -21,12 +21,13 @@ import assign from "@/utils/assign";
 import classNames from "classnames";
 import Filter from "./Filter";
 import { Ensemble } from "@/interfaces/ensemble";
+import { Branch } from "@/interfaces/branch";
 
 interface Props {
   musiciansData: Musician[];
   instrumentsData: Instrument[];
   ensemblesData: Ensemble[];
-  branchName: Branch_Name;
+  branch: Branch;
 }
 
 const useStyles = makeStyles(() => ({
@@ -69,22 +70,14 @@ const SelectionContainer = ({
   musiciansData,
   instrumentsData,
   ensemblesData,
-  branchName,
+  branch,
 }: Props) => {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
   const [filteredMusicians, setFilteredMusicians] =
     useState<Musician[]>(musicians);
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
-
-  console.log(ensemblesData);
-  const [ensembles, setEnsembles] = useState<Ensemble[]>([
-    { ensemble_id: 10, ensemble_name: "The Ceremonial Brass" },
-    { ensemble_id: 2, ensemble_name: "Concert Band" },
-    { ensemble_id: 12, ensemble_name: "The Singing Sergeants" },
-    { ensemble_id: 11, ensemble_name: "Max Impact" },
-    { ensemble_id: 9, ensemble_name: "Airmen of Note" },
-  ]);
+  const [ensembles, setEnsembles] = useState<Ensemble[]>(ensemblesData);
 
   const [isSelected, setIsSelected] = useState(false);
   const [selectedEnsembles, setSelectedEnsembles] =
@@ -127,7 +120,7 @@ const SelectionContainer = ({
     // Filter musicians based on selected ensembles
     const updatedFilteredMusicians = musicians.filter((musician) =>
       selectedEnsembles.some(
-        (ensemble) => musician.ensemble?.ensemble_id === ensemble.ensemble_id
+        (ensemble) => musician.ensemble_id === ensemble.ensemble_id
       )
     );
     setFilteredMusicians(updatedFilteredMusicians);
@@ -201,7 +194,6 @@ const SelectionContainer = ({
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginLeft: "5%",
                 marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
@@ -240,7 +232,6 @@ const SelectionContainer = ({
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginLeft: "5%",
                 marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
@@ -279,8 +270,11 @@ const SelectionContainer = ({
               href={{
                 pathname: "/assignments",
                 query: {
-                  branch: branchName,
-                  assignments: JSON.stringify(assign(musicians, instruments)),
+                  branchName: branch.branch_name,
+                  branchId: branch.branch_id,
+                  assignments: JSON.stringify(
+                    assign(filteredMusicians, instruments)
+                  ),
                 },
               }}
             >

@@ -43,14 +43,14 @@ interface Props {
   branch: Branch;
 }
 
-export default function BranchLogo({ branch }: Props) {
+const BranchLogo = ({ branch }: Props) => {
   const classes = useStyles();
   const matches = useMediaQuery("(max-width: 899px)");
 
   return (
     <Grid item xs={6} md={3}>
       <div className={classes.branchContainer}>
-        <Link href={`/selection/${branch.branch_name}`}>
+        <Link href={`/selection/${branch.branch_name}/${branch.branch_id}`}>
           <div
             className={
               matches ? classes.imageContainerSmall : classes.imageContainer
@@ -76,4 +76,6 @@ export default function BranchLogo({ branch }: Props) {
       </div>
     </Grid>
   );
-}
+};
+
+export default BranchLogo;

@@ -10,5 +10,6 @@ export interface Musician {
   branch: Branch;
   band: Band;
   selected: boolean;
-  ensemble: Ensemble;
+  ensemble_name: string;
+  ensemble_id: number;
 }

@@ -1,5 +1,5 @@
 // React/ Next.js Imports
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 // Library Imports
 import {
@@ -50,7 +50,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default function Filter({
+const Filter = ({
   ensembles,
   onChange,
   handleChange,
@@ -59,7 +59,7 @@ export default function Filter({
   handleDeselectAll,
   handleSelectAll,
   handleFilterToggle,
-}: Props) {
+}: Props) => {
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -150,4 +150,6 @@ export default function Filter({
       </Popover>
     </div>
   );
-}
+};
+
+export default Filter;
