@@ -74,12 +74,14 @@ const SelectionContainer = ({
 }: Props) => {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
+  const [selectedMusicians, setSelectedMusicians] = useState<Musician[]>([]);
+  const [selectedInstruments, setSelectedInstruments] = useState<Instrument[]>(
+    []
+  );
   const [filteredMusicians, setFilteredMusicians] =
     useState<Musician[]>(musicians);
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
   const [ensembles, setEnsembles] = useState<Ensemble[]>(ensemblesData);
-
-  const [isSelected, setIsSelected] = useState(false);
   const [selectedEnsembles, setSelectedEnsembles] =
     useState<Ensemble[]>(ensembles);
   const [checked, setChecked] = useState<Ensemble[]>([]);
@@ -140,43 +142,46 @@ const SelectionContainer = ({
   };
 
   const selectedEqual =
-    instruments.filter((instrument) => instrument.selected).length ===
-    filteredMusicians.filter((name) => name.selected).length;
+    selectedInstruments.length === selectedInstruments.length;
 
-  useEffect(() => {
-    const selectedInstrumentsCount = instruments.filter(
-      (instrument) => instrument.selected
-    ).length;
-    const selectedMusiciansCount = filteredMusicians.filter(
-      (musician) => musician.selected
-    ).length;
-
-    // Check if at least two instruments and two musicians are selected
-    const isSelected =
-      selectedInstrumentsCount >= 2 && selectedMusiciansCount >= 2;
-
-    setIsSelected(isSelected);
-  }, [instruments, musicians]);
+  const isSelected =
+    selectedInstruments.length >= 2 && selectedMusicians.length >= 2;
 
   const handleClickItem = (item: Musician | Instrument) => {
     if ("musician_id" in item) {
-      const nextMusicians = filteredMusicians.map((musician) => {
-        if (musician.musician_id === item.musician_id) {
-          return { ...musician, selected: !item.selected };
-        } else {
-          return musician;
-        }
-      });
-      setFilteredMusicians(nextMusicians);
+      // Handle Musicians
+      if (
+        selectedMusicians.some(
+          (musician) => musician.musician_id === item.musician_id
+        )
+      ) {
+        // Remove from selectedMusicians
+        setSelectedMusicians(
+          selectedMusicians.filter(
+            (musician) => musician.musician_id !== item.musician_id
+          )
+        );
+      } else {
+        // Add to selectedMusicians
+        setSelectedMusicians([...selectedMusicians, item]);
+      }
     } else {
-      const nextInstruments = instruments.map((instrument) => {
-        if (instrument.instrument_id === item.instrument_id) {
-          return { ...instrument, selected: !item.selected };
-        } else {
-          return instrument;
-        }
-      });
-      setInstruments(nextInstruments);
+      // Handle Instruments
+      if (
+        selectedInstruments.some(
+          (instrument) => instrument.instrument_id === item.instrument_id
+        )
+      ) {
+        // Remove from selectedInstruments
+        setSelectedInstruments(
+          selectedInstruments.filter(
+            (instrument) => instrument.instrument_id !== item.instrument_id
+          )
+        );
+      } else {
+        // Add to selectedInstruments
+        setSelectedInstruments([...selectedInstruments, item]);
+      }
     }
   };
 
@@ -215,7 +220,10 @@ const SelectionContainer = ({
               {filteredMusicians.map((musician: Musician) => (
                 <div
                   className={classNames(classes.card, {
-                    [classes.selected]: musician.selected,
+                    [classes.selected]: selectedMusicians.some(
+                      (selectedMusician) =>
+                        selectedMusician.musician_id === musician.musician_id
+                    ),
                   })}
                   key={musician.musician_id}
                 >
@@ -243,7 +251,11 @@ const SelectionContainer = ({
               {instruments.map((instrument: Instrument) => (
                 <div
                   className={classNames(classes.card, {
-                    [classes.selected]: instrument.selected,
+                    [classes.selected]: selectedInstruments.some(
+                      (selectedInstrument) =>
+                        selectedInstrument.instrument_id ===
+                        instrument.instrument_id
+                    ),
                   })}
                   key={instrument.instrument_id}
                 >
