@@ -31,20 +31,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const CustomButton = ({
+const CustomButton = ({
   children,
   onClick,
   color = "primary",
   variant = "contained",
   disabled = false,
 }: Props) => {
+  const classes = useStyles();
+
   return (
     <Button
-      style={{
-        borderRadius: "3.75em",
-        fontSize: "1rem",
-        padding: ".75em 4.75em",
-      }}
+      className={classes.button}
       color={color}
       variant={variant}
       onClick={onClick}
@@ -54,3 +52,5 @@ export const CustomButton = ({
     </Button>
   );
 };
+
+export default CustomButton;

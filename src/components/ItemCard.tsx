@@ -32,7 +32,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const ItemCard = ({ item, onClick }: Props) => {
+const ItemCard = ({ item, onClick }: Props) => {
   const handleClick = () => {
     onClick && onClick(item);
     onClick;
@@ -93,3 +93,5 @@ export const ItemCard = ({ item, onClick }: Props) => {
     </div>
   );
 };
+
+export default ItemCard;
