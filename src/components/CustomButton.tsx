@@ -3,6 +3,7 @@ import React, { MouseEventHandler, ReactNode } from "react";
 
 // Library Imports
 import { Button } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 interface Props {
   children: ReactNode;
@@ -19,6 +20,17 @@ interface Props {
   disabled?: boolean | undefined;
 }
 
+const useStyles = makeStyles((theme) => ({
+  button: {
+    fontSize: "1rem",
+    padding: ".75em 4.75em",
+    [theme.breakpoints.down("sm")]: {
+      padding: ".75em 1em",
+      minWidth: "12rem",
+    },
+  },
+}));
+
 const CustomButton = ({
   children,
   onClick,
@@ -26,13 +38,11 @@ const CustomButton = ({
   variant = "contained",
   disabled = false,
 }: Props) => {
+  const classes = useStyles();
+
   return (
     <Button
-      style={{
-        borderRadius: "3.75em",
-        fontSize: "1rem",
-        padding: ".75em 4.75em",
-      }}
+      className={classes.button}
       color={color}
       variant={variant}
       onClick={onClick}
