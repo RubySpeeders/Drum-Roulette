@@ -6,9 +6,7 @@ import Link from "next/link";
 
 // Library Imports
 import { Box, Grid, Typography } from "@mui/material";
-import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
 
 // Type/ Interface Imports
@@ -18,6 +16,7 @@ import { Instrument } from "@/interfaces/instrument";
 // Other component Imports
 import CustomButton from "./CustomButton";
 import ItemCard from "./ItemCard";
+import CustomTooltip from "./CustomTooltip";
 
 // Utility Imports
 import assign from "@/utils/assign";
@@ -117,24 +116,6 @@ const SelectionContainer = ({
     }
   };
 
-  const CustomTooltip = styled(({ className, ...props }: TooltipProps) => (
-    <Tooltip {...props} classes={{ popper: className }} />
-  ))(({ theme }) => ({
-    [`& .${tooltipClasses.arrow}`]: {
-      "&::before": {
-        backgroundColor: "#F5F5F5",
-      },
-    },
-    [`& .${tooltipClasses.tooltip}`]: {
-      backgroundColor: "#F5F5F5",
-      color: "#4A2462",
-      padding: 20,
-      maxWidth: 330,
-      maxHeight: 90,
-      fontSize: theme.typography.pxToRem(16),
-    },
-  }));
-
   return (
     <>
       <Box className={classes.message}>
@@ -217,7 +198,6 @@ const SelectionContainer = ({
               >
                 <IconButton>
                   <CustomButton
-                    // className={classes.button}
                     variant="contained"
                     disabled={!isSelected || !selectedEqual}
                   >
@@ -238,7 +218,6 @@ const SelectionContainer = ({
             >
               <div className={classes.buttonContainer}>
                 <CustomButton
-                  // className={classes.button}
                   variant="contained"
                   disabled={!isSelected || !selectedEqual}
                 >
