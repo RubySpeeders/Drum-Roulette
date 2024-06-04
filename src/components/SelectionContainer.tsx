@@ -12,6 +12,7 @@ import { makeStyles } from "@mui/styles";
 // Type/ Interface Imports
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
+import { Branch } from "@/interfaces/branch";
 
 // Other component Imports
 import CustomButton from "./CustomButton";
@@ -24,7 +25,7 @@ import assign from "@/utils/assign";
 interface Props {
   musiciansData: Musician[];
   instrumentsData: Instrument[];
-  branchName: Branch_Name;
+  branch: Branch;
 }
 
 const useStyles = makeStyles(() => ({
@@ -68,7 +69,7 @@ const useStyles = makeStyles(() => ({
 const SelectionContainer = ({
   musiciansData,
   instrumentsData,
-  branchName,
+  branch,
 }: Props) => {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
@@ -197,12 +198,7 @@ const SelectionContainer = ({
                 arrow
               >
                 <IconButton>
-                  <CustomButton
-                    variant="contained"
-                    disabled={!isSelected || !selectedEqual}
-                  >
-                    Assign
-                  </CustomButton>
+                  <CustomButton variant="contained">Assign</CustomButton>
                 </IconButton>
               </CustomTooltip>
             </div>
@@ -211,18 +207,14 @@ const SelectionContainer = ({
               href={{
                 pathname: "/assignments",
                 query: {
-                  branch: branchName,
+                  branchName: branch.branch_name,
+                  branchId: branch.branch_id,
                   assignments: JSON.stringify(assign(musicians, instruments)),
                 },
               }}
             >
               <div className={classes.buttonContainer}>
-                <CustomButton
-                  variant="contained"
-                  disabled={!isSelected || !selectedEqual}
-                >
-                  Assign
-                </CustomButton>
+                <CustomButton variant="contained">Assign</CustomButton>
               </div>
             </Link>
           )}

@@ -6,9 +6,11 @@ import { kebabCase } from "lodash";
 export default async function Selection({
   params,
 }: {
-  params: { branch_name: Branch_Name };
+  params: { branch_name: Branch_Name; branch_id: string };
 }) {
   const decoded_branch_name = kebabCase(decodeURI(params.branch_name));
+  const branchId = Number(params.branch_id);
+
   const musiciansData = await getAllMusiciansByBranch(
     decoded_branch_name as Branch_Name
   );
@@ -18,7 +20,11 @@ export default async function Selection({
     <SelectionContainer
       musiciansData={musiciansData}
       instrumentsData={instrumentsData}
-      branchName={decoded_branch_name as Branch_Name}
+      branch={{
+        branch_name: decoded_branch_name as Branch_Name,
+        branch_id: branchId,
+        image: "",
+      }}
     />
   );
 }
