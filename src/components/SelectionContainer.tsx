@@ -19,11 +19,15 @@ import ItemCard from "./ItemCard";
 // Styles or CSS Imports
 import assign from "@/utils/assign";
 import classNames from "classnames";
+import Filter from "./Filter";
+import { Ensemble } from "@/interfaces/ensemble";
+import { Branch } from "@/interfaces/branch";
 
 interface Props {
   musiciansData: Musician[];
   instrumentsData: Instrument[];
-  branchName: Branch_Name;
+  ensemblesData: Ensemble[];
+  branch: Branch;
 }
 
 const useStyles = makeStyles(() => ({
@@ -33,6 +37,7 @@ const useStyles = makeStyles(() => ({
     height: "150px",
   },
   musicians: {
+    marginTop: "5%",
     display: "flex",
     flexWrap: "wrap",
     justifyContent: "flex-start",
@@ -65,51 +70,119 @@ const useStyles = makeStyles(() => ({
 const SelectionContainer = ({
   musiciansData,
   instrumentsData,
-  branchName,
+  ensemblesData,
+  branch,
 }: Props) => {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
+  const [selectedMusicians, setSelectedMusicians] = useState<Musician[]>([]);
+  const [selectedInstruments, setSelectedInstruments] = useState<Instrument[]>(
+    []
+  );
+  const [filteredMusicians, setFilteredMusicians] =
+    useState<Musician[]>(musicians);
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
-  const [isSelected, setIsSelected] = useState(false);
+  const [ensembles, setEnsembles] = useState<Ensemble[]>(ensemblesData);
+  const [selectedEnsembles, setSelectedEnsembles] =
+    useState<Ensemble[]>(ensembles);
+  const [checked, setChecked] = useState<Ensemble[]>([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const selectedEqual =
-    instruments.filter((instrument) => instrument.selected).length ===
-    musicians.filter((name) => name.selected).length;
+  const handleFilterToggle = () => {
+    setIsFilterOpen(!isFilterOpen);
+  };
+
+  const handleSelectAll = () => {
+    const allEnsembles = ensembles.map((ensemble) => ensemble);
+    setChecked(allEnsembles);
+  };
+
+  const handleDeselectAll = () => {
+    setChecked([]);
+  };
+
+  const handleApplyFilter = () => {
+    if (checked.length === 0) {
+      // If nothing is checked, filter musicians to everything
+      setFilteredMusicians(musicians);
+      setSelectedEnsembles(ensembles);
+    } else {
+      // Filter musicians based on checked ensembles
+      setSelectedEnsembles(
+        ensembles.filter((ensemble) => checked.includes(ensemble))
+      );
+    }
+    handleFilterToggle();
+  };
 
   useEffect(() => {
-    const selectedInstrumentsCount = instruments.filter(
-      (instrument) => instrument.selected
-    ).length;
-    const selectedMusiciansCount = musicians.filter(
-      (musician) => musician.selected
-    ).length;
+    handleFilterChange(selectedEnsembles);
+  }, [selectedEnsembles]);
 
-    // Check if at least two instruments and two musicians are selected
-    const isSelected =
-      selectedInstrumentsCount >= 2 && selectedMusiciansCount >= 2;
+  const handleFilterChange = (selectedEnsembles: Ensemble[]) => {
+    // Filter musicians based on selected ensembles
+    const updatedFilteredMusicians = musicians.filter((musician) =>
+      selectedEnsembles.some(
+        (ensemble) => musician.ensemble_id === ensemble.ensemble_id
+      )
+    );
+    setFilteredMusicians(updatedFilteredMusicians);
+  };
 
-    setIsSelected(isSelected);
-  }, [instruments, musicians]);
+  const handleEnsembleChange = (ensemble: Ensemble) => {
+    if (checked.includes(ensemble)) {
+      setChecked(
+        checked.filter(
+          (checkedEnsemble) =>
+            checkedEnsemble.ensemble_id !== ensemble.ensemble_id
+        )
+      );
+    } else {
+      setChecked([...checked, ensemble]);
+    }
+  };
+
+  const selectedEqual =
+    selectedInstruments.length === selectedInstruments.length;
+
+  const isSelected =
+    selectedInstruments.length >= 2 && selectedMusicians.length >= 2;
 
   const handleClickItem = (item: Musician | Instrument) => {
     if ("musician_id" in item) {
-      const nextMusicians = musicians.map((musician) => {
-        if (musician.musician_id === item.musician_id) {
-          return { ...musician, selected: !item.selected };
-        } else {
-          return musician;
-        }
-      });
-      setMusicians(nextMusicians);
+      // Handle Musicians
+      if (
+        selectedMusicians.some(
+          (musician) => musician.musician_id === item.musician_id
+        )
+      ) {
+        // Remove from selectedMusicians
+        setSelectedMusicians(
+          selectedMusicians.filter(
+            (musician) => musician.musician_id !== item.musician_id
+          )
+        );
+      } else {
+        // Add to selectedMusicians
+        setSelectedMusicians([...selectedMusicians, item]);
+      }
     } else {
-      const nextInstruments = instruments.map((instrument) => {
-        if (instrument.instrument_id === item.instrument_id) {
-          return { ...instrument, selected: !item.selected };
-        } else {
-          return instrument;
-        }
-      });
-      setInstruments(nextInstruments);
+      // Handle Instruments
+      if (
+        selectedInstruments.some(
+          (instrument) => instrument.instrument_id === item.instrument_id
+        )
+      ) {
+        // Remove from selectedInstruments
+        setSelectedInstruments(
+          selectedInstruments.filter(
+            (instrument) => instrument.instrument_id !== item.instrument_id
+          )
+        );
+      } else {
+        // Add to selectedInstruments
+        setSelectedInstruments([...selectedInstruments, item]);
+      }
     }
   };
 
@@ -127,19 +200,30 @@ const SelectionContainer = ({
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginLeft: "5%",
-                marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
               }}
             >
               Select Musicians
             </Typography>
+            <Filter
+              ensembles={ensembles}
+              checked={checked}
+              onChange={handleApplyFilter}
+              isFilterOpen={isFilterOpen}
+              handleChange={handleEnsembleChange}
+              handleDeselectAll={handleDeselectAll}
+              handleSelectAll={handleSelectAll}
+              handleFilterToggle={handleFilterToggle}
+            />
             <div className={classes.musicians}>
-              {musicians.map((musician: Musician) => (
+              {filteredMusicians.map((musician: Musician) => (
                 <div
                   className={classNames(classes.card, {
-                    [classes.selected]: musician.selected,
+                    [classes.selected]: selectedMusicians.some(
+                      (selectedMusician) =>
+                        selectedMusician.musician_id === musician.musician_id
+                    ),
                   })}
                   key={musician.musician_id}
                 >
@@ -156,8 +240,6 @@ const SelectionContainer = ({
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginLeft: "5%",
-                marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
               }}
@@ -168,7 +250,11 @@ const SelectionContainer = ({
               {instruments.map((instrument: Instrument) => (
                 <div
                   className={classNames(classes.card, {
-                    [classes.selected]: instrument.selected,
+                    [classes.selected]: selectedInstruments.some(
+                      (selectedInstrument) =>
+                        selectedInstrument.instrument_id ===
+                        instrument.instrument_id
+                    ),
                   })}
                   key={instrument.instrument_id}
                 >
@@ -195,8 +281,11 @@ const SelectionContainer = ({
               href={{
                 pathname: "/assignments",
                 query: {
-                  branch: branchName,
-                  assignments: JSON.stringify(assign(musicians, instruments)),
+                  branchName: branch.branch_name,
+                  branchId: branch.branch_id,
+                  assignments: JSON.stringify(
+                    assign(selectedMusicians, selectedInstruments)
+                  ),
                 },
               }}
             >

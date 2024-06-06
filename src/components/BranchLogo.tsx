@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
   imageContainer: {
     height: "20vw",
     width: "20vw",
+    [theme.breakpoints.down("md")]: {
+      height: "30vw",
+      width: "30vw",
+    },
   },
   imageContainerSmall: {
     height: "30vw",
@@ -46,7 +50,7 @@ const BranchLogo = ({ branch }: Props) => {
   return (
     <Grid item xs={6} md={3}>
       <div className={classes.branchContainer}>
-        <Link href={`/selection/${branch.branch_name}`}>
+        <Link href={`/selection/${branch.branch_name}/${branch.branch_id}`}>
           <div
             className={
               matches ? classes.imageContainerSmall : classes.imageContainer

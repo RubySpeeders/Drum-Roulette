@@ -60,7 +60,8 @@ export default function Assignments() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const branchName = searchParams.get("branch");
+  const branchName = searchParams.get("branchName");
+  const branchId = searchParams.get("branchId");
 
   const assignments = JSON.parse(searchParams.get("assignments") as string);
 
@@ -87,7 +88,7 @@ export default function Assignments() {
           onClick={(e) => {
             e.preventDefault();
 
-            router.push(`/selection/${branchName}`);
+            router.push(`/selection/${branchName}/${branchId}`);
           }}
         >
           Return to Selection Page
