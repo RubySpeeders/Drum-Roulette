@@ -1,4 +1,5 @@
 import SelectionContainer from "@/components/SelectionContainer";
+import { getAllEnsemblesByBranch } from "@/utils/api/ensembles";
 import getAllInstruments from "@/utils/api/instruments";
 import { getAllMusiciansByBranch } from "@/utils/api/musicians";
 import { kebabCase } from "lodash";
@@ -14,12 +15,14 @@ export default async function Selection({
   const musiciansData = await getAllMusiciansByBranch(
     decoded_branch_name as Branch_Name
   );
+  const ensemblesData = await getAllEnsemblesByBranch(branchId);
   const instrumentsData = await getAllInstruments();
 
   return (
     <SelectionContainer
       musiciansData={musiciansData}
       instrumentsData={instrumentsData}
+      ensemblesData={ensemblesData}
       branch={{
         branch_name: decoded_branch_name as Branch_Name,
         branch_id: branchId,

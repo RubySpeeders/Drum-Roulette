@@ -28,6 +28,10 @@ const useStyles = makeStyles((theme) => ({
   imageContainer: {
     height: "20vw",
     width: "20vw",
+    [theme.breakpoints.down("md")]: {
+      height: "30vw",
+      width: "30vw",
+    },
   },
   imageContainerSmall: {
     height: "30vw",
