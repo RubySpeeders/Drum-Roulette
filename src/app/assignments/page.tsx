@@ -87,7 +87,6 @@ export default function Assignments() {
           color="primary"
           onClick={(e) => {
             e.preventDefault();
-
             router.push(`/selection/${branchName}/${branchId}`);
           }}
         >

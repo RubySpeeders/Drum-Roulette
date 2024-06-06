@@ -18,6 +18,7 @@ interface Props {
     | "warning";
   variant?: "text" | "outlined" | "contained";
   disabled?: boolean | undefined;
+  className?: string;
 }
 
 const useStyles = makeStyles((theme) => ({
