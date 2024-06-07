@@ -11,17 +11,16 @@ import { makeStyles } from "@mui/styles";
 // Type/ Interface Imports
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
+import { Ensemble } from "@/interfaces/ensemble";
+import { Branch } from "@/interfaces/branch";
 
 // Other component Imports
 import CustomButton from "./CustomButton";
-import ItemCard from "./ItemCard";
+import Filter from "./Filter";
+import ItemGrid from "./ItemGrid";
 
 // Styles or CSS Imports
 import assign from "@/utils/assign";
-import classNames from "classnames";
-import Filter from "./Filter";
-import { Ensemble } from "@/interfaces/ensemble";
-import { Branch } from "@/interfaces/branch";
 
 interface Props {
   musiciansData: Musician[];
@@ -31,17 +30,6 @@ interface Props {
 }
 
 const useStyles = makeStyles(() => ({
-  selected: {
-    boxShadow: "0 0 0 5px #D745D1",
-    borderRadius: "100px",
-    height: "150px",
-  },
-  musicians: {
-    marginTop: "5%",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "flex-start",
-  },
   grid: {
     display: "flex",
     flexDirection: "column",
@@ -61,9 +49,6 @@ const useStyles = makeStyles(() => ({
   returnLink: {
     marginTop: "0.5rem",
     textDecoration: "underline white 0.100rem solid",
-  },
-  card: {
-    margin: 15,
   },
 }));
 
@@ -216,24 +201,11 @@ const SelectionContainer = ({
               handleSelectAll={handleSelectAll}
               handleFilterToggle={handleFilterToggle}
             />
-            <div className={classes.musicians}>
-              {filteredMusicians.map((musician: Musician) => (
-                <div
-                  className={classNames(classes.card, {
-                    [classes.selected]: selectedMusicians.some(
-                      (selectedMusician) =>
-                        selectedMusician.musician_id === musician.musician_id
-                    ),
-                  })}
-                  key={musician.musician_id}
-                >
-                  <ItemCard
-                    item={musician}
-                    onClick={() => handleClickItem(musician)}
-                  />
-                </div>
-              ))}
-            </div>
+            <ItemGrid
+              musicians={filteredMusicians}
+              handleClickItem={handleClickItem}
+              selectedMusicians={selectedMusicians}
+            />
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -246,25 +218,11 @@ const SelectionContainer = ({
             >
               Select Instruments
             </Typography>
-            <div className={classes.musicians}>
-              {instruments.map((instrument: Instrument) => (
-                <div
-                  className={classNames(classes.card, {
-                    [classes.selected]: selectedInstruments.some(
-                      (selectedInstrument) =>
-                        selectedInstrument.instrument_id ===
-                        instrument.instrument_id
-                    ),
-                  })}
-                  key={instrument.instrument_id}
-                >
-                  <ItemCard
-                    item={instrument}
-                    onClick={() => handleClickItem(instrument)}
-                  />
-                </div>
-              ))}
-            </div>
+            <ItemGrid
+              instruments={instruments}
+              handleClickItem={handleClickItem}
+              selectedInstruments={selectedInstruments}
+            />
           </Box>
           {/* only render link tag if selection criteria are met */}
           {!isSelected || !selectedEqual ? (
