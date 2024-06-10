@@ -203,7 +203,7 @@ const SelectionContainer = ({
             <ItemGrid
               musicians={filteredMusicians}
               handleClickItem={handleClickItem}
-              selectedMusicians={selectedMusicians}
+              selected={selectedMusicians}
             />
           </Box>
         </Grid>
@@ -220,7 +220,7 @@ const SelectionContainer = ({
             <ItemGrid
               instruments={instruments}
               handleClickItem={handleClickItem}
-              selectedInstruments={selectedInstruments}
+              selected={selectedInstruments}
             />
           </Box>
           {/* only render link tag if selection criteria are met */}

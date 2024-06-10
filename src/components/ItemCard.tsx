@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 // Library Imports
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import classNames from "classnames";
 
 // Type/ Interface Imports
 import { Instrument } from "@/interfaces/instrument";
@@ -12,6 +13,7 @@ import { Musician } from "@/interfaces/musician";
 
 interface Props {
   item: Musician | Instrument;
+  selected?: boolean;
   onClick?: (item: Musician | Instrument) => void;
 }
 
@@ -30,9 +32,12 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     background: "white",
   },
+  selected: {
+    boxShadow: "0 0 0 5px #D745D1",
+  },
 }));
 
-const ItemCard = ({ item, onClick }: Props) => {
+const ItemCard = ({ item, selected, onClick }: Props) => {
   const handleClick = () => {
     onClick && onClick(item);
     onClick;
@@ -49,7 +54,10 @@ const ItemCard = ({ item, onClick }: Props) => {
 
   return (
     <div className={classes.card}>
-      <div className={classes.image} onClick={handleClick}>
+      <div
+        className={classNames(classes.image, { [classes.selected]: selected })}
+        onClick={handleClick}
+      >
         {isInstrument && item.image ? (
           // render instruments
           <Image
@@ -85,11 +93,11 @@ const ItemCard = ({ item, onClick }: Props) => {
           />
         )}
       </div>
-      <Typography style={{ marginTop: "5%" }}>
-        {"first_name" in item
-          ? `${item.first_name} ${item.last_name}`
-          : item.name}
-      </Typography>
+      {"musician_id" in item && (
+        <Typography style={{ marginTop: "5%" }}>
+          {item.first_name} {item.last_name}
+        </Typography>
+      )}
     </div>
   );
 };
