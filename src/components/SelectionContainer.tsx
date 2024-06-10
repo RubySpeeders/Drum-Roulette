@@ -42,8 +42,7 @@ const useStyles = makeStyles(() => ({
     width: "80%",
     position: "relative",
     display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    alignItems: "center",
     flexDirection: "column",
   },
   returnLink: {
@@ -208,7 +207,7 @@ const SelectionContainer = ({
             />
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classes.grid}>
             <Typography
               style={{
@@ -225,7 +224,22 @@ const SelectionContainer = ({
             />
           </Box>
           {/* only render link tag if selection criteria are met */}
-          {!isSelected || !selectedEqual ? (
+          <Link
+            style={{
+              width: "100%",
+              display: "flex",
+            }}
+            href={{
+              pathname: "/assignments",
+              query: {
+                branchName: branch.branch_name,
+                branchId: branch.branch_id,
+                assignments: JSON.stringify(
+                  assign(selectedMusicians, selectedInstruments)
+                ),
+              },
+            }}
+          >
             <div className={classes.buttonContainer}>
               <CustomButton
                 variant="contained"
@@ -234,29 +248,7 @@ const SelectionContainer = ({
                 Assign
               </CustomButton>
             </div>
-          ) : (
-            <Link
-              href={{
-                pathname: "/assignments",
-                query: {
-                  branchName: branch.branch_name,
-                  branchId: branch.branch_id,
-                  assignments: JSON.stringify(
-                    assign(selectedMusicians, selectedInstruments)
-                  ),
-                },
-              }}
-            >
-              <div className={classes.buttonContainer}>
-                <CustomButton
-                  variant="contained"
-                  disabled={!isSelected || !selectedEqual}
-                >
-                  Assign
-                </CustomButton>
-              </div>
-            </Link>
-          )}
+          </Link>
           <div className={classes.buttonContainer}>
             <div className={classes.returnLink}>
               <Link href="/">
