@@ -9,11 +9,6 @@ import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
 
 const useStyles = makeStyles((theme) => ({
-  selected: {
-    boxShadow: "0 0 0 5px #D745D1",
-    borderRadius: "100px",
-    height: "150px",
-  },
   root: {
     width: "100%",
     display: "flex",
@@ -55,21 +50,35 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   musicians?: Musician[];
   instruments?: Instrument[];
-  selectedMusicians?: Musician[];
-  selectedInstruments?: Instrument[];
+  selected: Musician[] | Instrument[];
   handleClickItem: (item: Musician | Instrument) => void;
 }
 
 const ItemGrid = ({
   musicians,
   instruments,
-  selectedInstruments,
-  selectedMusicians,
+  selected,
   handleClickItem,
 }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const isItemSelected = (item: Musician | Instrument) => {
+    if ("musician_id" in item) {
+      return selected.some(
+        (selectedItem) =>
+          "musician_id" in selectedItem &&
+          selectedItem.musician_id === item.musician_id
+      );
+    } else {
+      return selected.some(
+        (selectedItem) =>
+          "instrument_id" in selectedItem &&
+          selectedItem.instrument_id === item.instrument_id
+      );
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -80,33 +89,18 @@ const ItemGrid = ({
       >
         {musicians
           ? musicians.map((musician) => (
-              <div
-                className={classNames(classes.card, {
-                  [classes.selected]: selectedMusicians?.some(
-                    (selectedMusician) =>
-                      selectedMusician.musician_id === musician.musician_id
-                  ),
-                })}
-                key={musician.musician_id}
-              >
+              <div className={classes.card} key={musician.musician_id}>
                 <ItemCard
+                  selected={isItemSelected(musician)}
                   item={musician}
                   onClick={() => handleClickItem(musician)}
                 />
               </div>
             ))
           : instruments?.map((instrument) => (
-              <div
-                className={classNames(classes.card, {
-                  [classes.selected]: selectedInstruments?.some(
-                    (selectedInstrument) =>
-                      selectedInstrument.instrument_id ===
-                      instrument.instrument_id
-                  ),
-                })}
-                key={instrument.instrument_id}
-              >
+              <div className={classes.card} key={instrument.instrument_id}>
                 <ItemCard
+                  selected={isItemSelected(instrument)}
                   item={instrument}
                   onClick={() => handleClickItem(instrument)}
                 />
