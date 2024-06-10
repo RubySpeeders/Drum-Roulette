@@ -15,7 +15,7 @@ import classNames from "classnames";
 
 interface Props {
   item: Musician | Instrument;
-  selected: boolean;
+  selected?: boolean;
   onClick?: (item: Musician | Instrument) => void;
 }
 
@@ -106,11 +106,11 @@ const ItemCard = ({ item, selected, onClick }: Props) => {
           />
         )}
       </div>
-      <Typography style={{ marginTop: "5%" }}>
-        {"first_name" in item
-          ? `${item.first_name} ${item.last_name}`
-          : item.name}
-      </Typography>
+      {"musician_id" in item && (
+        <Typography style={{ marginTop: "5%" }}>
+          {item.first_name} {item.last_name}
+        </Typography>
+      )}
     </div>
   );
 };
