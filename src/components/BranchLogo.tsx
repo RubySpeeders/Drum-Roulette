@@ -7,37 +7,49 @@ import Link from "next/link";
 // Library Imports
 import { makeStyles } from "@mui/styles";
 import { Grid } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import classNames from "classnames";
 
 // Type/ Interface Imports
 import { Branch } from "@/interfaces/branch";
 
 const useStyles = makeStyles((theme) => ({
+  gridItem: {
+    maxWidth: "200px",
+    [theme.breakpoints.down("md")]: {
+      maxWidth: "120px",
+    },
+  },
   branchContainer: {
     position: "relative",
-    height: "100%",
-    width: "fit-content",
+    display: "flex",
+    justifyContent: "center",
   },
   branchName: {
-    fontSize: "1.5rem",
+    fontSize: "1.15rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "1rem",
+    },
     fontWeight: "600",
     marginTop: "1rem",
     textAlign: "center",
     color: theme.palette.text.primary,
   },
   imageContainer: {
-    height: "20vw",
-    width: "20vw",
+    height: "200px",
+    width: "200px",
     [theme.breakpoints.down("md")]: {
-      height: "30vw",
-      width: "30vw",
+      height: "120px",
+      width: "120px",
     },
   },
-  imageContainerSmall: {
-    height: "30vw",
-    width: "30vw",
+  link: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    maxWdith: "150px",
+    [theme.breakpoints.down("md")]: {
+      maxWidth: "120px",
+    },
   },
 }));
 
@@ -47,19 +59,15 @@ interface Props {
 
 const BranchLogo = ({ branch }: Props) => {
   const classes = useStyles();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Grid item xs={6} md={3}>
+    <Grid item xs={6} md={3} className={classes.gridItem}>
       <div className={classes.branchContainer}>
-        <Link href={`/selection/${branch.branch_name}/${branch.branch_id}`}>
-          <div
-            className={classNames({
-              [classes.imageContainer]: !isMobile,
-              [classes.imageContainerSmall]: isMobile,
-            })}
-          >
+        <Link
+          href={`/selection/${branch.branch_name}/${branch.branch_id}`}
+          className={classes.link}
+        >
+          <div className={classes.imageContainer}>
             <Image
               alt={`${branch.branch_name} logo`}
               src={branch.image}

@@ -29,7 +29,16 @@ interface Props {
   branch: Branch;
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    paddingLeft: "2.5rem",
+    paddingRight: "2.5rem",
+    marginTop: "3rem",
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: "1rem",
+      paddingRight: "1rem",
+    },
+  },
   grid: {
     display: "flex",
     flexDirection: "column",
@@ -172,14 +181,7 @@ const SelectionContainer = ({
 
   return (
     <>
-      <Grid
-        container
-        sx={{
-          paddingLeft: "2.5rem",
-          paddingRight: "2.5rem",
-          marginTop: "3rem",
-        }}
-      >
+      <Grid container className={classes.gridContainer}>
         <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classes.grid}>
             <Typography
