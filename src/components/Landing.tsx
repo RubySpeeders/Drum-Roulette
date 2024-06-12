@@ -12,17 +12,30 @@ import BranchLogo from "./BranchLogo";
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    padding: "2.5rem 4rem",
+    marginLeft: "3rem",
+    marginRight: "3rem",
+    padding: "2.5rem 0 0",
+    [theme.breakpoints.down("sm")]: {
+      marginLeft: "1.5rem",
+      marginRight: "1.75rem",
+      paddingTop: "1.5rem",
+    },
   },
   h2: {
     fontSize: "3rem",
     fontWeight: "600",
     margin: "0",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "2rem",
+    },
   },
   h3: {
     fontSize: "1.5rem",
     fontWeight: "600",
     margin: ".5rem 0 0 0",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "1rem",
+    },
   },
   selectTextBox: {
     marginTop: "3rem",
@@ -45,10 +58,16 @@ const Landing = ({ branches }: Props) => {
           Randomly generate band percussion assignments with just a few clicks.
         </h3>
         <div className={classes.selectTextBox}>
-          <h3 className={classes.h3}>Select Branch</h3>
+          <h3 className={classes.h3}>Please Select Your Branch</h3>
         </div>
-
-        <Grid container spacing={{ xs: 2, md: 3 }}>
+        <Grid
+          container
+          style={{
+            gap: "20px",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           {branches?.map((branch) => (
             <BranchLogo branch={branch} key={branch.branch_id} />
           ))}
