@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "2.5rem 4rem",
   },
   logoContainer: {
-    margin: "3rem 2rem 1rem 2rem",
+    margin: "3rem 2rem 1rem 3rem",
     width: "18rem",
     height: "2rem",
     position: "relative",
