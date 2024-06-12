@@ -13,8 +13,14 @@ import { Branch } from "@/interfaces/branch";
 
 const useStyles = makeStyles((theme) => ({
   gridItem: {
-    maxWidth: "200px",
+    maxWidth: "300px",
+    [theme.breakpoints.down("lg")]: {
+      maxWidth: "200px",
+    },
     [theme.breakpoints.down("md")]: {
+      maxWidth: "150px",
+    },
+    [theme.breakpoints.down("sm")]: {
       maxWidth: "120px",
     },
   },
@@ -34,9 +40,17 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.primary,
   },
   imageContainer: {
-    height: "200px",
-    width: "200px",
+    height: "300px",
+    width: "300px",
+    [theme.breakpoints.down("lg")]: {
+      height: "200px",
+      width: "200px",
+    },
     [theme.breakpoints.down("md")]: {
+      height: "150px",
+      width: "150px",
+    },
+    [theme.breakpoints.down("sm")]: {
       height: "120px",
       width: "120px",
     },
