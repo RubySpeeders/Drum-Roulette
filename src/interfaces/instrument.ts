@@ -1,5 +1,5 @@
 export interface Instrument {
   instrument_id: number;
-  name: string;
+  instrument_name: string;
   image: string;
 }

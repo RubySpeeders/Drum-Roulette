@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   linkText: {
     color: "white",
-    fontSize: "2rem",
+    fontSize: "1rem",
   },
 }));
 

@@ -7,9 +7,6 @@ import Image from "next/image";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: "2.5rem 4rem",
-  },
   logoContainer: {
     margin: "3rem 2rem 1rem 3rem",
     width: "18rem",
