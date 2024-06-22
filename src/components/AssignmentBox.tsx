@@ -19,15 +19,16 @@ const useStyles = makeStyles((theme) => ({
     border: ".12em dashed #E9E5F3",
     borderRadius: "12px",
     position: "relative",
+    minWidth: "250px",
     [theme.breakpoints.down("md")]: {
       paddingTop: "2rem",
     },
-    [theme.breakpoints.down("xs")]: {
-      flexDirection: "column",
-      gap: "1rem",
-      paddingLeft: "4rem",
-      paddingRight: "4rem",
-    },
+    // [theme.breakpoints.down("xs")]: {
+    //   flexDirection: "column",
+    //   gap: "1rem",
+    //   paddingLeft: "4rem",
+    //   paddingRight: "4rem",
+    // },
   },
   color: {
     height: "2.5rem",

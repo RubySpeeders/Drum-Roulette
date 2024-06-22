@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexWrap: "nowrap",
     overflowX: "auto",
-    gap: theme.spacing(2),
+    gap: theme.spacing(1),
     padding: theme.spacing(1),
     "&::-webkit-scrollbar": {
       display: "none", // Hide the scrollbar
@@ -35,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
   card: {
     flex: "0 0 auto",
     margin: 15,
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: 8,
+      marginRight: 8,
+    },
     display: "flex",
   },
   grid: {

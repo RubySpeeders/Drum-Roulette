@@ -17,20 +17,36 @@ interface Props {
   onClick?: (item: Musician | Instrument) => void;
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   card: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    textAlign: "center",
+    [theme.breakpoints.down("xs")]: {
+      maxWidth: "85px",
+    },
   },
   image: {
     width: 150,
     height: 150,
+    [theme.breakpoints.down("xs")]: {
+      width: 80,
+      height: 80,
+    },
     overflow: "hidden",
     borderRadius: "50%",
     display: "flex",
     justifyContent: "center",
     background: "white",
+  },
+  text: {
+    display: "flex",
+    alignItems: "center",
+    height: "55px",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: ".75rem",
+    },
   },
   selected: {
     boxShadow: "0 0 0 5px #D745D1",
@@ -48,7 +64,7 @@ const ItemCard = ({ item, selected, onClick }: Props) => {
   // check if the image is an instrument
   useEffect(() => {
     setInstrument(item.image.includes("instruments"));
-  }, [item.image]);
+  }, [item?.image]);
 
   const classes = useStyles();
 
@@ -62,9 +78,9 @@ const ItemCard = ({ item, selected, onClick }: Props) => {
           // render instruments
           <Image
             priority
-            style={{ width: "auto", height: "auto" }}
             src={item.image}
             alt={`select ${item}`}
+            sizes="(max-width: 480px) 80px, 150px"
             width={150}
             height={150}
           />
@@ -77,7 +93,7 @@ const ItemCard = ({ item, selected, onClick }: Props) => {
             alt={`select ${
               "first_name" in item
                 ? `${item.first_name} ${item.last_name}`
-                : item.name
+                : item.instrument_name
             }`}
             width={200}
             height={280}
@@ -93,10 +109,12 @@ const ItemCard = ({ item, selected, onClick }: Props) => {
           />
         )}
       </div>
-      {"musician_id" in item && (
-        <Typography style={{ marginTop: "5%" }}>
+      {"musician_id" in item ? (
+        <Typography className={classes.text}>
           {item.first_name} {item.last_name}
         </Typography>
+      ) : (
+        <Typography className={classes.text}>{item.instrument_name}</Typography>
       )}
     </div>
   );

@@ -53,6 +53,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     flexDirection: "column",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: 0,
+    },
   },
   returnLink: {
     marginTop: "0.5rem",
