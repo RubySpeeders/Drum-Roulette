@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 // Library Imports
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import classNames from "classnames";
 
 // Type/ Interface Imports
 import { Instrument } from "@/interfaces/instrument";
@@ -12,27 +13,56 @@ import { Musician } from "@/interfaces/musician";
 
 interface Props {
   item: Musician | Instrument;
+  selected?: boolean;
   onClick?: (item: Musician | Instrument) => void;
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   card: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    textAlign: "center",
+    [theme.breakpoints.down("xs")]: {
+      maxWidth: "85px",
+    },
   },
   image: {
     width: 150,
     height: 150,
+    [theme.breakpoints.down("xs")]: {
+      width: 80,
+      height: 80,
+    },
     overflow: "hidden",
     borderRadius: "50%",
     display: "flex",
     justifyContent: "center",
     background: "white",
+    position: "relative",
+  },
+  musicianImage: {
+    objectFit: "contain",
+    width: "auto",
+    height: "280px",
+    [theme.breakpoints.down("xs")]: {
+      height: "180px",
+    },
+  },
+  text: {
+    display: "flex",
+    alignItems: "center",
+    height: "55px",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: ".75rem",
+    },
+  },
+  selected: {
+    boxShadow: "0 0 0 5px #D745D1",
   },
 }));
 
-const ItemCard = ({ item, onClick }: Props) => {
+const ItemCard = ({ item, selected, onClick }: Props) => {
   const handleClick = () => {
     onClick && onClick(item);
     onClick;
@@ -43,53 +73,58 @@ const ItemCard = ({ item, onClick }: Props) => {
   // check if the image is an instrument
   useEffect(() => {
     setInstrument(item.image.includes("instruments"));
-  }, [item.image]);
+  }, [item?.image]);
 
   const classes = useStyles();
 
   return (
     <div className={classes.card}>
-      <div className={classes.image} onClick={handleClick}>
+      <div
+        className={classNames(classes.image, { [classes.selected]: selected })}
+        onClick={handleClick}
+      >
         {isInstrument && item.image ? (
           // render instruments
           <Image
             priority
-            style={{ width: "auto", height: "auto" }}
             src={item.image}
-            alt={`select ${item}`}
-            width={150}
-            height={150}
+            alt={`select ${"instrument_name" in item && item.instrument_name}`}
+            fill
+            sizes="(max-width: 480px) 80px, 150px"
+            style={{ objectFit: "contain" }}
           />
         ) : !isInstrument && item.image ? (
           // render players
           <Image
-            style={{ width: "auto", height: "280px" }}
             priority
             src={item.image}
             alt={`select ${
-              "first_name" in item
-                ? `${item.first_name} ${item.last_name}`
-                : item.name
+              "first_name" in item && `${item.first_name} ${item.last_name}`
             }`}
+            sizes="(max-width: 480px) 80px, 150px"
+            className={classes.musicianImage}
+            style={{ width: "auto" }}
             width={200}
             height={280}
           />
         ) : (
           <Image
-            style={{ width: "auto", height: "auto" }}
             priority
             src="/assets/images/default-avatar-dark.svg"
             alt="default profile avatar dark"
-            width={200}
-            height={200}
+            fill
+            sizes="(max-width: 480px) 80px, 150px"
+            style={{ objectFit: "contain" }}
           />
         )}
       </div>
-      <Typography style={{ marginTop: "5%" }}>
-        {"first_name" in item
-          ? `${item.first_name} ${item.last_name}`
-          : item.name}
-      </Typography>
+      {"musician_id" in item ? (
+        <Typography className={classes.text}>
+          {item.first_name} {item.last_name}
+        </Typography>
+      ) : (
+        <Typography className={classes.text}>{item.instrument_name}</Typography>
+      )}
     </div>
   );
 };

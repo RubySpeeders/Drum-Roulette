@@ -11,31 +11,33 @@ import { makeStyles } from "@mui/styles";
 // Type/ Interface Imports
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
+import { Ensemble } from "@/interfaces/ensemble";
+import { Branch } from "@/interfaces/branch";
 
 // Other component Imports
 import CustomButton from "./CustomButton";
-import ItemCard from "./ItemCard";
+import Filter from "./Filter";
+import ItemGrid from "./ItemGrid";
 
 // Styles or CSS Imports
 import assign from "@/utils/assign";
-import classNames from "classnames";
 
 interface Props {
   musiciansData: Musician[];
   instrumentsData: Instrument[];
-  branchName: Branch_Name;
+  ensemblesData: Ensemble[];
+  branch: Branch;
 }
 
-const useStyles = makeStyles(() => ({
-  selected: {
-    boxShadow: "0 0 0 5px #D745D1",
-    borderRadius: "100px",
-    height: "150px",
-  },
-  musicians: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "flex-start",
+const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    paddingLeft: "2.5rem",
+    paddingRight: "2.5rem",
+    marginTop: "3rem",
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: "1rem",
+      paddingRight: "1rem",
+    },
   },
   grid: {
     display: "flex",
@@ -49,139 +51,200 @@ const useStyles = makeStyles(() => ({
     width: "80%",
     position: "relative",
     display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    alignItems: "center",
     flexDirection: "column",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: 0,
+    },
   },
   returnLink: {
     marginTop: "0.5rem",
     textDecoration: "underline white 0.100rem solid",
-  },
-  card: {
-    margin: 15,
   },
 }));
 
 const SelectionContainer = ({
   musiciansData,
   instrumentsData,
-  branchName,
+  ensemblesData,
+  branch,
 }: Props) => {
   const classes = useStyles();
   const [musicians, setMusicians] = useState<Musician[]>(musiciansData);
+  const [selectedMusicians, setSelectedMusicians] = useState<Musician[]>([]);
+  const [selectedInstruments, setSelectedInstruments] = useState<Instrument[]>(
+    []
+  );
+  const [filteredMusicians, setFilteredMusicians] =
+    useState<Musician[]>(musicians);
   const [instruments, setInstruments] = useState<Instrument[]>(instrumentsData);
-  const [isSelected, setIsSelected] = useState(false);
+  const [ensembles, setEnsembles] = useState<Ensemble[]>(ensemblesData);
+  const [selectedEnsembles, setSelectedEnsembles] =
+    useState<Ensemble[]>(ensembles);
+  const [checked, setChecked] = useState<Ensemble[]>([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-  const selectedEqual =
-    instruments.filter((instrument) => instrument.selected).length ===
-    musicians.filter((name) => name.selected).length;
+  const handleFilterToggle = () => {
+    setIsFilterOpen(!isFilterOpen);
+  };
+
+  const handleSelectAll = () => {
+    const allEnsembles = ensembles.map((ensemble) => ensemble);
+    setChecked(allEnsembles);
+  };
+
+  const handleDeselectAll = () => {
+    setChecked([]);
+  };
+
+  const handleApplyFilter = () => {
+    if (checked.length === 0) {
+      // If nothing is checked, filter musicians to everything
+      setFilteredMusicians(musicians);
+      setSelectedEnsembles(ensembles);
+    } else {
+      // Filter musicians based on checked ensembles
+      setSelectedEnsembles(
+        ensembles.filter((ensemble) => checked.includes(ensemble))
+      );
+    }
+    handleFilterToggle();
+  };
 
   useEffect(() => {
-    const selectedInstrumentsCount = instruments.filter(
-      (instrument) => instrument.selected
-    ).length;
-    const selectedMusiciansCount = musicians.filter(
-      (musician) => musician.selected
-    ).length;
+    handleFilterChange(selectedEnsembles);
+  }, [selectedEnsembles]);
 
-    // Check if at least two instruments and two musicians are selected
-    const isSelected =
-      selectedInstrumentsCount >= 2 && selectedMusiciansCount >= 2;
+  const handleFilterChange = (selectedEnsembles: Ensemble[]) => {
+    // Filter musicians based on selected ensembles
+    const updatedFilteredMusicians = musicians.filter((musician) =>
+      selectedEnsembles.some(
+        (ensemble) => musician.ensemble_id === ensemble.ensemble_id
+      )
+    );
+    setFilteredMusicians(updatedFilteredMusicians);
+  };
 
-    setIsSelected(isSelected);
-  }, [instruments, musicians]);
+  const handleEnsembleChange = (ensemble: Ensemble) => {
+    if (checked.includes(ensemble)) {
+      setChecked(
+        checked.filter(
+          (checkedEnsemble) =>
+            checkedEnsemble.ensemble_id !== ensemble.ensemble_id
+        )
+      );
+    } else {
+      setChecked([...checked, ensemble]);
+    }
+  };
+
+  const selectedEqual =
+    selectedInstruments.length === selectedInstruments.length;
+
+  const isSelected =
+    selectedInstruments.length >= 2 && selectedMusicians.length >= 2;
 
   const handleClickItem = (item: Musician | Instrument) => {
     if ("musician_id" in item) {
-      const nextMusicians = musicians.map((musician) => {
-        if (musician.musician_id === item.musician_id) {
-          return { ...musician, selected: !item.selected };
-        } else {
-          return musician;
-        }
-      });
-      setMusicians(nextMusicians);
+      // Handle Musicians
+      if (
+        selectedMusicians.some(
+          (musician) => musician.musician_id === item.musician_id
+        )
+      ) {
+        // Remove from selectedMusicians
+        setSelectedMusicians(
+          selectedMusicians.filter(
+            (musician) => musician.musician_id !== item.musician_id
+          )
+        );
+      } else {
+        // Add to selectedMusicians
+        setSelectedMusicians([...selectedMusicians, item]);
+      }
     } else {
-      const nextInstruments = instruments.map((instrument) => {
-        if (instrument.instrument_id === item.instrument_id) {
-          return { ...instrument, selected: !item.selected };
-        } else {
-          return instrument;
-        }
-      });
-      setInstruments(nextInstruments);
+      // Handle Instruments
+      if (
+        selectedInstruments.some(
+          (instrument) => instrument.instrument_id === item.instrument_id
+        )
+      ) {
+        // Remove from selectedInstruments
+        setSelectedInstruments(
+          selectedInstruments.filter(
+            (instrument) => instrument.instrument_id !== item.instrument_id
+          )
+        );
+      } else {
+        // Add to selectedInstruments
+        setSelectedInstruments([...selectedInstruments, item]);
+      }
     }
   };
 
   return (
     <>
-      <Grid
-        container
-        sx={{
-          paddingLeft: "2.5rem",
-          paddingRight: "2.5rem",
-          marginTop: "3rem",
-        }}
-      >
+      <Grid container className={classes.gridContainer}>
         <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginLeft: "5%",
-                marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
               }}
             >
               Select Musicians
             </Typography>
-            <div className={classes.musicians}>
-              {musicians.map((musician: Musician) => (
-                <div
-                  className={classNames(classes.card, {
-                    [classes.selected]: musician.selected,
-                  })}
-                  key={musician.musician_id}
-                >
-                  <ItemCard
-                    item={musician}
-                    onClick={() => handleClickItem(musician)}
-                  />
-                </div>
-              ))}
-            </div>
+            <Filter
+              ensembles={ensembles}
+              checked={checked}
+              onChange={handleApplyFilter}
+              isFilterOpen={isFilterOpen}
+              handleChange={handleEnsembleChange}
+              handleDeselectAll={handleDeselectAll}
+              handleSelectAll={handleSelectAll}
+              handleFilterToggle={handleFilterToggle}
+            />
+            <ItemGrid
+              musicians={filteredMusicians}
+              handleClickItem={handleClickItem}
+              selected={selectedMusicians}
+            />
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classes.grid}>
             <Typography
               style={{
-                marginLeft: "5%",
-                marginBottom: "5%",
                 fontSize: "24px",
                 fontWeight: "bold",
               }}
             >
               Select Instruments
             </Typography>
-            <div className={classes.musicians}>
-              {instruments.map((instrument: Instrument) => (
-                <div
-                  className={classNames(classes.card, {
-                    [classes.selected]: instrument.selected,
-                  })}
-                  key={instrument.instrument_id}
-                >
-                  <ItemCard
-                    item={instrument}
-                    onClick={() => handleClickItem(instrument)}
-                  />
-                </div>
-              ))}
-            </div>
+            <ItemGrid
+              instruments={instruments}
+              handleClickItem={handleClickItem}
+              selected={selectedInstruments}
+            />
           </Box>
           {/* only render link tag if selection criteria are met */}
-          {!isSelected || !selectedEqual ? (
+          <Link
+            style={{
+              width: "100%",
+              display: "flex",
+            }}
+            href={{
+              pathname: "/assignments",
+              query: {
+                branchName: branch.branch_name,
+                branchId: branch.branch_id,
+                assignments: JSON.stringify(
+                  assign(selectedMusicians, selectedInstruments)
+                ),
+              },
+            }}
+          >
             <div className={classes.buttonContainer}>
               <CustomButton
                 variant="contained"
@@ -190,26 +253,7 @@ const SelectionContainer = ({
                 Assign
               </CustomButton>
             </div>
-          ) : (
-            <Link
-              href={{
-                pathname: "/assignments",
-                query: {
-                  branch: branchName,
-                  assignments: JSON.stringify(assign(musicians, instruments)),
-                },
-              }}
-            >
-              <div className={classes.buttonContainer}>
-                <CustomButton
-                  variant="contained"
-                  disabled={!isSelected || !selectedEqual}
-                >
-                  Assign
-                </CustomButton>
-              </div>
-            </Link>
-          )}
+          </Link>
           <div className={classes.buttonContainer}>
             <div className={classes.returnLink}>
               <Link href="/">
