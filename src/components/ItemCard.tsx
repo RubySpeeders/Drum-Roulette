@@ -39,6 +39,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     background: "white",
+    position: "relative",
+  },
+  musicianImage: {
+    objectFit: "contain",
+    width: "auto",
+    height: "280px",
+    [theme.breakpoints.down("xs")]: {
+      height: "180px",
+    },
   },
   text: {
     display: "flex",
@@ -79,33 +88,33 @@ const ItemCard = ({ item, selected, onClick }: Props) => {
           <Image
             priority
             src={item.image}
-            alt={`select ${item}`}
+            alt={`select ${"instrument_name" in item && item.instrument_name}`}
+            fill
             sizes="(max-width: 480px) 80px, 150px"
-            width={150}
-            height={150}
+            style={{ objectFit: "contain" }}
           />
         ) : !isInstrument && item.image ? (
           // render players
           <Image
-            style={{ width: "auto", height: "280px" }}
             priority
             src={item.image}
             alt={`select ${
-              "first_name" in item
-                ? `${item.first_name} ${item.last_name}`
-                : item.instrument_name
+              "first_name" in item && `${item.first_name} ${item.last_name}`
             }`}
+            sizes="(max-width: 480px) 80px, 150px"
+            className={classes.musicianImage}
+            style={{ width: "auto" }}
             width={200}
             height={280}
           />
         ) : (
           <Image
-            style={{ width: "auto", height: "auto" }}
             priority
             src="/assets/images/default-avatar-dark.svg"
             alt="default profile avatar dark"
-            width={200}
-            height={200}
+            fill
+            sizes="(max-width: 480px) 80px, 150px"
+            style={{ objectFit: "contain" }}
           />
         )}
       </div>

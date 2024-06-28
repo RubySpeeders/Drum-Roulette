@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     padding: "0 3rem",
-    [theme.breakpoints.down("xxs")]: {
+    [theme.breakpoints.down("xs")]: {
       padding: "0 1rem",
     },
   },
@@ -31,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1.2rem",
       marginTop: "0",
     },
+  },
+  assignments: {
+    width: "100%",
+    marginLeft: 0,
   },
   buttonContainer: {
     margin: "3rem 2rem",
@@ -43,9 +47,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   returnLink: {
+    display: "flex",
+    alignSelf: "flex-end",
     marginTop: "2rem",
     textDecoration: "underline white 0.1rem solid",
-    textAlign: "center",
   },
   linkText: {
     color: "white",
@@ -70,7 +75,7 @@ export default function Assignments() {
       <h3 className={classes.subtitle}>
         Your assignments have been generated!
       </h3>
-      <Grid container spacing={4}>
+      <Grid container gap={4} className={classes.assignments}>
         {assignments.map((assignment: Assignment, i: number) => (
           <AssignmentBox
             key={assignment.id}
