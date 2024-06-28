@@ -15,23 +15,18 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "space-around",
-    padding: "3.5rem 1rem 1rem 1rem",
+    padding: "3.25rem .75rem .75rem .75rem",
     border: ".12em dashed #E9E5F3",
     borderRadius: "12px",
     position: "relative",
+    minWidth: "250px",
     [theme.breakpoints.down("md")]: {
       paddingTop: "2rem",
     },
-    [theme.breakpoints.down("xs")]: {
-      flexDirection: "column",
-      gap: "1rem",
-      paddingLeft: "4rem",
-      paddingRight: "4rem",
-    },
   },
   color: {
-    height: "2.5rem",
-    width: "18.5rem",
+    height: "2.25rem",
+    width: "17.5rem",
     borderRadius: "60px",
     margin: "0 auto -1.25rem auto",
     position: "relative",
@@ -58,7 +53,13 @@ const AssignmentBox = ({ assignment, color }: Props) => {
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} md={6} sx={{ margin: "0 auto" }}>
+    <Grid
+      item
+      sx={{
+        margin: "0 auto",
+        width: "430px",
+      }}
+    >
       <div className={classes.color} style={{ backgroundColor: color }}></div>
 
       <div className={classes.cardContainer}>

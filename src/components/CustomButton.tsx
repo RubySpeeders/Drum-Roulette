@@ -23,6 +23,10 @@ interface Props {
 const useStyles = makeStyles((theme) => ({
   button: {
     fontSize: "1rem",
+    [theme.breakpoints.down("xs")]: {
+      fontSize: ".75rem",
+      width: "100%",
+    },
     padding: ".75em 4.75em",
     [theme.breakpoints.down("sm")]: {
       padding: ".75em 1em",
