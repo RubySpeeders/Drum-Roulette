@@ -31,6 +31,28 @@ interface Props {
 }
 
 const useStyles = makeStyles((theme) => ({
+  messageContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    maxWidth: "830px",
+    minHeight: "95px",
+  },
+  message: {
+    fontWeight: 600,
+    marginLeft: "3rem",
+    marginRight: "3rem",
+    fontSize: theme.typography.pxToRem(24),
+    [theme.breakpoints.down("xs")]: {
+      fontSize: theme.typography.pxToRem(16),
+      marginLeft: "1rem",
+    },
+  },
+  musicians: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+  },
   gridContainer: {
     paddingLeft: "2.5rem",
     paddingRight: "2.5rem",
@@ -185,6 +207,12 @@ const SelectionContainer = ({
 
   return (
     <>
+      <Box className={classes.messageContainer}>
+        <Typography className={classes.message}>
+          Please choose at least 2 musicians and 2 instruments, ensuring you
+          have an equal number of both.
+        </Typography>
+      </Box>
       <Grid container className={classes.gridContainer}>
         <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classes.grid}>
@@ -233,9 +261,14 @@ const SelectionContainer = ({
           {!isSelected || !selectedEqual ? (
             <div className={classes.buttonContainer}>
               <CustomTooltip
-                title="Please select at least 2 musicians and 2 instruments to continue."
+                title={
+                  !isSelected || !selectedEqual
+                    ? "Please select at least 2 musicians and 2 instruments to continue."
+                    : ""
+                }
                 placement="top-end"
                 arrow
+                enterTouchDelay={100}
               >
                 <CustomButton variant="contained">Assign</CustomButton>
               </CustomTooltip>
