@@ -6,24 +6,22 @@ import Link from "next/link";
 
 // Library Imports
 import { Box, Grid, Typography } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
 import { makeStyles } from "@mui/styles";
 
 // Type/ Interface Imports
 import { Musician } from "@/interfaces/musician";
 import { Instrument } from "@/interfaces/instrument";
-import { Branch } from "@/interfaces/branch";
 import { Ensemble } from "@/interfaces/ensemble";
+import { Branch } from "@/interfaces/branch";
 
 // Other component Imports
 import CustomButton from "./CustomButton";
-import ItemCard from "./ItemCard";
+import Filter from "./Filter";
+import ItemGrid from "./ItemGrid";
 import CustomTooltip from "./CustomTooltip";
 
-// Utility Imports
+// Styles or CSS Imports
 import assign from "@/utils/assign";
-import classNames from "classnames";
-import Filter from "./Filter";
 
 interface Props {
   musiciansData: Musician[];
@@ -32,19 +30,15 @@ interface Props {
   branch: Branch;
 }
 
-const useStyles = makeStyles(() => ({
-  message: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    maxWidth: "830px",
-    minHeight: "95px",
-  },
-  musicians: {
-    marginTop: "5%",
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "flex-start",
+const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    paddingLeft: "2.5rem",
+    paddingRight: "2.5rem",
+    marginTop: "3rem",
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: "1rem",
+      paddingRight: "1rem",
+    },
   },
   grid: {
     display: "flex",
@@ -58,16 +52,15 @@ const useStyles = makeStyles(() => ({
     width: "80%",
     position: "relative",
     display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
+    alignItems: "center",
     flexDirection: "column",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: 0,
+    },
   },
   returnLink: {
     marginTop: "0.5rem",
     textDecoration: "underline white 0.100rem solid",
-  },
-  card: {
-    margin: 15,
   },
 }));
 
@@ -192,86 +185,50 @@ const SelectionContainer = ({
 
   return (
     <>
-      <Box className={classes.message}>
-        <Typography
-          style={{
-            marginTop: "3%",
-            marginBottom: "8%",
-            marginLeft: "5%",
-            fontSize: "32px",
-            fontWeight: 600,
-          }}
-        >
-          Please choose at least 2 musicians and 2 instruments, ensuring you
-          have an equal number of both.
-        </Typography>
-      </Box>
-      <Grid container>
-        <Grid
-          item
-          xs={12}
-          md={6}
-          direction={"column"}
-          alignItems={"flex-start"}
-        >
-          <Typography
-            style={{
-              marginLeft: "5%",
-              marginBottom: "5%",
-              fontSize: "24px",
-              fontWeight: "bold",
-            }}
-          >
-            Select Musicians
-          </Typography>
-          <Filter
-            ensembles={ensembles}
-            checked={checked}
-            onChange={handleApplyFilter}
-            isFilterOpen={isFilterOpen}
-            handleChange={handleEnsembleChange}
-            handleDeselectAll={handleDeselectAll}
-            handleSelectAll={handleSelectAll}
-            handleFilterToggle={handleFilterToggle}
-          />
-          <div className={classes.musicians}>
-            {filteredMusicians.map((musician: Musician) => (
-              <div className={classes.card} key={musician.musician_id}>
-                <ItemCard
-                  item={musician}
-                  onClick={() => handleClickItem(musician)}
-                />
-              </div>
-            ))}
-          </div>
+      <Grid container className={classes.gridContainer}>
+        <Grid item xs={12} md={6} className={classes.grid}>
+          <Box className={classes.grid}>
+            <Typography
+              style={{
+                fontSize: "24px",
+                fontWeight: "bold",
+              }}
+            >
+              Select Musicians
+            </Typography>
+            <Filter
+              ensembles={ensembles}
+              checked={checked}
+              onChange={handleApplyFilter}
+              isFilterOpen={isFilterOpen}
+              handleChange={handleEnsembleChange}
+              handleDeselectAll={handleDeselectAll}
+              handleSelectAll={handleSelectAll}
+              handleFilterToggle={handleFilterToggle}
+            />
+            <ItemGrid
+              musicians={filteredMusicians}
+              handleClickItem={handleClickItem}
+              selectedMusicians={selectedMusicians}
+            />
+          </Box>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={6}
-          direction={"column"}
-          alignItems={"flex-start"}
-        >
-          <Typography
-            style={{
-              marginLeft: "5%",
-              marginBottom: "5%",
-              fontSize: "24px",
-              fontWeight: "bold",
-            }}
-          >
-            Select Instruments
-          </Typography>
-          <div className={classes.musicians}>
-            {instruments.map((instrument: Instrument) => (
-              <div className={classes.card} key={instrument.instrument_id}>
-                <ItemCard
-                  item={instrument}
-                  onClick={() => handleClickItem(instrument)}
-                />
-              </div>
-            ))}
-          </div>
+        <Grid item xs={12} md={6} className={classes.grid}>
+          <Box className={classes.grid}>
+            <Typography
+              style={{
+                fontSize: "24px",
+                fontWeight: "bold",
+              }}
+            >
+              Select Instruments
+            </Typography>
+            <ItemGrid
+              instruments={instruments}
+              handleClickItem={handleClickItem}
+              selectedInstruments={selectedInstruments}
+            />
+          </Box>
           {/* only render link tag if selection criteria are met */}
           {!isSelected || !selectedEqual ? (
             <div className={classes.buttonContainer}>
@@ -280,9 +237,7 @@ const SelectionContainer = ({
                 placement="top-end"
                 arrow
               >
-                <IconButton>
-                  <CustomButton variant="contained">Assign</CustomButton>
-                </IconButton>
+                <CustomButton variant="contained">Assign</CustomButton>
               </CustomTooltip>
             </div>
           ) : (
