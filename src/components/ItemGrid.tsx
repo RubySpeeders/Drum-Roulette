@@ -15,14 +15,21 @@ const useStyles = makeStyles((theme) => ({
     height: "150px",
   },
   root: {
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     flexWrap: "wrap",
     justifyContent: "flex-start",
     marginTop: "5%",
   },
+  container: {
+    maxWidth: "100%",
+    display: "flex",
+    flexWrap: "wrap",
+  },
   scrollableContainer: {
     display: "flex",
+    flexWrap: "nowrap",
     overflowX: "auto",
     gap: theme.spacing(2),
     padding: theme.spacing(1),
@@ -33,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     flex: "0 0 auto",
     margin: 15,
+    display: "flex",
   },
   grid: {
     display: "grid",
@@ -65,7 +73,11 @@ const ItemGrid = ({
 
   return (
     <div className={classes.root}>
-      <div className={classNames({ [classes.scrollableContainer]: isMobile })}>
+      <div
+        className={classNames(classes.container, {
+          [classes.scrollableContainer]: isMobile,
+        })}
+      >
         {musicians
           ? musicians.map((musician) => (
               <div

@@ -237,7 +237,9 @@ const SelectionContainer = ({
                 placement="top-end"
                 arrow
               >
-                <CustomButton variant="contained">Assign</CustomButton>
+                <IconButton>
+                  <CustomButton variant="contained">Assign</CustomButton>
+                </IconButton>
               </CustomTooltip>
             </div>
           ) : (
