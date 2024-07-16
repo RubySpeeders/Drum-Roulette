@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 // Library Imports
 import { Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import classNames from "classnames";
 
 // Type/ Interface Imports
 import { Instrument } from "@/interfaces/instrument";
@@ -14,6 +15,7 @@ import classNames from "classnames";
 
 interface Props {
   item: Musician | Instrument;
+  selected: boolean;
   onClick?: (item: Musician | Instrument) => void;
 }
 
@@ -32,12 +34,16 @@ const useStyles = makeStyles(() => ({
     justifyContent: "center",
     background: "white",
   },
+<<<<<<< HEAD
   imageSelected: {
+=======
+  selected: {
+>>>>>>> 3457be7 (fixing where the selected class is applied)
     boxShadow: "0 0 0 5px #D745D1",
   },
 }));
 
-const ItemCard = ({ item, onClick }: Props) => {
+const ItemCard = ({ item, selected, onClick }: Props) => {
   const handleClick = () => {
     onClick && onClick(item);
     onClick;
@@ -55,10 +61,15 @@ const ItemCard = ({ item, onClick }: Props) => {
   return (
     <div className={classes.card}>
       <div
+<<<<<<< HEAD
         onClick={handleClick}
         className={classNames(classes.image, {
           [classes.imageSelected]: item.selected,
         })}
+=======
+        className={classNames(classes.image, { [classes.selected]: selected })}
+        onClick={handleClick}
+>>>>>>> 3457be7 (fixing where the selected class is applied)
       >
         {isInstrument && item.image ? (
           // render instruments
