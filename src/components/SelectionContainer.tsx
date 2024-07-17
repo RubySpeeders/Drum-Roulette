@@ -261,14 +261,9 @@ const SelectionContainer = ({
           {!isSelected || !selectedEqual ? (
             <div className={classes.buttonContainer}>
               <CustomTooltip
-                title={
-                  !isSelected || !selectedEqual
-                    ? "Please select at least 2 musicians and 2 instruments to continue."
-                    : ""
-                }
+                title="Please select at least 2 musicians and 2 instruments to continue."
                 placement="top-end"
                 arrow
-                enterTouchDelay={100}
               >
                 <CustomButton variant="contained">Assign</CustomButton>
               </CustomTooltip>
