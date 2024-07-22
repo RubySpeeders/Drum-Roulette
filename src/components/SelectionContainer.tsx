@@ -68,10 +68,14 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     width: "100%",
   },
+  buttonArea: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
   buttonContainer: {
-    margin: "2rem",
     padding: "5px",
-    width: "80%",
     position: "relative",
     display: "flex",
     alignItems: "center",
@@ -257,40 +261,42 @@ const SelectionContainer = ({
               selected={selectedInstruments}
             />
           </Box>
-          {/* only render link tag if selection criteria are met */}
-          {!isSelected || !selectedEqual ? (
-            <div className={classes.buttonContainer}>
-              <CustomTooltip
-                title="Please select at least 2 musicians and 2 instruments to continue."
-                placement="top-end"
-                arrow
-              >
-                <CustomButton variant="contained">Assign</CustomButton>
-              </CustomTooltip>
-            </div>
-          ) : (
-            <Link
-              href={{
-                pathname: "/assignments",
-                query: {
-                  branchName: branch.branch_name,
-                  branchId: branch.branch_id,
-                  assignments: JSON.stringify(
-                    assign(selectedMusicians, selectedInstruments)
-                  ),
-                },
-              }}
-            >
+          <div className={classes.buttonArea}>
+            {/* only render link tag if selection criteria are met */}
+            {!isSelected || !selectedEqual ? (
               <div className={classes.buttonContainer}>
-                <CustomButton variant="contained">Assign</CustomButton>
+                <CustomTooltip
+                  title="Please select at least 2 musicians and 2 instruments to continue."
+                  placement="top-end"
+                  arrow
+                >
+                  <CustomButton variant="contained">Assign</CustomButton>
+                </CustomTooltip>
               </div>
-            </Link>
-          )}
-          <div className={classes.buttonContainer}>
-            <div className={classes.returnLink}>
-              <Link href="/">
-                <Typography color="white">Return to homepage</Typography>
+            ) : (
+              <Link
+                href={{
+                  pathname: "/assignments",
+                  query: {
+                    branchName: branch.branch_name,
+                    branchId: branch.branch_id,
+                    assignments: JSON.stringify(
+                      assign(selectedMusicians, selectedInstruments)
+                    ),
+                  },
+                }}
+              >
+                <div className={classes.buttonContainer}>
+                  <CustomButton variant="contained">Assign</CustomButton>
+                </div>
               </Link>
+            )}
+            <div className={classes.buttonContainer}>
+              <div className={classes.returnLink}>
+                <Link href="/">
+                  <Typography color="white">Return to homepage</Typography>
+                </Link>
+              </div>
             </div>
           </div>
         </Grid>
