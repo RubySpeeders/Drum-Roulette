@@ -72,7 +72,11 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
+    alignItems: "end",
+    gap: "10px",
+    [theme.breakpoints.down("md")]: {
+      alignItems: "center",
+    },
   },
   buttonContainer: {
     padding: "5px",
@@ -264,7 +268,10 @@ const SelectionContainer = ({
           <div className={classes.buttonArea}>
             {/* only render link tag if selection criteria are met */}
             {!isSelected || !selectedEqual ? (
-              <div className={classes.buttonContainer}>
+              <div
+                className={classes.buttonContainer}
+                style={{ alignSelf: "center" }}
+              >
                 <CustomTooltip
                   title="Please select at least 2 musicians and 2 instruments to continue."
                   placement="top-end"
