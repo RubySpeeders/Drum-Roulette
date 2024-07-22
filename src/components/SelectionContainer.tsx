@@ -18,6 +18,7 @@ import { Branch } from "@/interfaces/branch";
 import CustomButton from "./CustomButton";
 import Filter from "./Filter";
 import ItemGrid from "./ItemGrid";
+import CustomTooltip from "./CustomTooltip";
 
 // Styles or CSS Imports
 import assign from "@/utils/assign";
@@ -30,6 +31,28 @@ interface Props {
 }
 
 const useStyles = makeStyles((theme) => ({
+  messageContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    maxWidth: "830px",
+    minHeight: "95px",
+  },
+  message: {
+    fontWeight: 600,
+    marginLeft: "3rem",
+    marginRight: "3rem",
+    fontSize: theme.typography.pxToRem(24),
+    [theme.breakpoints.down("xs")]: {
+      fontSize: theme.typography.pxToRem(16),
+      marginLeft: "1rem",
+    },
+  },
+  musicians: {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "flex-start",
+  },
   gridContainer: {
     paddingLeft: "2.5rem",
     paddingRight: "2.5rem",
@@ -45,10 +68,18 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     width: "100%",
   },
+  buttonArea: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "end",
+    gap: "10px",
+    [theme.breakpoints.down("md")]: {
+      alignItems: "center",
+    },
+  },
   buttonContainer: {
-    margin: "2rem",
     padding: "5px",
-    width: "80%",
     position: "relative",
     display: "flex",
     alignItems: "center",
@@ -184,6 +215,12 @@ const SelectionContainer = ({
 
   return (
     <>
+      <Box className={classes.messageContainer}>
+        <Typography className={classes.message}>
+          Please choose at least 2 musicians and 2 instruments, ensuring you
+          have an equal number of both.
+        </Typography>
+      </Box>
       <Grid container className={classes.gridContainer}>
         <Grid item xs={12} md={6} className={classes.grid}>
           <Box className={classes.grid}>
@@ -228,37 +265,45 @@ const SelectionContainer = ({
               selected={selectedInstruments}
             />
           </Box>
-          {/* only render link tag if selection criteria are met */}
-          <Link
-            style={{
-              width: "100%",
-              display: "flex",
-            }}
-            href={{
-              pathname: "/assignments",
-              query: {
-                branchName: branch.branch_name,
-                branchId: branch.branch_id,
-                assignments: JSON.stringify(
-                  assign(selectedMusicians, selectedInstruments)
-                ),
-              },
-            }}
-          >
-            <div className={classes.buttonContainer}>
-              <CustomButton
-                variant="contained"
-                disabled={!isSelected || !selectedEqual}
+          <div className={classes.buttonArea}>
+            {/* only render link tag if selection criteria are met */}
+            {!isSelected || !selectedEqual ? (
+              <div
+                className={classes.buttonContainer}
+                style={{ alignSelf: "center" }}
               >
-                Assign
-              </CustomButton>
-            </div>
-          </Link>
-          <div className={classes.buttonContainer}>
-            <div className={classes.returnLink}>
-              <Link href="/">
-                <Typography color="white">Return to homepage</Typography>
+                <CustomTooltip
+                  title="Please select at least 2 musicians and 2 instruments to continue."
+                  placement="top-end"
+                  arrow
+                >
+                  <CustomButton variant="contained">Assign</CustomButton>
+                </CustomTooltip>
+              </div>
+            ) : (
+              <Link
+                href={{
+                  pathname: "/assignments",
+                  query: {
+                    branchName: branch.branch_name,
+                    branchId: branch.branch_id,
+                    assignments: JSON.stringify(
+                      assign(selectedMusicians, selectedInstruments)
+                    ),
+                  },
+                }}
+              >
+                <div className={classes.buttonContainer}>
+                  <CustomButton variant="contained">Assign</CustomButton>
+                </div>
               </Link>
+            )}
+            <div className={classes.buttonContainer}>
+              <div className={classes.returnLink}>
+                <Link href="/">
+                  <Typography color="white">Return to homepage</Typography>
+                </Link>
+              </div>
             </div>
           </div>
         </Grid>
