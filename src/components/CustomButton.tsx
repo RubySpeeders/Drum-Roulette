@@ -18,6 +18,7 @@ interface Props {
     | "warning";
   variant?: "text" | "outlined" | "contained";
   disabled?: boolean | undefined;
+  className?: string;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -35,26 +36,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CustomButton = ({
-  children,
-  onClick,
-  color = "primary",
-  variant = "contained",
-  disabled = false,
-}: Props) => {
-  const classes = useStyles();
-
-  return (
-    <Button
-      className={classes.button}
-      color={color}
-      variant={variant}
-      onClick={onClick}
-      disabled={disabled}
-    >
-      {children}
-    </Button>
-  );
-};
+const CustomButton = React.forwardRef<HTMLButtonElement, Props>(
+  function CustomButton(
+    {
+      children,
+      onClick,
+      color = "primary",
+      variant = "contained",
+      disabled = false,
+      className,
+      ...rest
+    }: Props,
+    ref
+  ) {
+    const classes = useStyles();
+    // Spread the props to the underlying DOM element.
+    return (
+      <Button
+        className={`${classes.button} ${className}`}
+        color={color}
+        variant={variant}
+        onClick={onClick}
+        disabled={disabled}
+        ref={ref}
+        {...rest}
+      >
+        {children}
+      </Button>
+    );
+  }
+);
 
 export default CustomButton;

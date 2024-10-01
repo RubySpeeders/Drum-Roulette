@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   image: {
-    width: 150,
-    height: 150,
+    width: 125,
+    height: 125,
     [theme.breakpoints.down("xs")]: {
       width: 80,
       height: 80,
