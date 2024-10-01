@@ -28,7 +28,6 @@ export default async function Selection({
         branch_id: branchId,
         image: "",
       }}
-      // branchName={decoded_branch_name as Branch_Name}
     />
   );
 }
