@@ -21,10 +21,8 @@ To get a local copy of the project up and running, follow these steps:
 1. Clone the repository: `git clone [https://github.com/RubySpeeders/Drum-Roulette]`
 2. Navigate to the project directory: `cd Drum-Roulette`
 3. Install the dependencies: `yarn install`
-4. Navigate to the FE directory: `cd client`
-5. Install the dependencies: `yarn install`
-6. Start the development server: `yarn dev`
-7. Open your browser and access the application at `http://localhost:3000`
+4. Start the development server: `yarn dev`
+5. Open your browser and access the application at `http://localhost:3000`
 
 ## Coding Standards and Guidelines
 
